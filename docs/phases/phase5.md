@@ -1,40 +1,42 @@
-# Phase 5: Reminders and Garbage Collection
+# Phase 5: Donations (1 day)
 
 ## Rails
 ### Models
-* Reminder
+* Donation
 
 ### Controllers
-* Api::RemindersController (create, destroy, index, show, update)
+* Api::DonationsController (create, index, show)
 
 ### Views
-* reminders/index.json.jbuilder
+* /fundraisers/:fundraiser_id/donations/index.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* RemindersIndex
-  - ReminderIndexItem
-* ReminderShow
-* ReminderForm
+* Donations
+  - Donation
+* DonationForm
+* FundraiserDonation
+  - DonationStatus
 
 ### Stores
-* Reminder
+* Donation
+* DonationForm
 
 ### Actions
-* ApiActions.receiveAllReminders -> triggered by ApiUtil
-* ApiActions.receiveSingleReminder
-* ApiActions.deleteReminder
-* ReminderActions.fetchAllReminders -> triggers ApiUtil
-* ReminderActions.fetchSingleReminder
-* ReminderActions.createReminder
-* ReminderActions.updateReminder
-* ReminderActions.destroyReminder
+* ApiActions.receiveDonationsByFundraiser -> triggered by ApiUtil
+* ApiActions.receiveDonationsByUser -> triggered by ApiUtil
+* ApiActions.receiveSingleDonation
+* DonationActions.fetchDonationsByFundraiser -> triggers ApiUtil
+* DonationActions.fetchDonationsByUser -> triggers ApiUtil
+* DonationActions.fetchSingleDonation
+* DonationActions.createDonation
+* DonationActions.updateDonation
 
 ### ApiUtil
-* ApiUtil.fetchAllReminders
-* ApiUtil.fetchSingleReminder
-* ApiUtil.createReminder
-* ApiUtil.updateReminder
-* ApiUtil.destroyReminder
+* ApiUtil.fetchAllDonations
+* ApiUtil.fetchSingleDonation
+* ApiUtil.createDonation
+* ApiUtil.updateDonation
 
 ## Gems/Libraries
+* stripe

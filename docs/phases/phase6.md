@@ -1,4 +1,4 @@
-# Phase 4: Start Styling (1 day)
+# Phase 6: Withdrawal (0.5 days)
 
 ## Rails
 ### Models
@@ -9,9 +9,11 @@
 
 ## Flux
 ### Views (React Components)
+* WithdrawalForm
 
 ### Stores
 
 ### Actions
 
 ## Gems/Libraries
+* stripe

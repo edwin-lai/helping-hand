@@ -9,15 +9,17 @@ description | text      | not null
 image_link  | string    | not null
 user_id     | integer   | not null, foreign key (references user), indexed
 goal_amount | integer   | not null
+category    | string    | not null, used only in bonus
 
 ## donations
 column name   | data type | details
 --------------|-----------|-----------------------
 id            | integer   | not null, primary key
 amount        | integer   | not null
-user_id       | integer   | not null, foreign key (references user), indexed
+user_id       | integer   | foreign key (references user), indexed
 fundraiser_id | string    | not null, foreign key (references fundraiser), indexed
 comment       | text      |
+visible       | boolean   | not null
 
 ## users
 column name          | data type | details
@@ -28,7 +30,7 @@ password_digest      | string    | not null
 session_token        | string    | not null, indexed, unique
 first_name           | string    | not null
 last_name            | string    | not null
-funds_raised         | integer   | not null
+bank                 | integer   | not null
 credit_card_number   | integer   |
 credit_card_exp_date | date      |
 CVV                  | integer   |

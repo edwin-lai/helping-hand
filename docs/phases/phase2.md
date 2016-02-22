@@ -1,38 +1,33 @@
-# Phase 2: Flux Architecture and Note CRUD (2 days)
+# Phase 2: Fundraisers Model, API, and basic APIUtil (1.5 days)
 
 ## Rails
 ### Models
+* Fundraiser
 
 ### Controllers
+* Api::FundraisersController (create, destroy, index, show, update)
 
 ### Views
+* fundraisers/index.json.jbuilder
+* fundraisers/show.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotesIndex
-  - NotesIndexItem
-* NoteForm
 
 ### Stores
-* Note
 
 ### Actions
-* ApiActions.receiveAllNotes -> triggered by ApiUtil
-* ApiActions.receiveSingleNote
-* ApiActions.deleteNote
-* NoteActions.fetchAllNotes -> triggers ApiUtil
-* NoteActions.fetchSingleNote 
-* NoteActions.createNote
-* NoteActions.editNote 
-* NoteActions.destroyNote
+* ApiActions.receiveAllFundraisers -> triggered by ApiUtil
+* ApiActions.receiveSingleFundraiser
+* ApiActions.deleteFundraiser
 
 ### ApiUtil
-* ApiUtil.fetchAllNotes
-* ApiUtil.fetchSingleNote
-* ApiUtil.createNote
-* ApiUtil.editNote
-* ApiUtil.destroyNote
+* ApiUtil.fetchAllFundraisers
+* ApiUtil.fetchSingleFundraiser
+* ApiUtil.createFundraiser
+* ApiUtil.editFundraiser
+* ApiUtil.destroyFundraiser
 
 ## Gems/Libraries
 * Flux Dispatcher (npm)
-* Twitter Bootstrap
+* React, etc. (npm)

@@ -1,4 +1,4 @@
-# Phase 4: Start Styling (1 day)
+# Phase 8: Styling Cleanup and Seeding (1 day)
 
 ## Rails
 ### Models

@@ -35,7 +35,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ## Implementation Timeline
 
-### Phase 1: Backend setup and User Authentication (0.5 days)
+### [Phase 1: Backend setup and User Authentication][phase-one] (0.5 days)
 
 **Objective:** Functioning rails project with Authentication
 
@@ -45,7 +45,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] user signup/signin pages
 - [ ] blank landing page after signin
 
-### Phase 2: Fundraisers Model, API, and basic APIUtil (1.5 days)
+### [Phase 2: Fundraisers Model, API, and basic APIUtil][phase-two] (1.5 days)
 
 **Objective:** Fundraisers can be created, read, edited and destroyed through
 the API.
@@ -58,7 +58,7 @@ the API.
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
-### Phase 3: Flux Architecture and Router (1.5 days)
+### [Phase 3: Flux Architecture and Router][phase-three] (1.5 days)
 
 **Objective:** Fundraisers can be created, read, edited and destroyed with the
 user interface.
@@ -72,7 +72,7 @@ user interface.
 - [ ] save Fundraisers to the DB when the form loses focus or is left idle
   after editing.
 
-### Phase 4: Start Styling (1 day)
+### [Phase 4: Start Styling][phase-four] (1 day)
 
 **Objective:** Existing pages (including singup/signin) will look good.
 
@@ -80,7 +80,7 @@ user interface.
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 5: Donations (1 day)
+### [Phase 5: Donations][phase-five] (1 day)
 
 **Objective:** Donations belong to Fundraisers, and can be viewed by fundraiser.
 
@@ -91,7 +91,7 @@ user interface.
   - [ ] viewing donations by fundraiser
 - [ ] Use CSS to style new views
 
-### Phase 6: Withdrawal (0.5 days)
+### [Phase 6: Withdrawal][phase-six] (0.5 days)
 
 **Objective:** Allow users to withdraw funds they have raised.
 (Do I even need to have real money integration in my project??)
@@ -101,7 +101,7 @@ user interface.
   - [ ] transferring funds to user
 - [ ] Style new elements
 
-### Phase 7: Search Fundraisers by Title (0.5 days)
+### [Phase 7: Search Fundraisers by Title][phase-seven] (0.5 days)
 
 **objective:** Implement search-by-title utility.
 
@@ -110,7 +110,7 @@ user interface.
   - [ ] rendering search results on webpage for user to use
 - [ ] Style new elements
 
-### Phase 8: Styling Cleanup and Seeding (1 day)
+### [Phase 8: Styling Cleanup and Seeding][phase-eight] (1 day)
 
 **objective:** Make the site feel more cohesive and awesome.
 
@@ -119,9 +119,11 @@ user interface.
 - [ ] Add modals, transitions, and other styling flourishes.
 
 ### Bonus Features (2+ days)
-- [ ] User page listing fundraisers and donations by user (0.5 days)
-- [ ] Assign tags and/or categories to fundraisers (0.5 - 1 days)
+- [ ] [User page listing fundraisers and donations by user][bonus-one] (0.5 days)
+- [ ] Assign tags to fundraisers (0.5 - 1 days)
 - [ ] Search fundraisers by tag and/or category (0.5 - 1 days)
+      (This will be accomplished by refactoring Phase 7, so it will not get its
+        own phase page.)
 - [ ] Multiple sessions (TBD)
 
 [phase-one]: ./docs/phases/phase1.md
@@ -129,3 +131,7 @@ user interface.
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
+[phase-six]: ./docs/phases/phase6.md
+[phase-seven]: ./docs/phases/phase7.md
+[phase-eight]: ./docs/phases/phase8.md
+[bonus-one]: ./docs/phases/bonus1.md

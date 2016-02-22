@@ -1,4 +1,4 @@
-# Phase 4: Start Styling (1 day)
+# Bonus Phase 1: User Pages (0.5 days)
 
 ## Rails
 ### Models
@@ -9,6 +9,11 @@
 
 ## Flux
 ### Views (React Components)
+* User
+  - UserFundraisers
+    - UserFundraiser
+  - UserDonations
+    - UserDonation
 
 ### Stores
 
