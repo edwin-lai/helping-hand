@@ -1,7 +1,3 @@
-# Component Hierarchy
-
-![component-hierarchy]
-
 # View Wireframes
 
 ## New User
@@ -28,7 +24,6 @@
 ## Withdrawal Form
 ![withdrawal-form]
 
-[component-hierarchy]: ./wireframes/component_hierarchy.png
 [new-user]: ./wireframes/new_user.png
 [new-session]: ./wireframes/new_session.png
 [fundraisers-index]: ./wireframes/fundraisers_index.png
