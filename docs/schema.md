@@ -1,6 +1,6 @@
 # Schema Information
 
-## fundraiser
+## fundraisers
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -10,7 +10,7 @@ image_link  | string    | not null
 user_id     | integer   | not null, foreign key (references user), indexed
 goal_amount | integer   | not null
 
-## donation
+## donations
 column name   | data type | details
 --------------|-----------|-----------------------
 id            | integer   | not null, primary key

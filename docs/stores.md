@@ -1,49 +1,48 @@
 # Flux Stores
 
-### NoteStore
+### FundraiserStore
 
-Holds all persisted note data.
-
-##### Actions:
-- `receiveAllNotes`
-- `receiveSingleNote`
-- `removeNote`
-
-##### Listeners:
-- `NotesIndex` (passes to `NoteIndexItem` via props)
-- `NoteDetail`
-
-### NoteFormStore
-
-Holds un-persisted note data to send to the API.
+Holds all persisted fundraiser data.
 
 ##### Actions:
-- `receiveNoteFormParams`
+- `receiveAllFundraisers`
+- `receiveSingleFundraiser`
+- `removeFundraiser`
 
 ##### Listeners:
-- `NoteForm`
+- `FundraisersIndex` (passes to `FundraiserIndexItem` via props)
+- `FundraiserDetail`
 
-### NotebookStore
+### FundraiserFormStore
 
-Holds all persisted notebook data.
+Holds un-persisted fundraiser data to send to the API.
 
 ##### Actions:
-- `receiveAllNotebooks`
-- `receiveSingleNotebook`
-- `removeNotebook`
+- `receiveFundraiserFormParams`
 
 ##### Listeners:
-- `NotebookIndex`
+- `FundraiserForm`
 
-### NotebookFormStore
+### DonationStore
 
-Holds un-persisted notebook data to send to the API.
+Holds all persisted donation data.
 
 ##### Actions:
-- `receiveNotebookFormParams`
+- `receiveAllDonations`
+- `receiveSingleDonation`
 
 ##### Listeners:
-- `NotebookForm`
+- `DonationIndex`
+
+### DonationFormStore
+
+Holds un-persisted donation data to send to the API.
+
+##### Actions:
+- `receiveDonationFormParams`
+
+##### Listeners:
+- `DonationForm`
 
 ### SearchStore
 
