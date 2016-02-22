@@ -12,6 +12,8 @@
 ## Fundraiser
 ![fundraiser]
 
+[Taken from an actual (deleted) fundraiser on GoFundMe.][source]
+
 ## User Fundraiser Index
 ![user-fundraisers-index]
 
@@ -32,3 +34,4 @@
 [fundraiser-form]: ./wireframes/fundraiser_form.png
 [donation-form]: ./wireframes/donation_form.png
 [withdrawal-form]: ./wireframes/withdrawal_form.png
+[source]: http://www.huffingtonpost.com/entry/powerball-reimbursement-fund_us_569bbcafe4b0ce496424c255
