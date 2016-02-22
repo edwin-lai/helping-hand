@@ -1,4 +1,4 @@
-# FresherNote
+# Helping Hand
 
 [Heroku link][heroku]
 
@@ -15,7 +15,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Create an account
 - [ ] Log in / Log out
 - [ ] Create, read, update, and delete fundraisers
-- [ ] Donate money to other users (login not necessary to donate on real site)
+- [ ] Users can donate money to other users (login not necessary to donate on real site)
 - [ ] Users can withdraw money from fundraisers
 
 ## Design Docs
