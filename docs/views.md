@@ -13,7 +13,7 @@
 ![fundraiser]
 
 ## User Fundraiser Index
-![user-fundraiser-index]
+![user-fundraisers-index]
 
 ## Fundraiser Form
 ![fundraiser-form]
