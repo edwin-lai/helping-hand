@@ -1,23 +1,22 @@
 # FresherNote
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
+[Heroku link][heroku]
 
-[heroku]: http://www.herokuapp.com
+[heroku]: http://helping-hand.herokuapp.com
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote built using Ruby on Rails
-and React.js. FresherNote allows users to:
+Helping Hand is a web application inspired by GoFundMe built using Ruby on Rails
+and React.js. Helping Hand allows users to:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account
 - [ ] Log in / Log out
-- [ ] Create, read, edit, and delete notes
-- [ ] Organize notes within Notebooks
-- [ ] Tag notes with multiple tags
-- [ ] Apply complex styling to notes while editing
+- [ ] Create, read, update, and delete fundraisers
+- [ ] Donate money to other users (login not necessary to donate on real site)
+- [ ] Users can withdraw money from fundraisers
 
 ## Design Docs
 * [View Wireframes][views]
