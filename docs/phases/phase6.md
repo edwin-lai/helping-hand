@@ -1,4 +1,4 @@
-~~# Phase 6: Withdrawal (0.5 days)
+# Phase 7: Search Fundraisers by Title (0.5 days)
 
 ## Rails
 ### Models
@@ -9,11 +9,14 @@
 
 ## Flux
 ### Views (React Components)
-* WithdrawalForm
+* SearchBar
 
 ### Stores
+* Search
+* SearchSuggestion
 
 ### Actions
+* receiveSearchParams
+* receiveSearchSuggestions
 
 ## Gems/Libraries
-* stripe~~

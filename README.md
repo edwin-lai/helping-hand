@@ -93,17 +93,7 @@ user interface.
   - [ ] viewing donations by fundraiser
 - [ ] Use CSS to style new views
 
-~~### [Phase 6: Withdrawal][phase-six] (0.5 days)
-
-**Objective:** Allow users to withdraw funds they have raised.
-(Do I even need to have real money integration in my project??)
-
-- build out API, Flux loop, and components for:
-  - [ ] fetching funds raised by user
-  - [ ] transferring funds to user
-- [ ] Style new elements~~
-
-### [Phase 7: Search Fundraisers by Title][phase-seven] (0.5 days)
+### [Phase 6: Search Fundraisers by Title][phase-six] (0.5 days)
 
 **Objective:** Implement search-by-title utility.
 
@@ -112,7 +102,7 @@ user interface.
   - [ ] rendering search results on webpage for user to use
 - [ ] Style new elements
 
-### [Phase 8: Styling Cleanup and Seeding][phase-eight] (1 day)
+### [Phase 7: Styling Cleanup and Seeding][phase-seven] (1 day)
 
 **Objective:** Make the site feel more cohesive and awesome.
 
@@ -137,5 +127,4 @@ I will probably get to some of these. However, they are not part of the
 [phase-five]: ./docs/phases/phase5.md
 [phase-six]: ./docs/phases/phase6.md
 [phase-seven]: ./docs/phases/phase7.md
-[phase-eight]: ./docs/phases/phase8.md
 [bonus-one]: ./docs/phases/bonus1.md
