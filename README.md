@@ -41,11 +41,11 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Functioning rails project with Authentication
 
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication
-- [ ] user signup/signin pages
-- [ ] blank landing page after signin
+- [x] create new project
+- [x] create `User` model
+- [x] authentication
+- [x] user signup/signin pages
+- [x] blank landing page after signin
 
 ### [Phase 2: Fundraisers Model, API, and basic APIUtil][phase-two] (1.5 days)
 
@@ -91,6 +91,7 @@ user interface.
   - [ ] Donation CRUD
   - [ ] adding donations requires a fundraiser
   - [ ] viewing donations by fundraiser
+  - [ ] Users cannot donate more CareCoins than they have in their bank
 - [ ] Use CSS to style new views
 
 ### [Phase 6: Search Fundraisers by Title][phase-six] (0.5 days)

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<h1>Sign Up</h1>
+<%= flash[:errors] if flash[:errors] %>
+<form action="<%= users_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label>
+    Email
+    <input type="text" name="user[email]" value="<%= @user.email %>">
+  </label>
+  <label>
+    Password
+    <input type="text" name="user[password]" value="<%= @user.password %>">
+  </label>
+  <label>
+    First Name
+    <input type="text" name="user[first_name]" value="<%= @user.first_name %>">
+  </label>
+  <label>
+    Last Name
+    <input type="text" name="user[last_name]" value="<%= @user.last_name %>">
+  </label>
+  <input type="submit" value="Sign Up">
+</form>
+<%= button_to('Sign In', new_session_url, method: "get" ) %>

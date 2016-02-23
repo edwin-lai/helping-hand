@@ -30,3 +30,4 @@ password_digest      | string    | not null
 session_token        | string    | not null, indexed, unique
 first_name           | string    | not null
 last_name            | string    | not null
+bank                 | integer   | not null
