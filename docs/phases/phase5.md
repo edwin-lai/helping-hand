@@ -39,4 +39,4 @@
 * ApiUtil.updateDonation
 
 ## Gems/Libraries
-* stripe
+~~* stripe~~

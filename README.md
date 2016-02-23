@@ -1,5 +1,7 @@
 # Helping Hand
 
+Tagline: Show that you care
+
 [Heroku link][heroku]
 
 [heroku]: http://helping-hand.herokuapp.com
@@ -15,9 +17,9 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Create an account
 - [ ] Log in / Log out
 - [ ] Create, read, update, and delete fundraisers
-- [ ] Users can donate money to other users
-      (login not necessary to donate on real site)
-- [ ] Users can withdraw money from fundraisers
+- [ ] Users can donate CareCoins to other users
+  - (login not necessary to donate on real site)
+~~- [ ] Users can withdraw money from fundraisers~~
 - [ ] Users can search fundraisers by title
 
 ## Design Docs
@@ -91,7 +93,7 @@ user interface.
   - [ ] viewing donations by fundraiser
 - [ ] Use CSS to style new views
 
-### [Phase 6: Withdrawal][phase-six] (0.5 days)
+~~### [Phase 6: Withdrawal][phase-six] (0.5 days)
 
 **Objective:** Allow users to withdraw funds they have raised.
 (Do I even need to have real money integration in my project??)
@@ -99,11 +101,11 @@ user interface.
 - build out API, Flux loop, and components for:
   - [ ] fetching funds raised by user
   - [ ] transferring funds to user
-- [ ] Style new elements
+- [ ] Style new elements~~
 
 ### [Phase 7: Search Fundraisers by Title][phase-seven] (0.5 days)
 
-**objective:** Implement search-by-title utility.
+**Objective:** Implement search-by-title utility.
 
 - build out API, Flux loop, and components for:
   - [ ] fetching titles by matching letter from database
@@ -112,17 +114,19 @@ user interface.
 
 ### [Phase 8: Styling Cleanup and Seeding][phase-eight] (1 day)
 
-**objective:** Make the site feel more cohesive and awesome.
+**Objective:** Make the site feel more cohesive and awesome.
 
 - [ ] Get feedback on my UI from others
 - [ ] Refactor HTML classes & CSS rules
 - [ ] Add modals, transitions, and other styling flourishes.
 
 ### Bonus Features (2+ days)
+I will probably get to some of these. However, they are not part of the
+*minimum* viable product.
 - [ ] [User page listing fundraisers and donations by user][bonus-one] (0.5 days)
 - [ ] Assign tags to fundraisers (0.5 - 1 days)
 - [ ] Search fundraisers by tag and/or category (0.5 - 1 days)
-      (This will be accomplished by refactoring Phase 7, so it will not get its
+  - (This will be accomplished by refactoring Phase 7, so it will not get its
         own phase page.)
 - [ ] Multiple sessions (TBD)
 

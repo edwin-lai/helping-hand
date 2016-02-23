@@ -1,4 +1,4 @@
-# Phase 6: Withdrawal (0.5 days)
+~~# Phase 6: Withdrawal (0.5 days)
 
 ## Rails
 ### Models
@@ -16,4 +16,4 @@
 ### Actions
 
 ## Gems/Libraries
-* stripe
+* stripe~~

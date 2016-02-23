@@ -30,9 +30,3 @@ password_digest      | string    | not null
 session_token        | string    | not null, indexed, unique
 first_name           | string    | not null
 last_name            | string    | not null
-bank                 | integer   | not null
-credit_card_number   | integer   |
-credit_card_exp_date | date      |
-CVV                  | integer   |
-bank_account_number  | integer   |
-routing_number       | integer   |
