@@ -52,10 +52,10 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 **Objective:** Fundraisers can be created, read, edited and destroyed through
 the API.
 
-- [ ] create `Fundraiser` model
-- [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`Fundraiser`)
-- [ ] jBuilder views for notes
+- [x] create `Fundraiser` model
+- [x] seed the database with a small amount of test data
+- [x] CRUD API for fundraisers (`Fundraiser`)
+- [x] jBuilder views for fundraisers
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.

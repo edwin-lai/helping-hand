@@ -6,7 +6,7 @@ column name | data type | details
 id          | integer   | not null, primary key
 title       | string    | not null
 description | text      | not null
-image_link  | string    | not null
+image_url   | string    | not null
 user_id     | integer   | not null, foreign key (references user), indexed
 goal_amount | integer   | not null
 category    | string    | not null, used only in bonus

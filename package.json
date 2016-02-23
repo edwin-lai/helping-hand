@@ -1,0 +1,37 @@
+{
+  "name": "HelpingHand",
+  "version": "1.0.0",
+  "description": "Tagline: Show that you care",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwin-lai/helping-hand.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwin-lai/helping-hand/issues"
+  },
+  "homepage": "https://github.com/edwin-lai/helping-hand#readme",
+  "dependencies": {
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.3",
+    "babel-preset-react": "^6.5.0",
+    "eslint": "^2.2.0",
+    "eslint-plugin-promise": "^1.0.8",
+    "flux": "^2.1.1",
+    "history": "^2.0.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
+    "webpack": "^1.12.14"
+  }
+}
