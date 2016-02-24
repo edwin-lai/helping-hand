@@ -5,7 +5,7 @@
 * Fundraiser
 
 ### Controllers
-* Api::FundraisersController (create, destroy, index, show, update)
+* FundraisersController (create, destroy, index, show, update)
 
 ### Views
 * fundraisers/index.json.jbuilder
@@ -17,16 +17,16 @@
 ### Stores
 
 ### Actions
-* ApiActions.receiveAllFundraisers -> triggered by ApiUtil
-* ApiActions.receiveSingleFundraiser
-* ApiActions.deleteFundraiser
+* FundraiserActions.receiveAllFundraisers -> triggered by FundraiserUtil
+* FundraiserActions.receiveSingleFundraiser
+* FundraiserActions.deleteFundraiser
 
-### ApiUtil
-* ApiUtil.fetchAllFundraisers
-* ApiUtil.fetchSingleFundraiser
-* ApiUtil.createFundraiser
-* ApiUtil.editFundraiser
-* ApiUtil.destroyFundraiser
+### Util
+* FundraiserUtil.fetchAllFundraisers
+* FundraiserUtil.fetchSingleFundraiser
+* FundraiserUtil.createFundraiser
+* FundraiserUtil.editFundraiser
+* FundraiserUtil.destroyFundraiser
 
 ## Gems/Libraries
 * Flux Dispatcher (npm)

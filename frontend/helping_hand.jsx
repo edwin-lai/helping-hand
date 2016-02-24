@@ -8,9 +8,6 @@ var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var hashHistory = require('react-router').hashHistory;
 
-window.ApiUtil = require('./util/api_util.js');
-
-
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(
     /*<Router history={hashHistory}>

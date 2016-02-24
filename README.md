@@ -67,13 +67,11 @@ user interface.
 
 - [x] setup the flux loop with skeleton files
 - [x] setup React Router
-- [ ] write auth forms in React
 - implement each fundraiser component, building out the flux loop as needed.
   - [ ] `FundraisersIndex`
   - [ ] `FundraiserIndexItem`
   - [ ] `FundraiserForm`
-- [ ] save Fundraisers to the DB when the form loses focus or is left idle
-  after editing.
+- [ ] write auth forms in React
 
 ### [Phase 4: Start Styling][phase-four] (1 day)
 
