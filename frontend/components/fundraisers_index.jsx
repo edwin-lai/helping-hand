@@ -1,5 +1,8 @@
 var React = require('react');
 var FundraiserStore = require('../stores/fundraiser.js');
+var FundraiserUtil = require('../util/fundraiser_util.js');
+var FundraiserIndexItem = require('./fundraiser_index_item.jsx');
+var Link = require('react-router').Link;
 
 var FundraisersIndex = React.createClass({
   getInitialState: function () {
@@ -11,6 +14,7 @@ var FundraisersIndex = React.createClass({
     this.listener = FundraiserStore.addListener(function () {
       that.setState({ fundraisers: FundraiserStore.all() });
     });
+    FundraiserUtil.fetchFundraisers();
   },
 
   componentWillUnmount: function () {
@@ -18,13 +22,21 @@ var FundraisersIndex = React.createClass({
   },
 
   fundraisers: function () {
-    return this.state.fundraisers.map(function (obj) {
-      return <li>obj.description</li>;
+    return this.state.fundraisers.map(function (obj, idx) {
+      return <FundraiserIndexItem key={idx} fundraiser={obj} />;
     });
   },
 
+  goto: function (path) {
+    debugger;
+    this.history.push(path);
+  },
+
   render: function () {
-    return <ul>{this.fundraisers}</ul>;
+    return <ul>
+      <Link to={'fundraisers/new'}>New Fundraiser</Link>
+      {this.fundraisers()}
+    </ul>;
   }
 });
 

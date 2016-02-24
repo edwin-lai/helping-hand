@@ -18,7 +18,7 @@ module.exports = {
   deleteFundraiser: function (fundraiserId) {
     Dispatcher.dispatch({
       actionType: 'DELETE_FUNDRAISER',
-      fundraiser: fundraiserId
+      fundraiserId: fundraiserId
     });
   }
 };

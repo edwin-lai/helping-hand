@@ -19,7 +19,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Create, read, update, and delete fundraisers
 - [ ] Users can donate CareCoins to other users
   - (login not necessary to donate on real site)
-- ~~[ ] Users can withdraw money from fundraisers~~
+- [ ] ~~Users can withdraw money from fundraisers~~
 - [ ] Users can search fundraisers by title
 
 ## Design Docs
@@ -68,8 +68,8 @@ user interface.
 - [x] setup the flux loop with skeleton files
 - [x] setup React Router
 - implement each fundraiser component, building out the flux loop as needed.
-  - [ ] `FundraisersIndex`
-  - [ ] `FundraiserIndexItem`
+  - [x] `FundraisersIndex`
+  - [x] `FundraiserIndexItem`
   - [ ] `FundraiserForm`
 - [ ] write auth forms in React
 

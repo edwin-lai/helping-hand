@@ -1,4 +1,4 @@
-class FundraisersController < ApplicationController
+class Api::FundraisersController < ApplicationController
   def index
     @fundraisers = Fundraiser.all
   end
