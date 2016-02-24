@@ -54,16 +54,15 @@
 	var Route = __webpack_require__(159).Route;
 	var hashHistory = __webpack_require__(159).hashHistory;
 
+	window.ApiUtil = __webpack_require__(241);
+
 	document.addEventListener('DOMContentLoaded', function () {
-	  ReactDOM.render(React.createElement(
-	    Router,
-	    { history: hashHistory },
-	    React.createElement(Route, { path: '/', component: FundraisersIndex }),
-	    '/* ',
-	    React.createElement(Route, { path: '/signup', component: NewUserForm }),
-	    React.createElement(Route, { path: '/signin', component: NewSessionForm }),
-	    ' /*'
-	  ), document.getElementById('root'));
+	  ReactDOM.render(
+	  /*<Router history={hashHistory}>
+	       <Route path='/' component={FundraisersIndex} />
+	      /* <Route path='/signup' component={NewUserForm} />
+	      <Route path='/signin' component={NewSessionForm} />
+	  </Router>*/React.createElement('div', null), document.getElementById('root'));
 	});
 
 /***/ },
@@ -24785,7 +24784,7 @@
 
 	FundraiserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	    case 'FUNDRAISERS_RECEIVED':
+	    case 'lolFUNDRAISERS_RECEIVED':
 	      _fundraisers = payload.fundraisers;
 	      FundraiserStore.__emitchange();
 	      break;
@@ -31555,6 +31554,78 @@
 
 	module.exports = Dispatcher;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FundraiserActions = __webpack_require__(242);
+
+	module.exports = {
+	  fetchFundraisers: function () {
+	    $.get('fundraisers', function (fundraisers) {
+	      FundraiserActions.receiveAllFundraisers(fundraisers);
+	    });
+	  },
+
+	  fetchSingleFundraiser: function (id) {
+	    $.get('fundraisers/' + id, function (fundraiser) {
+	      FundraiserActions.receiveSingleFundraiser(fundraiser);
+	    });
+	  },
+
+	  createFundraiser: function (data) {
+	    $.post('fundraisers', { fundraiser: data });
+	  },
+
+	  updateFundraiser: function (id, data) {
+	    $.ajax({
+	      url: 'fundraisers/' + id,
+	      type: 'patch',
+	      data: { fundraiser: data },
+	      dataType: 'json'
+	    });
+	  },
+
+	  destroyFundraiser: function (id) {
+	    $.ajax({
+	      url: 'fundraisers/' + id,
+	      type: 'delete',
+	      success: function () {
+	        FundraiserActions.deleteFundraiser(id);
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(238);
+
+	module.exports = {
+	  receiveAllFundraisers: function (fundraisers) {
+	    Dispatcher.dispatch({
+	      actionType: 'FUNDRAISERS_RECEIVED',
+	      fundraisers: fundraisers
+	    });
+	  },
+
+	  receiveSingleFundraiser: function (fundraiser) {
+	    Dispatcher.dispatch({
+	      actionType: 'RECEIVE_FUNDRAISER',
+	      fundraiser: fundraiser
+	    });
+	  },
+
+	  deleteFundraiser: function (fundraiserId) {
+	    Dispatcher.dispatch({
+	      actionType: 'DELETE_FUNDRAISER',
+	      fundraiser: fundraiserId
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);

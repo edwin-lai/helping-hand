@@ -8,14 +8,16 @@ var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var hashHistory = require('react-router').hashHistory;
 
+window.ApiUtil = require('./util/api_util.js');
+
 
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(
-    <Router history={hashHistory}>
-        <Route path='/' component={FundraisersIndex} />
+    /*<Router history={hashHistory}>
+         <Route path='/' component={FundraisersIndex} />
         /* <Route path='/signup' component={NewUserForm} />
-        <Route path='/signin' component={NewSessionForm} /> /*
-    </Router>,
+        <Route path='/signin' component={NewSessionForm} />
+    </Router>*/ <div></div>,
     document.getElementById('root')
   );
 });

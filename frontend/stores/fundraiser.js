@@ -9,7 +9,7 @@ FundraiserStore.all = function () {
 
 FundraiserStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
-    case 'FUNDRAISERS_RECEIVED':
+    case 'lolFUNDRAISERS_RECEIVED':
       _fundraisers = payload.fundraisers;
       FundraiserStore.__emitchange();
       break;

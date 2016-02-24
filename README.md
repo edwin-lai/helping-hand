@@ -56,17 +56,18 @@ the API.
 - [x] seed the database with a small amount of test data
 - [x] CRUD API for fundraisers (`Fundraiser`)
 - [x] jBuilder views for fundraisers
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [x] setup Webpack & Flux scaffold
+- [x] setup `APIUtil` to interact with the API
+- [x] test out API interaction in the console.
 
 ### [Phase 3: Flux Architecture and Router][phase-three] (1.5 days)
 
 **Objective:** Fundraisers can be created, read, edited and destroyed with the
 user interface.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
+- [x] setup the flux loop with skeleton files
+- [x] setup React Router
+- [ ] write auth forms in React
 - implement each fundraiser component, building out the flux loop as needed.
   - [ ] `FundraisersIndex`
   - [ ] `FundraiserIndexItem`

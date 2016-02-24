@@ -8,7 +8,8 @@ class FundraisersController < ApplicationController
   end
 
   def create
-    @fundraiser = Fundraiser.new
+    @fundraiser = Fundraiser.new(fundraiser_params)
+    @fundraiser.save!
   end
 
   def show
@@ -21,12 +22,25 @@ class FundraisersController < ApplicationController
 
   def update
     @fundraiser = Fundraiser.find_by_id(params['id'])
-    # edit fundraiser using params
-    @fundraiser.save!
+    @fundraiser.update!(fundraiser_params)
   end
 
   def destroy
     @fundraiser = Fundraiser.find_by_id(params['id'])
     @fundraiser.destroy!
+    render :index
+  end
+
+  private
+
+  def fundraiser_params
+    params.require(:fundraiser).permit(
+      :title,
+      :description,
+      :image_url,
+      :goal_amount,
+      :user_id,
+      :category
+    )
   end
 end
