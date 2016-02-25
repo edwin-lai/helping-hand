@@ -1,5 +1,6 @@
 var React = require('react');
 var SessionUtil = require('../util/session_util.js');
+var UserUtil = require('../util/user_util.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var NewSessionForm = React.createClass({
@@ -19,7 +20,8 @@ var NewSessionForm = React.createClass({
   login: function (event) {
     event.preventDefault();
     SessionUtil.signIn(this.state, function () {
-      this.context.router.push('#/');
+      UserUtil.fetchCurrentUser();
+      this.context.router.push('/fundraisers');
     }.bind(this));
   },
 

@@ -72,7 +72,8 @@ user interface.
   - [x] `FundraiserIndexItem`
   - [x] `FundraiserForm`
   - [x] `Fundraiser`
-- [ ] write auth forms in React
+- [x] write auth forms in React
+- [ ] integrate Cloudinary image upload
 
 ### [Phase 4: Start Styling][phase-four] (1 day)
 

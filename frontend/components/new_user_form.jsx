@@ -21,7 +21,8 @@ var NewUserForm = React.createClass({
   createUser: function (event) {
     event.preventDefault();
     UserUtil.createUser(this.state, function () {
-      this.context.router.push('#/');
+      UserUtil.fetchCurrentUser();
+      this.context.router.push('/fundraisers');
     }.bind(this));
   },
 

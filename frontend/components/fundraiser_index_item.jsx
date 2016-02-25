@@ -8,23 +8,29 @@ module.exports = React.createClass({
     FundraiserUtil.destroyFundraiser(this.props.fundraiser.id);
   },
 
-  editDeleteButtons: function () {
-    var fundraiser = this.props.fundraiser;
-    if (window.currentUser.id === fundraiser.user_id) {
-      return <nav>
-        <Link to={'fundraisers/' + fundraiser.id + '/edit'}>Edit</Link>
-        <button onClick={this.destroyFundraiser}>Delete</button>
-      </nav>;
-    }
-  },
-
   render: function () {
     var fundraiser = this.props.fundraiser;
-    return(
-      <li>
-        <Link to={'fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
-        {this.editDeleteButtons}
-      </li>
-    );
+    var userId;
+    if (window.currentUser) {
+      userId = window.currentUser.id;
+    } else {
+      userId = -1;
+    }
+
+    if (userId === fundraiser.user_id) {
+      return(
+        <li>
+          <Link to={'fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
+          <Link to={'fundraisers/' + fundraiser.id + '/edit'}>Edit</Link>
+          <button onClick={this.destroyFundraiser}>Delete</button>
+        </li>
+      );
+    } else {
+      return(
+        <li>
+          <Link to={'fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
+        </li>
+      );
+    }
   }
 });

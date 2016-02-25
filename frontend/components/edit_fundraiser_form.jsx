@@ -34,7 +34,7 @@ module.exports = React.createClass({
   updateFundraiser: function (event) {
     event.preventDefault();
     FundraiserUtil.updateFundraiser(this.state.id, this.state, function () {
-      this.props.history.push('/');
+      this.props.history.push('/fundraisers');
     }.bind(this));
   },
 

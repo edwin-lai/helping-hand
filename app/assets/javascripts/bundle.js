@@ -46,15 +46,19 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
+	var App = __webpack_require__(258);
+	var AllFundraisersIndex = __webpack_require__(259);
 	var FundraisersIndex = __webpack_require__(159);
 	var NewUserForm = __webpack_require__(244);
 	var NewSessionForm = __webpack_require__(245);
 	var NewFundraiserForm = __webpack_require__(246);
 	var EditFundraiserForm = __webpack_require__(247);
 	var Fundraiser = __webpack_require__(252);
+	var NavBar = __webpack_require__(257);
 	
 	var Router = __webpack_require__(185).Router;
 	var Route = __webpack_require__(185).Route;
+	var IndexRoute = __webpack_require__(185).IndexRoute;
 	var hashHistory = __webpack_require__(185).hashHistory;
 	
 	window.userUtil = __webpack_require__(253);
@@ -65,12 +69,17 @@
 	  ReactDOM.render(React.createElement(
 	    Router,
 	    { history: hashHistory },
-	    React.createElement(Route, { path: '/', component: FundraisersIndex }),
-	    React.createElement(Route, { path: '/fundraisers/new', component: NewFundraiserForm }),
-	    React.createElement(Route, { path: '/fundraisers/:id', component: Fundraiser }),
-	    React.createElement(Route, { path: '/fundraisers/:id/edit', component: EditFundraiserForm }),
-	    React.createElement(Route, { path: '/users/new', component: NewUserForm }),
-	    React.createElement(Route, { path: '/login', component: NewSessionForm })
+	    React.createElement(
+	      Route,
+	      { path: '/', component: App },
+	      React.createElement(IndexRoute, { component: AllFundraisersIndex }),
+	      React.createElement(Route, { path: 'fundraisers', component: FundraisersIndex }),
+	      React.createElement(Route, { path: 'fundraisers/new', component: NewFundraiserForm }),
+	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser }),
+	      React.createElement(Route, { path: 'fundraisers/:id/edit', component: EditFundraiserForm }),
+	      React.createElement(Route, { path: 'users/new', component: NewUserForm }),
+	      React.createElement(Route, { path: 'login', component: NewSessionForm })
+	    )
 	  ), document.getElementById('root'));
 	});
 
@@ -19689,13 +19698,17 @@
 	  displayName: 'FundraisersIndex',
 	
 	  getInitialState: function () {
-	    return { fundraisers: FundraiserStore.all() };
+	    return { fundraisers: FundraiserStore.all().filter(function (fundraiser) {
+	        return fundraiser.id === window.currentUser.id;
+	      }) };
 	  },
 	
 	  componentDidMount: function () {
 	    var that = this;
 	    this.listener = FundraiserStore.addListener(function () {
-	      that.setState({ fundraisers: FundraiserStore.all() });
+	      that.setState({ fundraisers: FundraiserStore.all().filter(function (fundraiser) {
+	          return fundraiser.user_id === window.currentUser.id;
+	        }) });
 	    });
 	    FundraiserUtil.fetchFundraisers();
 	  },
@@ -26619,12 +26632,24 @@
 	    FundraiserUtil.destroyFundraiser(this.props.fundraiser.id);
 	  },
 	
-	  editDeleteButtons: function () {
+	  render: function () {
 	    var fundraiser = this.props.fundraiser;
-	    if (window.currentUser.id === fundraiser.user_id) {
+	    var userId;
+	    if (window.currentUser) {
+	      userId = window.currentUser.id;
+	    } else {
+	      userId = -1;
+	    }
+	
+	    if (userId === fundraiser.user_id) {
 	      return React.createElement(
-	        'nav',
+	        'li',
 	        null,
+	        React.createElement(
+	          Link,
+	          { to: 'fundraisers/' + fundraiser.id },
+	          fundraiser.title
+	        ),
 	        React.createElement(
 	          Link,
 	          { to: 'fundraisers/' + fundraiser.id + '/edit' },
@@ -26636,21 +26661,17 @@
 	          'Delete'
 	        )
 	      );
+	    } else {
+	      return React.createElement(
+	        'li',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: 'fundraisers/' + fundraiser.id },
+	          fundraiser.title
+	        )
+	      );
 	    }
-	  },
-	
-	  render: function () {
-	    var fundraiser = this.props.fundraiser;
-	    return React.createElement(
-	      'li',
-	      null,
-	      React.createElement(
-	        Link,
-	        { to: 'fundraisers/' + fundraiser.id },
-	        fundraiser.title
-	      ),
-	      this.editDeleteButtons
-	    );
 	  }
 	});
 
@@ -31833,7 +31854,8 @@
 	  createUser: function (event) {
 	    event.preventDefault();
 	    UserUtil.createUser(this.state, function () {
-	      this.context.router.push('#/');
+	      UserUtil.fetchCurrentUser();
+	      this.context.router.push('/fundraisers');
 	    }.bind(this));
 	  },
 	
@@ -31887,6 +31909,7 @@
 
 	var React = __webpack_require__(1);
 	var SessionUtil = __webpack_require__(256);
+	var UserUtil = __webpack_require__(253);
 	var LinkedStateMixin = __webpack_require__(248);
 	
 	var NewSessionForm = React.createClass({
@@ -31908,7 +31931,8 @@
 	  login: function (event) {
 	    event.preventDefault();
 	    SessionUtil.signIn(this.state, function () {
-	      this.context.router.push('#/');
+	      UserUtil.fetchCurrentUser();
+	      this.context.router.push('/fundraisers');
 	    }.bind(this));
 	  },
 	
@@ -31945,6 +31969,8 @@
 /* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* global cloudinary */
+	
 	var React = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(248);
 	var FundraiserUtil = __webpack_require__(182);
@@ -31965,14 +31991,28 @@
 	      image_url: '',
 	      goal_amount: undefined,
 	      category: '',
-	      user_id: 1
+	      user_id: window.currentUser.id
 	    };
 	  },
 	
 	  createFundraiser: function (event) {
 	    event.preventDefault();
 	    FundraiserUtil.createFundraiser(this.state, function () {
-	      this.context.router.push('/');
+	      this.context.router.push('/fundraisers');
+	    }.bind(this));
+	  },
+	
+	  openUploadWidget: function (event) {
+	    event.preventDefault();
+	    cloudinary.openUploadWidget({
+	      cloud_name: 'helping-hand',
+	      upload_preset: 'i3xy67j1'
+	    }, function (error, success) {
+	      this.setState({
+	        image_url: success[0].url,
+	        thumbnailUrl: success[0].thumbnail_url
+	      });
+	      debugger;
 	    }.bind(this));
 	  },
 	
@@ -31989,20 +32029,6 @@
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
-	        { htmlFor: 'description' },
-	        'Description'
-	      ),
-	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'image_url' },
-	        'ImageURL'
-	      ),
-	      React.createElement('input', { type: 'url', id: 'image_url', valueLink: this.linkState('image_url') }),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
 	        { htmlFor: 'goal_amount' },
 	        'Goal'
 	      ),
@@ -32014,6 +32040,20 @@
 	        'Category'
 	      ),
 	      React.createElement('input', { type: 'text', id: 'category', valueLink: this.linkState('category') }),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'label',
+	        { htmlFor: 'description' },
+	        'Description'
+	      ),
+	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openUploadWidget },
+	        'Upload Image'
+	      ),
+	      React.createElement('img', { src: this.thumbnail_url }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Create Fundraiser' })
 	    );
@@ -32062,7 +32102,7 @@
 	  updateFundraiser: function (event) {
 	    event.preventDefault();
 	    FundraiserUtil.updateFundraiser(this.state.id, this.state, function () {
-	      this.props.history.push('/');
+	      this.props.history.push('/fundraisers');
 	    }.bind(this));
 	  },
 	
@@ -32411,7 +32451,6 @@
 	module.exports = {
 	  fetchCurrentUser: function () {
 	    $.get('api/users/current_user', function (user) {
-	      console.log(user);
 	      UserActions.receiveCurrentUser(user);
 	    });
 	  },
@@ -32470,7 +32509,7 @@
 	var Store = __webpack_require__(161).Store;
 	var Dispatcher = __webpack_require__(179);
 	var _users = [];
-	var _currentUser;
+	var _currentUser = {};
 	var UserStore = new Store(Dispatcher);
 	
 	UserStore.all = function () {
@@ -32513,16 +32552,151 @@
 	module.exports = {
 	  signIn: function (data, callback) {
 	    $.post('/api/session', { user: data }, callback);
-	    // callback();
 	  },
 	
-	  signOut: function () {
+	  signOut: function (callback) {
 	    $.ajax({
 	      url: '/api/session',
-	      type: 'delete'
+	      type: 'delete',
+	      success: callback
 	    });
 	  }
 	};
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(185).Link;
+	var SessionUtil = __webpack_require__(256);
+	var UserUtil = __webpack_require__(253);
+	var UserStore = __webpack_require__(255);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { currentUser: UserStore.currentUser() };
+	  },
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  componentDidMount: function () {
+	    this.listener = UserStore.addListener(function () {
+	      this.setState({ currentUser: UserStore.currentUser() });
+	    }.bind(this));
+	    UserUtil.fetchCurrentUser();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  logout: function () {
+	    SessionUtil.signOut(function () {
+	      UserUtil.fetchCurrentUser();
+	    });
+	  },
+	
+	  render: function () {
+	    if (this.state.currentUser.id) {
+	      return React.createElement(
+	        'nav',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.logout },
+	          'Logout'
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'nav',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: '/users/new' },
+	          'New User'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: '/login' },
+	          'Login'
+	        )
+	      );
+	    }
+	  }
+	});
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FundraisersIndex = __webpack_require__(159);
+	var NavBar = __webpack_require__(257);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  render: function () {
+	    return React.createElement(
+	      'content',
+	      null,
+	      React.createElement(NavBar, null),
+	      this.props.children
+	    );
+	  }
+	});
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FundraiserStore = __webpack_require__(160);
+	var FundraiserUtil = __webpack_require__(182);
+	var FundraiserIndexItem = __webpack_require__(184);
+	var Link = __webpack_require__(185).Link;
+	
+	var FundraisersIndex = React.createClass({
+	  displayName: 'FundraisersIndex',
+	
+	  getInitialState: function () {
+	    return { fundraisers: FundraiserStore.all() };
+	  },
+	
+	  componentDidMount: function () {
+	    var that = this;
+	    this.listener = FundraiserStore.addListener(function () {
+	      that.setState({ fundraisers: FundraiserStore.all() });
+	    });
+	    FundraiserUtil.fetchFundraisers();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  fundraisers: function () {
+	    return this.state.fundraisers.map(function (obj, idx) {
+	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj });
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      null,
+	      this.fundraisers()
+	    );
+	  }
+	});
+	
+	module.exports = FundraisersIndex;
 
 /***/ }
 /******/ ]);

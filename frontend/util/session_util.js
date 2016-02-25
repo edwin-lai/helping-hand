@@ -1,13 +1,13 @@
 module.exports = {
   signIn: function (data, callback) {
     $.post('/api/session', {user: data}, callback);
-    // callback();
   },
 
-  signOut: function () {
+  signOut: function (callback) {
     $.ajax({
       url: '/api/session',
-      type: 'delete'
+      type: 'delete',
+      success: callback
     });
   }
 };

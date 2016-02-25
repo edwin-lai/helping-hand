@@ -3,7 +3,6 @@ var UserActions = require('../actions/user_actions.js');
 module.exports = {
   fetchCurrentUser: function () {
     $.get('api/users/current_user', function (user) {
-      console.log(user);
       UserActions.receiveCurrentUser(user);
     });
   },

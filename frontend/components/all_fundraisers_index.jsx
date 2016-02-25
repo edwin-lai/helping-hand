@@ -6,17 +6,13 @@ var Link = require('react-router').Link;
 
 var FundraisersIndex = React.createClass({
   getInitialState: function () {
-    return { fundraisers: FundraiserStore.all().filter(function (fundraiser) {
-      return fundraiser.id === window.currentUser.id;
-    }) };
+    return { fundraisers: FundraiserStore.all() };
   },
 
   componentDidMount: function () {
     var that = this;
     this.listener = FundraiserStore.addListener(function () {
-      that.setState({ fundraisers: FundraiserStore.all().filter(function (fundraiser) {
-        return fundraiser.user_id === window.currentUser.id;
-      }) });
+      that.setState({ fundraisers: FundraiserStore.all() });
     });
     FundraiserUtil.fetchFundraisers();
   },
@@ -33,7 +29,6 @@ var FundraisersIndex = React.createClass({
 
   render: function () {
     return <ul>
-      <Link to={'fundraisers/new'}>New Fundraiser</Link>
       {this.fundraisers()}
     </ul>;
   }
