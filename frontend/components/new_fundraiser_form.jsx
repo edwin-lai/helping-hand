@@ -5,6 +5,10 @@ var FundraiserUtil = require('../util/fundraiser_util.js');
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function () {
     return {
       title: '',
@@ -19,7 +23,7 @@ module.exports = React.createClass({
   createFundraiser: function (event) {
     event.preventDefault();
     FundraiserUtil.createFundraiser(this.state, function () {
-      this.props.history.push('/');
+      this.context.router.push('/');
     }.bind(this));
   },
 

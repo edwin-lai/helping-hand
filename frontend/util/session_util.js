@@ -1,6 +1,7 @@
 module.exports = {
-  signIn: function () {
-    $.post('/api/session');
+  signIn: function (data, callback) {
+    $.post('/api/session', {user: data}, callback);
+    // callback();
   },
 
   signOut: function () {

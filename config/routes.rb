@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :fundraisers
-    resources :users, only: [:index, :create, :new, :show], defaults: { format: :json }
     get 'users/current_user', to: 'users#show_current_user'
+    resources :users, only: [:index, :create, :new, :show], defaults: { format: :json }
     resource :session, only: [:new, :create, :destroy]
   end
   root 'static_pages#root'

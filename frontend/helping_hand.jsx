@@ -13,6 +13,7 @@ var hashHistory = require('react-router').hashHistory;
 
 window.userUtil = require('./util/user_util.js');
 window.userStore = require('./stores/user.js');
+window.sessionUtil = require('./util/session_util.js');
 
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(
@@ -21,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
       <Route path='/fundraisers/new' component={NewFundraiserForm} />
       <Route path='/fundraisers/:id' component={Fundraiser} />
       <Route path='/fundraisers/:id/edit' component={EditFundraiserForm} />
+      <Route path='/users/new' component={NewUserForm} />
+      <Route path='/login' component={NewSessionForm} />
     </Router>,
     document.getElementById('root')
   );

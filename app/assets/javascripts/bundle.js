@@ -59,6 +59,7 @@
 	
 	window.userUtil = __webpack_require__(253);
 	window.userStore = __webpack_require__(255);
+	window.sessionUtil = __webpack_require__(256);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  ReactDOM.render(React.createElement(
@@ -67,7 +68,9 @@
 	    React.createElement(Route, { path: '/', component: FundraisersIndex }),
 	    React.createElement(Route, { path: '/fundraisers/new', component: NewFundraiserForm }),
 	    React.createElement(Route, { path: '/fundraisers/:id', component: Fundraiser }),
-	    React.createElement(Route, { path: '/fundraisers/:id/edit', component: EditFundraiserForm })
+	    React.createElement(Route, { path: '/fundraisers/:id/edit', component: EditFundraiserForm }),
+	    React.createElement(Route, { path: '/users/new', component: NewUserForm }),
+	    React.createElement(Route, { path: '/login', component: NewSessionForm })
 	  ), document.getElementById('root'));
 	});
 
@@ -26616,6 +26619,26 @@
 	    FundraiserUtil.destroyFundraiser(this.props.fundraiser.id);
 	  },
 	
+	  editDeleteButtons: function () {
+	    var fundraiser = this.props.fundraiser;
+	    if (window.currentUser.id === fundraiser.user_id) {
+	      return React.createElement(
+	        'nav',
+	        null,
+	        React.createElement(
+	          Link,
+	          { to: 'fundraisers/' + fundraiser.id + '/edit' },
+	          'Edit'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.destroyFundraiser },
+	          'Delete'
+	        )
+	      );
+	    }
+	  },
+	
 	  render: function () {
 	    var fundraiser = this.props.fundraiser;
 	    return React.createElement(
@@ -26626,16 +26649,7 @@
 	        { to: 'fundraisers/' + fundraiser.id },
 	        fundraiser.title
 	      ),
-	      React.createElement(
-	        Link,
-	        { to: 'fundraisers/' + fundraiser.id + '/edit' },
-	        'Edit'
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.destroyFundraiser },
-	        'Delete'
-	      )
+	      this.editDeleteButtons
 	    );
 	  }
 	});
@@ -31796,9 +31810,16 @@
 
 	var React = __webpack_require__(1);
 	var UserUtil = __webpack_require__(253);
+	var LinkedStateMixin = __webpack_require__(248);
 	
 	var NewUserForm = React.createClass({
 	  displayName: 'NewUserForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
 	
 	  getInitialState: function () {
 	    return {
@@ -31811,7 +31832,9 @@
 	
 	  createUser: function (event) {
 	    event.preventDefault();
-	    UserUtil.createUser(this.state);
+	    UserUtil.createUser(this.state, function () {
+	      this.context.router.push('#/');
+	    }.bind(this));
 	  },
 	
 	  render: function () {
@@ -31828,14 +31851,14 @@
 	        { htmlFor: 'firstName' },
 	        'First Name'
 	      ),
-	      React.createElement('input', { type: 'text', id: 'firstName', valueLink: this.linkState('firstName') }),
+	      React.createElement('input', { type: 'text', id: 'firstName', valueLink: this.linkState('first_name') }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'lastName' },
 	        'Last Name'
 	      ),
-	      React.createElement('input', { type: 'text', id: 'lastName', valueLink: this.linkState('lastName') }),
+	      React.createElement('input', { type: 'text', id: 'lastName', valueLink: this.linkState('last_name') }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
@@ -31849,7 +31872,9 @@
 	        { htmlFor: 'password' },
 	        'Password'
 	      ),
-	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') })
+	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
+	      React.createElement('br', null),
+	      React.createElement('input', { type: 'submit', value: 'Sign Up' })
 	    );
 	  }
 	});
@@ -31861,9 +31886,17 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var SessionUtil = __webpack_require__(256);
+	var LinkedStateMixin = __webpack_require__(248);
 	
 	var NewSessionForm = React.createClass({
 	  displayName: 'NewSessionForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
 	
 	  getInitialState: function () {
 	    return {
@@ -31872,10 +31905,17 @@
 	    };
 	  },
 	
+	  login: function (event) {
+	    event.preventDefault();
+	    SessionUtil.signIn(this.state, function () {
+	      this.context.router.push('#/');
+	    }.bind(this));
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      null,
+	      { onSubmit: this.login },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -31893,7 +31933,8 @@
 	        { htmlFor: 'password' },
 	        'Password'
 	      ),
-	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') })
+	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
+	      React.createElement('input', { type: 'submit', value: 'Log In' })
 	    );
 	  }
 	});
@@ -31913,6 +31954,10 @@
 	
 	  mixins: [LinkedStateMixin],
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
 	  getInitialState: function () {
 	    return {
 	      title: '',
@@ -31927,7 +31972,7 @@
 	  createFundraiser: function (event) {
 	    event.preventDefault();
 	    FundraiserUtil.createFundraiser(this.state, function () {
-	      this.props.history.push('/');
+	      this.context.router.push('/');
 	    }.bind(this));
 	  },
 	
@@ -32365,14 +32410,14 @@
 	
 	module.exports = {
 	  fetchCurrentUser: function () {
-	    $.get('api/users/current_user', function () {
-	      UserActions.receiveCurrentUser();
+	    $.get('api/users/current_user', function (user) {
+	      console.log(user);
+	      UserActions.receiveCurrentUser(user);
 	    });
 	  },
 	
 	  fetchUsers: function () {
 	    $.get('api/users/', function (users) {
-	      console.log(users);
 	      UserActions.receiveUsers(users);
 	    });
 	  },
@@ -32383,8 +32428,8 @@
 	    });
 	  },
 	
-	  createUser: function (data) {
-	    $.post('api/users/', { user: data });
+	  createUser: function (data, callback) {
+	    $.post('api/users/', { user: data }, callback);
 	  }
 	};
 
@@ -32460,6 +32505,24 @@
 	};
 	
 	module.exports = UserStore;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  signIn: function (data, callback) {
+	    $.post('/api/session', { user: data }, callback);
+	    // callback();
+	  },
+	
+	  signOut: function () {
+	    $.ajax({
+	      url: '/api/session',
+	      type: 'delete'
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);

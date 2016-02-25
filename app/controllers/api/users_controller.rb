@@ -18,7 +18,6 @@ class Api::UsersController < ApplicationController
   end
 
   def show_current_user
-    @user = current_user
   end
 
   private

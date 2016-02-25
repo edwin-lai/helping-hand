@@ -2,14 +2,14 @@ var UserActions = require('../actions/user_actions.js');
 
 module.exports = {
   fetchCurrentUser: function () {
-    $.get('api/users/current_user', function () {
-      UserActions.receiveCurrentUser();
+    $.get('api/users/current_user', function (user) {
+      console.log(user);
+      UserActions.receiveCurrentUser(user);
     });
   },
 
   fetchUsers: function () {
     $.get('api/users/', function (users) {
-      console.log(users);
       UserActions.receiveUsers(users);
     });
   },
@@ -20,7 +20,7 @@ module.exports = {
     });
   },
 
-  createUser: function (data) {
-    $.post('api/users/', { user: data });
+  createUser: function (data, callback) {
+    $.post('api/users/', { user: data }, callback);
   }
 };
