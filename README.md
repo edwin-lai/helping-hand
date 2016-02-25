@@ -70,7 +70,8 @@ user interface.
 - implement each fundraiser component, building out the flux loop as needed.
   - [x] `FundraisersIndex`
   - [x] `FundraiserIndexItem`
-  - [ ] `FundraiserForm`
+  - [x] `FundraiserForm`
+  - [x] `Fundraiser`
 - [ ] write auth forms in React
 
 ### [Phase 4: Start Styling][phase-four] (1 day)
@@ -118,6 +119,7 @@ I will probably get to some of these. However, they are not part of the
 - [ ] Search fundraisers by tag and/or category (0.5 - 1 days)
   - (This will be accomplished by refactoring Phase 7, so it will not get its
         own phase page.)
+- [ ] Users can comment on fundraisers
 - [ ] Multiple sessions (TBD)
 
 [phase-one]: ./docs/phases/phase1.md

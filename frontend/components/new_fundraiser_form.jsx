@@ -18,7 +18,9 @@ module.exports = React.createClass({
 
   createFundraiser: function (event) {
     event.preventDefault();
-    FundraiserUtil.createFundraiser(this.state);
+    FundraiserUtil.createFundraiser(this.state, function () {
+      this.props.history.push('/');
+    }.bind(this));
   },
 
   render: function () {

@@ -10,7 +10,7 @@ Fundraiser.create(
   description: 'Our 2 year old daughter was recently diagnosed with leukemia.
     Her medical treatment is very expensive. Please contribute to help her beat
     cancer!',
-  image_url: 'https://unsplash.com/photos/50YQevDoVhw/info',
+  image_url: 'https://images.unsplash.com/photo-1455723268471-b227afd576cd?crop=entropy&fit=crop&fm=jpg&h=600&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375',
   user_id: User.all.first.id,
   goal_amount: 5000,
   category: 'Medical'
@@ -23,7 +23,7 @@ Fundraiser.create(
     completely shut down. Springfield School is in dire need of millions of
     dollars in renovations and we would love your help. Thank you for your
     attention and generosity in helping such an amazing school.',
-  image_url: 'https://unsplash.com/photos/eZC5I4ozAMA',
+  image_url: 'https://images.unsplash.com/reserve/1JyANL0DTguQcnvDRTg1_DSC_1962.jpg?crop=entropy&fit=crop&fm=jpg&h=600&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375',
   user_id: User.all.first.id,
   goal_amount: 10_000,
   category: 'Education'
@@ -34,7 +34,7 @@ Fundraiser.create(
     help me through the many difficult days ahead by donating any amount that
     you can to pay for funeral expenses and the many life transitions my
     children and I will now have to make without him. ',
-  image_url: 'https://unsplash.com/photos/50YQevDoVhw/info',
+  image_url: 'https://images.unsplash.com/photo-1443381301867-5a36ffaafc42?crop=entropy&fit=crop&fm=jpg&h=600&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375',
   user_id: User.all.first.id,
   goal_amount: 1000,
   category: 'Memorial'

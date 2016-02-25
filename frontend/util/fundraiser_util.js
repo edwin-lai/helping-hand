@@ -1,4 +1,5 @@
 var FundraiserActions = require('../actions/fundraiser_actions.js');
+var UserUtil = require('../util/user_util.js');
 
 module.exports = {
   fetchFundraisers: function () {
@@ -13,17 +14,19 @@ module.exports = {
     });
   },
 
-  createFundraiser: function (data) {
+  createFundraiser: function (data, callback) {
     $.post('api/fundraisers', { fundraiser: data });
+    callback();
   },
 
-  updateFundraiser: function (id, data) {
+  updateFundraiser: function (id, data, callback) {
     $.ajax({
       url: 'api/fundraisers/' + id,
       type: 'patch',
       data: { fundraiser: data },
       dataType: 'json'
     });
+    callback();
   },
 
   destroyFundraiser: function (id) {

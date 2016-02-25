@@ -8,7 +8,7 @@ FundraiserStore.all = function () {
 };
 
 FundraiserStore.find = function (id) {
-  _fundraisers.find(function (fundraiser) {
+  return _fundraisers.find(function (fundraiser) {
     return fundraiser.id === id;
   });
 };

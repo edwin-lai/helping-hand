@@ -17,13 +17,29 @@ module.exports = React.createClass({
     };
   },
 
-  createFundraiser: function (event) {
+  componentDidMount: function () {
+    var that = this;
+    this.listener = FundraiserStore.addListener(function () {
+      if (FundraiserStore.find(parseInt(that.props.params.id)) !== undefined) {
+        that.setState(FundraiserStore.find(parseInt(that.props.params.id)));
+      }
+    });
+    FundraiserUtil.fetchSingleFundraiser(parseInt(that.props.params.id));
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
+  },
+
+  updateFundraiser: function (event) {
     event.preventDefault();
-    FundraiserUtil.createFundraiser(this.state);
+    FundraiserUtil.updateFundraiser(this.state.id, this.state, function () {
+      this.props.history.push('/');
+    }.bind(this));
   },
 
   render: function () {
-    return <form className="fundraiserForm" onSubmit={this.createFundraiser}>
+    return <form className="fundraiserForm" onSubmit={this.updateFundraiser}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />
@@ -39,7 +55,7 @@ module.exports = React.createClass({
       <label htmlFor="category">Category</label>
       <input type="text" id="category" valueLink={this.linkState('category')}/>
       <br />
-      <input type="submit" value="Create Fundraiser" />
+      <input type="submit" value="Update Fundraiser" />
     </form>;
   }
 });

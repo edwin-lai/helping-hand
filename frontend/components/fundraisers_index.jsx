@@ -27,11 +27,6 @@ var FundraisersIndex = React.createClass({
     });
   },
 
-  goto: function (path) {
-    debugger;
-    this.history.push(path);
-  },
-
   render: function () {
     return <ul>
       <Link to={'fundraisers/new'}>New Fundraiser</Link>
