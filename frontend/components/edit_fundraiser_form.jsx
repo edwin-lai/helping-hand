@@ -5,6 +5,10 @@ var FundraiserStore = require('../stores/fundraiser.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
+  
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
 
   getInitialState: function () {
     return {
@@ -34,7 +38,21 @@ module.exports = React.createClass({
   updateFundraiser: function (event) {
     event.preventDefault();
     FundraiserUtil.updateFundraiser(this.state.id, this.state, function () {
-      this.props.history.push('/fundraisers');
+      this.context.router.push('/fundraisers/' + this.props.params.id);
+    }.bind(this));
+  },
+
+  openUploadWidget: function(event) {
+    event.preventDefault();
+    cloudinary.openUploadWidget({
+      cloud_name: 'helping-hand',
+      upload_preset: 'i3xy67j1'
+    },
+    function (error, success) {
+      this.setState({
+        image_url: success[0].url,
+        thumbnailUrl: success[0].thumbnail_url
+      });
     }.bind(this));
   },
 
@@ -43,17 +61,17 @@ module.exports = React.createClass({
       <label htmlFor="title">Title</label>
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />
-      <label htmlFor="description">Description</label>
-      <textarea id="description" valueLink={this.linkState('description')}/>
-      <br />
-      <label htmlFor="image_url">ImageURL</label>
-      <input type="url" id="image_url" valueLink={this.linkState('image_url')}/>
-      <br />
       <label htmlFor="goal_amount">Goal</label>
       <input type="number" id="goal_amount" valueLink={this.linkState('goal_amount')}/>
       <br />
       <label htmlFor="category">Category</label>
       <input type="text" id="category" valueLink={this.linkState('category')}/>
+      <br />
+      <label htmlFor="description">Description</label>
+      <textarea id="description" valueLink={this.linkState('description')}/>
+      <br />
+      <button onClick={this.openUploadWidget}>Upload Image</button>
+      <img src={this.thumbnail_url} />
       <br />
       <input type="submit" value="Update Fundraiser" />
     </form>;

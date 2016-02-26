@@ -1,6 +1,7 @@
 var React = require('react');
 var SessionUtil = require('../util/session_util.js');
 var UserUtil = require('../util/user_util.js');
+var UserActions = require('../actions/user_actions.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var NewSessionForm = React.createClass({
@@ -19,8 +20,9 @@ var NewSessionForm = React.createClass({
 
   login: function (event) {
     event.preventDefault();
-    SessionUtil.signIn(this.state, function () {
-      UserUtil.fetchCurrentUser();
+    SessionUtil.signIn(this.state, function (user) {
+      window.currentUserId = user.id;
+      UserActions.receiveCurrentUser(user);
       this.context.router.push('/fundraisers');
     }.bind(this));
   },

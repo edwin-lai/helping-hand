@@ -1,6 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var SessionUtil = require('../util/session_util.js');
+var UserActions = require('../actions/user_actions.js');
 var UserUtil = require('../util/user_util.js');
 var UserStore = require('../stores/user.js');
 
@@ -26,6 +27,7 @@ module.exports = React.createClass({
 
   logout: function () {
     SessionUtil.signOut(function () {
+      window.currentUserId = -1;
       UserUtil.fetchCurrentUser();
     });
   },
@@ -33,10 +35,13 @@ module.exports = React.createClass({
   render: function () {
     if (this.state.currentUser.id) {
       return <nav>
+        <Link to="/">Fundraisers</Link>
+        <Link to="/fundraisers">My Fundraisers</Link>
         <button onClick={this.logout}>Logout</button>
       </nav>;
     } else {
       return <nav>
+        <Link to="/">Fundraisers</Link>
         <Link to="/users/new">New User</Link>
         <Link to="/login">Login</Link>
       </nav>;

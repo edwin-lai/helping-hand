@@ -1,15 +1,6 @@
-<% if current_user
-    current_user_params = {
-    id: current_user.id,
-    first_name: current_user.first_name,
-    last_name: current_user.last_name,
-    email: current_user.email,
-    bank: current_user.bank
-  } end %>
-
 <script type="text/javascript" src="http://widget.cloudinary.com/global/all.js"></script>
 <script type="text/javascript">
-  window.currentUser = <%= current_user_params.to_json.html_safe %>;
+  window.currentUserId = <%= current_user ? current_user.id : -1 %>;
 </script>
 
 <content id="root"></content>

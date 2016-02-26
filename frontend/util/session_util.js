@@ -7,7 +7,7 @@ module.exports = {
     $.ajax({
       url: '/api/session',
       type: 'delete',
-      success: callback
+      success: callback()
     });
   }
 };

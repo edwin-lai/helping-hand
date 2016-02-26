@@ -18,7 +18,7 @@ module.exports = React.createClass({
       image_url: '',
       goal_amount: undefined,
       category: '',
-      user_id: window.currentUser.id
+      user_id: window.currentUserId
     };
   },
 
@@ -40,7 +40,6 @@ module.exports = React.createClass({
         image_url: success[0].url,
         thumbnailUrl: success[0].thumbnail_url
       });
-      debugger;
     }.bind(this));
   },
 

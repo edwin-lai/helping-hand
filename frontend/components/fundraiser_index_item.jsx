@@ -11,8 +11,8 @@ module.exports = React.createClass({
   render: function () {
     var fundraiser = this.props.fundraiser;
     var userId;
-    if (window.currentUser) {
-      userId = window.currentUser.id;
+    if (window.currentUserId) {
+      userId = window.currentUserId;
     } else {
       userId = -1;
     }

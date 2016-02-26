@@ -19699,7 +19699,7 @@
 	
 	  getInitialState: function () {
 	    return { fundraisers: FundraiserStore.all().filter(function (fundraiser) {
-	        return fundraiser.id === window.currentUser.id;
+	        return fundraiser.user_id === window.currentUserId;
 	      }) };
 	  },
 	
@@ -19707,7 +19707,7 @@
 	    var that = this;
 	    this.listener = FundraiserStore.addListener(function () {
 	      that.setState({ fundraisers: FundraiserStore.all().filter(function (fundraiser) {
-	          return fundraiser.user_id === window.currentUser.id;
+	          return fundraiser.user_id === window.currentUserId;
 	        }) });
 	    });
 	    FundraiserUtil.fetchFundraisers();
@@ -26635,8 +26635,8 @@
 	  render: function () {
 	    var fundraiser = this.props.fundraiser;
 	    var userId;
-	    if (window.currentUser) {
-	      userId = window.currentUser.id;
+	    if (window.currentUserId) {
+	      userId = window.currentUserId;
 	    } else {
 	      userId = -1;
 	    }
@@ -31831,6 +31831,7 @@
 
 	var React = __webpack_require__(1);
 	var UserUtil = __webpack_require__(253);
+	var UserActions = __webpack_require__(254);
 	var LinkedStateMixin = __webpack_require__(248);
 	
 	var NewUserForm = React.createClass({
@@ -31853,8 +31854,9 @@
 	
 	  createUser: function (event) {
 	    event.preventDefault();
-	    UserUtil.createUser(this.state, function () {
-	      UserUtil.fetchCurrentUser();
+	    UserUtil.createUser(this.state, function (user) {
+	      window.currentUserId = user.id;
+	      UserActions.receiveCurrentUser(user);
 	      this.context.router.push('/fundraisers');
 	    }.bind(this));
 	  },
@@ -31910,6 +31912,7 @@
 	var React = __webpack_require__(1);
 	var SessionUtil = __webpack_require__(256);
 	var UserUtil = __webpack_require__(253);
+	var UserActions = __webpack_require__(254);
 	var LinkedStateMixin = __webpack_require__(248);
 	
 	var NewSessionForm = React.createClass({
@@ -31930,8 +31933,9 @@
 	
 	  login: function (event) {
 	    event.preventDefault();
-	    SessionUtil.signIn(this.state, function () {
-	      UserUtil.fetchCurrentUser();
+	    SessionUtil.signIn(this.state, function (user) {
+	      window.currentUserId = user.id;
+	      UserActions.receiveCurrentUser(user);
 	      this.context.router.push('/fundraisers');
 	    }.bind(this));
 	  },
@@ -31991,7 +31995,7 @@
 	      image_url: '',
 	      goal_amount: undefined,
 	      category: '',
-	      user_id: window.currentUser.id
+	      user_id: window.currentUserId
 	    };
 	  },
 	
@@ -32012,7 +32016,6 @@
 	        image_url: success[0].url,
 	        thumbnailUrl: success[0].thumbnail_url
 	      });
-	      debugger;
 	    }.bind(this));
 	  },
 	
@@ -32074,6 +32077,10 @@
 	
 	  mixins: [LinkedStateMixin],
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
 	  getInitialState: function () {
 	    return {
 	      title: '',
@@ -32102,7 +32109,20 @@
 	  updateFundraiser: function (event) {
 	    event.preventDefault();
 	    FundraiserUtil.updateFundraiser(this.state.id, this.state, function () {
-	      this.props.history.push('/fundraisers');
+	      this.context.router.push('/fundraisers/' + this.props.params.id);
+	    }.bind(this));
+	  },
+	
+	  openUploadWidget: function (event) {
+	    event.preventDefault();
+	    cloudinary.openUploadWidget({
+	      cloud_name: 'helping-hand',
+	      upload_preset: 'i3xy67j1'
+	    }, function (error, success) {
+	      this.setState({
+	        image_url: success[0].url,
+	        thumbnailUrl: success[0].thumbnail_url
+	      });
 	    }.bind(this));
 	  },
 	
@@ -32119,20 +32139,6 @@
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
-	        { htmlFor: 'description' },
-	        'Description'
-	      ),
-	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'image_url' },
-	        'ImageURL'
-	      ),
-	      React.createElement('input', { type: 'url', id: 'image_url', valueLink: this.linkState('image_url') }),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
 	        { htmlFor: 'goal_amount' },
 	        'Goal'
 	      ),
@@ -32144,6 +32150,20 @@
 	        'Category'
 	      ),
 	      React.createElement('input', { type: 'text', id: 'category', valueLink: this.linkState('category') }),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'label',
+	        { htmlFor: 'description' },
+	        'Description'
+	      ),
+	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openUploadWidget },
+	        'Upload Image'
+	      ),
+	      React.createElement('img', { src: this.thumbnail_url }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Update Fundraiser' })
 	    );
@@ -32407,6 +32427,17 @@
 	    this.listener.remove();
 	  },
 	
+	  editLink: function (pageId) {
+	    return;
+	    if (this.state.user_id === window.current_user.id) {
+	      return React.createElement(
+	        Link,
+	        { to: '/fundraisers/' + pageId + '/edit' },
+	        'Edit'
+	      );
+	    }
+	  },
+	
 	  render: function () {
 	    var fundraiser = FundraiserStore.find(parseInt(this.props.params.id));
 	
@@ -32417,6 +32448,7 @@
 	        'loading...'
 	      );
 	    }
+	
 	    return React.createElement(
 	      'content',
 	      null,
@@ -32432,11 +32464,7 @@
 	      React.createElement('br', null),
 	      fundraiser.description,
 	      React.createElement('br', null),
-	      React.createElement(
-	        Link,
-	        { to: '/fundraisers/8/edit' },
-	        'Edit'
-	      ),
+	      this.editLink(this.props.params.id),
 	      React.createElement('br', null)
 	    );
 	  }
@@ -32558,7 +32586,7 @@
 	    $.ajax({
 	      url: '/api/session',
 	      type: 'delete',
-	      success: callback
+	      success: callback()
 	    });
 	  }
 	};
@@ -32570,6 +32598,7 @@
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(185).Link;
 	var SessionUtil = __webpack_require__(256);
+	var UserActions = __webpack_require__(254);
 	var UserUtil = __webpack_require__(253);
 	var UserStore = __webpack_require__(255);
 	
@@ -32597,6 +32626,7 @@
 	
 	  logout: function () {
 	    SessionUtil.signOut(function () {
+	      window.currentUserId = -1;
 	      UserUtil.fetchCurrentUser();
 	    });
 	  },
@@ -32607,6 +32637,16 @@
 	        'nav',
 	        null,
 	        React.createElement(
+	          Link,
+	          { to: '/' },
+	          'Fundraisers'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: '/fundraisers' },
+	          'My Fundraisers'
+	        ),
+	        React.createElement(
 	          'button',
 	          { onClick: this.logout },
 	          'Logout'
@@ -32616,6 +32656,11 @@
 	      return React.createElement(
 	        'nav',
 	        null,
+	        React.createElement(
+	          Link,
+	          { to: '/' },
+	          'Fundraisers'
+	        ),
 	        React.createElement(
 	          Link,
 	          { to: '/users/new' },

@@ -20,12 +20,20 @@ module.exports = React.createClass({
     this.listener.remove();
   },
 
+  editLink: function (pageId) {
+    return;
+    if (this.state.user_id === window.current_user.id) {
+      return <Link to={'/fundraisers/' + pageId + '/edit'}>Edit</Link>;
+    }
+  },
+
   render: function () {
     var fundraiser = FundraiserStore.find(parseInt(this.props.params.id));
 
     if (!fundraiser) {
       return <div>loading...</div>;
     }
+
     return(
       <content>
         {fundraiser.title}
@@ -38,7 +46,7 @@ module.exports = React.createClass({
         <br />
         {fundraiser.description}
         <br />
-        <Link to={'/fundraisers/8/edit'}>Edit</Link>
+        {this.editLink(this.props.params.id)}
         <br />
       </content>
     );

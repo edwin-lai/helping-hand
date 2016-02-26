@@ -1,5 +1,6 @@
 var React = require('react');
 var UserUtil = require('../util/user_util.js');
+var UserActions = require('../actions/user_actions.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var NewUserForm = React.createClass({
@@ -20,8 +21,9 @@ var NewUserForm = React.createClass({
 
   createUser: function (event) {
     event.preventDefault();
-    UserUtil.createUser(this.state, function () {
-      UserUtil.fetchCurrentUser();
+    UserUtil.createUser(this.state, function (user) {
+      window.currentUserId = user.id;
+      UserActions.receiveCurrentUser(user);
       this.context.router.push('/fundraisers');
     }.bind(this));
   },

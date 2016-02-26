@@ -7,7 +7,7 @@ var Link = require('react-router').Link;
 var FundraisersIndex = React.createClass({
   getInitialState: function () {
     return { fundraisers: FundraiserStore.all().filter(function (fundraiser) {
-      return fundraiser.id === window.currentUser.id;
+      return fundraiser.user_id === window.currentUserId;
     }) };
   },
 
@@ -15,7 +15,7 @@ var FundraisersIndex = React.createClass({
     var that = this;
     this.listener = FundraiserStore.addListener(function () {
       that.setState({ fundraisers: FundraiserStore.all().filter(function (fundraiser) {
-        return fundraiser.user_id === window.currentUser.id;
+        return fundraiser.user_id === window.currentUserId;
       }) });
     });
     FundraiserUtil.fetchFundraisers();
