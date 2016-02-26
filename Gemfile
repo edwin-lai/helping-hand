@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+ruby '2.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use postgresql as the database for Active Record
@@ -27,6 +27,8 @@ gem 'bcrypt'
 gem 'newrelic_rpm'
 # Use Unicorn as the app server
 # gem 'unicorn'
+
+gem 'rails_12factor'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
