@@ -1,3 +1,63 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$navbar-text-color: rgb(254, 254, 254);
+$navbar-bg-color: rgb(0, 180, 180);
+$navbar-hover-bg-color: rgb(0, 0, 254);
+$form-border-color: rgb(0, 0, 0);
+
+.navbar {
+  background: $navbar-bg-color;
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  width: 100%;
+
+  a,
+  button {
+    border: 0;
+    color: $navbar-text-color;
+    display: inline-block;
+    padding: 10px 20px;
+
+
+
+    &:hover {
+      background: $navbar-hover-bg-color;
+      color: $navbar-text-color;
+      text-decoration: none;
+    }
+  }
+
+  .auth {
+    float: right;
+  }
+}
+
+.auth-form {
+  display: inline-block;
+  font-family: "Lato", sans-serif;
+  padding: 10px 20px;
+
+  h1 {
+    font-size: 36px;
+    font-weight: 900;
+    padding: 10px;
+  }
+
+  input,
+  textarea {
+    border: 1px solid $form-border-color;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  label {
+    padding: 10px;
+  }
+
+  .submit {
+    background: $navbar-bg-color;
+    color: $navbar-text-color;
+  }
+}

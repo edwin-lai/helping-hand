@@ -23,7 +23,7 @@ var FundraisersIndex = React.createClass({
 
   fundraisers: function () {
     return this.state.fundraisers.map(function (obj, idx) {
-      return <FundraiserIndexItem key={idx} fundraiser={obj} />;
+      return <FundraiserIndexItem key={idx} fundraiser={obj} userId={obj.user}/>;
     });
   },
 

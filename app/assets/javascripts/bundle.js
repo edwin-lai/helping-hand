@@ -19719,11 +19719,14 @@
 	
 	  fundraisers: function () {
 	    return this.state.fundraisers.map(function (obj, idx) {
-	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj });
+	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj, source: 'idx' });
 	    });
 	  },
 	
 	  render: function () {
+	    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+	      window.location.assign('/');
+	    }
 	    return React.createElement(
 	      'ul',
 	      null,
@@ -26623,6 +26626,7 @@
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(185).Link;
 	var FundraiserUtil = __webpack_require__(182);
+	var UserStore = __webpack_require__(255);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -26641,7 +26645,7 @@
 	      userId = -1;
 	    }
 	
-	    if (userId === fundraiser.user_id) {
+	    if (userId === fundraiser.user_id && this.props.source === 'idx') {
 	      return React.createElement(
 	        'li',
 	        null,
@@ -26649,12 +26653,12 @@
 	        React.createElement('br', null),
 	        React.createElement(
 	          Link,
-	          { to: 'fundraisers/' + fundraiser.id },
+	          { to: '/fundraisers/' + fundraiser.id },
 	          fundraiser.title
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: 'fundraisers/' + fundraiser.id + '/edit' },
+	          { to: '/fundraisers/' + fundraiser.id + '/edit' },
 	          'Edit'
 	        ),
 	        React.createElement(
@@ -26667,11 +26671,14 @@
 	      return React.createElement(
 	        'li',
 	        null,
+	        React.createElement('img', { src: fundraiser.thumbnail_url }),
 	        React.createElement(
 	          Link,
-	          { to: 'fundraisers/' + fundraiser.id },
+	          { to: '/fundraisers/' + fundraiser.id },
 	          fundraiser.title
-	        )
+	        ),
+	        this.props.fundraiser.first_name,
+	        this.props.fundraiser.last_name
 	      );
 	    }
 	  }
@@ -31866,7 +31873,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { onSubmit: this.createUser },
+	      { onSubmit: this.createUser, className: 'auth-form' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -31900,7 +31907,7 @@
 	      ),
 	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
 	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	      React.createElement('input', { type: 'submit', value: 'Sign Up', className: 'submit' })
 	    );
 	  }
 	});
@@ -31945,7 +31952,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { onSubmit: this.login },
+	      { onSubmit: this.login, className: 'auth-form' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -31964,7 +31971,8 @@
 	        'Password'
 	      ),
 	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
-	      React.createElement('input', { type: 'submit', value: 'Log In' })
+	      React.createElement('br', null),
+	      React.createElement('input', { type: 'submit', value: 'Log In', className: 'submit' })
 	    );
 	  }
 	});
@@ -32632,6 +32640,7 @@
 	    SessionUtil.signOut(function () {
 	      window.currentUserId = -1;
 	      UserUtil.fetchCurrentUser();
+	      window.location.assign('/');
 	    });
 	  },
 	
@@ -32639,7 +32648,7 @@
 	    if (this.state.currentUser.id) {
 	      return React.createElement(
 	        'nav',
-	        null,
+	        { className: 'navbar' },
 	        React.createElement(
 	          Link,
 	          { to: '/' },
@@ -32652,14 +32661,14 @@
 	        ),
 	        React.createElement(
 	          'button',
-	          { onClick: this.logout },
+	          { onClick: this.logout, className: 'auth' },
 	          'Logout'
 	        )
 	      );
 	    } else {
 	      return React.createElement(
 	        'nav',
-	        null,
+	        { className: 'navbar' },
 	        React.createElement(
 	          Link,
 	          { to: '/' },
@@ -32667,13 +32676,13 @@
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: '/users/new' },
-	          'New User'
+	          { to: '/login', className: 'auth' },
+	          'Login'
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: '/login' },
-	          'Login'
+	          { to: '/users/new', className: 'auth' },
+	          'New User'
 	        )
 	      );
 	    }
@@ -32732,7 +32741,7 @@
 	
 	  fundraisers: function () {
 	    return this.state.fundraisers.map(function (obj, idx) {
-	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj });
+	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj, userId: obj.user });
 	    });
 	  },
 	

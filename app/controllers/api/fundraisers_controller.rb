@@ -1,5 +1,5 @@
 class Api::FundraisersController < ApplicationController
-  before_action :require_login, except: :show
+  before_action :require_login, except: [:index, :show]
 
   def index
     @fundraisers = Fundraiser.all

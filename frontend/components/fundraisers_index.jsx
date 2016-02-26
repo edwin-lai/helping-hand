@@ -27,11 +27,14 @@ var FundraisersIndex = React.createClass({
 
   fundraisers: function () {
     return this.state.fundraisers.map(function (obj, idx) {
-      return <FundraiserIndexItem key={idx} fundraiser={obj} />;
+      return <FundraiserIndexItem key={idx} fundraiser={obj} source='idx' />;
     });
   },
 
   render: function () {
+    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+      window.location.assign('/');
+    }
     return <ul>
       <Link to={'fundraisers/new'}>New Fundraiser</Link>
       {this.fundraisers()}

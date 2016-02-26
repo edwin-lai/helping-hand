@@ -19,6 +19,6 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     sign_out
-    render :new
+    redirect_to '/', status: 303
   end
 end

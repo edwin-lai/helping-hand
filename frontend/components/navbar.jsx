@@ -29,21 +29,22 @@ module.exports = React.createClass({
     SessionUtil.signOut(function () {
       window.currentUserId = -1;
       UserUtil.fetchCurrentUser();
+      window.location.assign('/');
     });
   },
 
   render: function () {
     if (this.state.currentUser.id) {
-      return <nav>
+      return <nav className="navbar">
         <Link to="/">Fundraisers</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
-        <button onClick={this.logout}>Logout</button>
+        <button onClick={this.logout} className="auth">Logout</button>
       </nav>;
     } else {
-      return <nav>
+      return <nav className="navbar">
         <Link to="/">Fundraisers</Link>
-        <Link to="/users/new">New User</Link>
-        <Link to="/login">Login</Link>
+        <Link to="/login" className="auth">Login</Link>
+        <Link to="/users/new" className="auth">New User</Link>
       </nav>;
     }
   }

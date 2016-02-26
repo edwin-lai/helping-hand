@@ -29,7 +29,7 @@ var NewUserForm = React.createClass({
   },
 
   render: function () {
-    return <form onSubmit={this.createUser}>
+    return <form onSubmit={this.createUser} className="auth-form">
       <h1>New User</h1>
       <label htmlFor="firstName">First Name</label>
       <input type="text" id="firstName" valueLink={this.linkState('first_name')} />
@@ -43,7 +43,7 @@ var NewUserForm = React.createClass({
       <label htmlFor="password">Password</label>
       <input type="password" id="password" valueLink={this.linkState('password')} />
       <br />
-      <input type="submit" value="Sign Up" />
+      <input type="submit" value="Sign Up" className="submit" />
     </form>;
   }
 });
