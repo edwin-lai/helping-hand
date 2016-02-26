@@ -53,7 +53,8 @@ class Api::FundraisersController < ApplicationController
       :image_url,
       :goal_amount,
       :user_id,
-      :category
+      :category,
+      :thumbnail_url
     )
   end
 end

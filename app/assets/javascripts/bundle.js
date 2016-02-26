@@ -26645,6 +26645,8 @@
 	      return React.createElement(
 	        'li',
 	        null,
+	        React.createElement('img', { src: fundraiser.thumbnail_url }),
+	        React.createElement('br', null),
 	        React.createElement(
 	          Link,
 	          { to: 'fundraisers/' + fundraiser.id },
@@ -31993,6 +31995,7 @@
 	      title: '',
 	      description: '',
 	      image_url: '',
+	      thumbnail_url: '',
 	      goal_amount: undefined,
 	      category: '',
 	      user_id: window.currentUserId
@@ -32014,7 +32017,7 @@
 	    }, function (error, success) {
 	      this.setState({
 	        image_url: success[0].url,
-	        thumbnailUrl: success[0].thumbnail_url
+	        thumbnail_url: success[0].thumbnail_url
 	      });
 	    }.bind(this));
 	  },
@@ -32056,7 +32059,7 @@
 	        { onClick: this.openUploadWidget },
 	        'Upload Image'
 	      ),
-	      React.createElement('img', { src: this.thumbnail_url }),
+	      React.createElement('img', { src: this.state.thumbnail_url }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Create Fundraiser' })
 	    );
@@ -32067,6 +32070,8 @@
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* global cloudinary */
+	
 	var React = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(248);
 	var FundraiserUtil = __webpack_require__(182);
@@ -32086,6 +32091,7 @@
 	      title: '',
 	      description: '',
 	      image_url: '',
+	      thumbnail_url: '',
 	      goal_amount: undefined,
 	      category: '',
 	      user_id: 1
@@ -32121,7 +32127,7 @@
 	    }, function (error, success) {
 	      this.setState({
 	        image_url: success[0].url,
-	        thumbnailUrl: success[0].thumbnail_url
+	        thumbnail_url: success[0].thumbnail_url
 	      });
 	    }.bind(this));
 	  },
@@ -32163,7 +32169,7 @@
 	        { onClick: this.openUploadWidget },
 	        'Upload Image'
 	      ),
-	      React.createElement('img', { src: this.thumbnail_url }),
+	      React.createElement('img', { src: this.state.thumbnail_url }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Update Fundraiser' })
 	    );

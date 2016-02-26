@@ -5,6 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.create(
+  first_name: 'Edwin',
+  last_name: 'Lai',
+  email: 'edwinlai@ucla.edu',
+  password: 'password'
+)
+
 Fundraiser.create(
   title: 'Help Brianne Beat Cancer',
   description: 'Our 2 year old daughter was recently diagnosed with leukemia.
@@ -13,7 +20,8 @@ Fundraiser.create(
   image_url: 'https://images.unsplash.com/photo-1455723268471-b227afd576cd?crop=entropy&fit=crop&fm=jpg&h=600&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375',
   user_id: User.all.first.id,
   goal_amount: 5000,
-  category: 'Medical'
+  category: 'Medical',
+  thumbnail_url: 'https://images.unsplash.com/photo-1454991727061-be514eae86f7?crop=entropy&fit=crop&fm=jpg&h=375&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=550'
 )
 Fundraiser.create(
   title: 'Help Springfield School',
@@ -26,7 +34,8 @@ Fundraiser.create(
   image_url: 'https://images.unsplash.com/reserve/1JyANL0DTguQcnvDRTg1_DSC_1962.jpg?crop=entropy&fit=crop&fm=jpg&h=600&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375',
   user_id: User.all.first.id,
   goal_amount: 10_000,
-  category: 'Education'
+  category: 'Education',
+  thumbnail_url: 'https://images.unsplash.com/reserve/1JyANL0DTguQcnvDRTg1_DSC_1962.jpg?crop=entropy&fit=crop&fm=jpg&h=275&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=400'
 )
 Fundraiser.create(
   title: 'Jim\'s Funeral Expenses',
@@ -37,5 +46,6 @@ Fundraiser.create(
   image_url: 'https://images.unsplash.com/photo-1443381301867-5a36ffaafc42?crop=entropy&fit=crop&fm=jpg&h=600&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375',
   user_id: User.all.first.id,
   goal_amount: 1000,
-  category: 'Memorial'
+  category: 'Memorial',
+  thumbnail_url: 'https://images.unsplash.com/photo-1443381301867-5a36ffaafc42?crop=entropy&fit=crop&fm=jpg&h=275&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=400'
 )

@@ -16,6 +16,7 @@ module.exports = React.createClass({
       title: '',
       description: '',
       image_url: '',
+      thumbnail_url: '',
       goal_amount: undefined,
       category: '',
       user_id: window.currentUserId
@@ -38,7 +39,7 @@ module.exports = React.createClass({
     function (error, success) {
       this.setState({
         image_url: success[0].url,
-        thumbnailUrl: success[0].thumbnail_url
+        thumbnail_url: success[0].thumbnail_url
       });
     }.bind(this));
   },
@@ -58,7 +59,7 @@ module.exports = React.createClass({
       <textarea id="description" valueLink={this.linkState('description')}/>
       <br />
       <button onClick={this.openUploadWidget}>Upload Image</button>
-      <img src={this.thumbnail_url} />
+      <img src={this.state.thumbnail_url} />
       <br />
       <input type="submit" value="Create Fundraiser" />
     </form>;

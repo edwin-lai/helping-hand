@@ -20,6 +20,8 @@ module.exports = React.createClass({
     if (userId === fundraiser.user_id) {
       return(
         <li>
+          <img src={fundraiser.thumbnail_url} />
+          <br />
           <Link to={'fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
           <Link to={'fundraisers/' + fundraiser.id + '/edit'}>Edit</Link>
           <button onClick={this.destroyFundraiser}>Delete</button>

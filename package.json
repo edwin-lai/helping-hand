@@ -20,6 +20,13 @@
   "bugs": {
     "url": "https://github.com/edwin-lai/helping-hand/issues"
   },
+  "engines": {
+    "node": "5.6.0",
+    "npm": "3.6.0"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/.bin/webpack"
+  },
   "homepage": "https://github.com/edwin-lai/helping-hand#readme",
   "dependencies": {
     "babel-core": "^6.5.2",

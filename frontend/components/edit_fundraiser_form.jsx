@@ -1,3 +1,5 @@
+/* global cloudinary */
+
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var FundraiserUtil = require('../util/fundraiser_util.js');
@@ -5,7 +7,7 @@ var FundraiserStore = require('../stores/fundraiser.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
-  
+
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
@@ -15,6 +17,7 @@ module.exports = React.createClass({
       title: '',
       description: '',
       image_url: '',
+      thumbnail_url: '',
       goal_amount: undefined,
       category: '',
       user_id: 1
@@ -51,7 +54,7 @@ module.exports = React.createClass({
     function (error, success) {
       this.setState({
         image_url: success[0].url,
-        thumbnailUrl: success[0].thumbnail_url
+        thumbnail_url: success[0].thumbnail_url
       });
     }.bind(this));
   },
@@ -71,7 +74,7 @@ module.exports = React.createClass({
       <textarea id="description" valueLink={this.linkState('description')}/>
       <br />
       <button onClick={this.openUploadWidget}>Upload Image</button>
-      <img src={this.thumbnail_url} />
+      <img src={this.state.thumbnail_url} />
       <br />
       <input type="submit" value="Update Fundraiser" />
     </form>;
