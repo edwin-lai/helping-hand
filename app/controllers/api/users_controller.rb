@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  before_action :require_logged_out, only: [:new, :create]
+
   def index
     @users = User.all
   end
@@ -24,5 +26,9 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :first_name, :last_name)
+  end
+
+  def require_logged_out
+    redirect_to :root if current_user
   end
 end
