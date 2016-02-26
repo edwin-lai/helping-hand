@@ -11,8 +11,6 @@ module.exports = React.createClass({
         that.setState(FundraiserStore.find(parseInt(that.props.params.id)));
       }
     });
-
-
     FundraiserUtil.fetchSingleFundraiser(parseInt(that.props.params.id));
   },
 
@@ -20,10 +18,9 @@ module.exports = React.createClass({
     this.listener.remove();
   },
 
-  editLink: function (pageId) {
-    return;
-    if (this.state.user_id === window.current_user.id) {
-      return <Link to={'/fundraisers/' + pageId + '/edit'}>Edit</Link>;
+  editLink: function (fundraiser) {
+    if ( fundraiser.user_id === window.currentUserId) {
+      return <Link to={'/fundraisers/' + fundraiser.id + '/edit'}>Edit</Link>;
     }
   },
 
@@ -46,7 +43,7 @@ module.exports = React.createClass({
         <br />
         {fundraiser.description}
         <br />
-        {this.editLink(this.props.params.id)}
+        {this.editLink(fundraiser)}
         <br />
       </content>
     );

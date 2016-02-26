@@ -32419,7 +32419,6 @@
 	        that.setState(FundraiserStore.find(parseInt(that.props.params.id)));
 	      }
 	    });
-	
 	    FundraiserUtil.fetchSingleFundraiser(parseInt(that.props.params.id));
 	  },
 	
@@ -32427,12 +32426,11 @@
 	    this.listener.remove();
 	  },
 	
-	  editLink: function (pageId) {
-	    return;
-	    if (this.state.user_id === window.current_user.id) {
+	  editLink: function (fundraiser) {
+	    if (fundraiser.user_id === window.currentUserId) {
 	      return React.createElement(
 	        Link,
-	        { to: '/fundraisers/' + pageId + '/edit' },
+	        { to: '/fundraisers/' + fundraiser.id + '/edit' },
 	        'Edit'
 	      );
 	    }
@@ -32464,7 +32462,7 @@
 	      React.createElement('br', null),
 	      fundraiser.description,
 	      React.createElement('br', null),
-	      this.editLink(this.props.params.id),
+	      this.editLink(fundraiser),
 	      React.createElement('br', null)
 	    );
 	  }

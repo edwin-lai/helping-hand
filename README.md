@@ -75,8 +75,10 @@ user interface.
 - [x] write auth forms in React
 - [x] integrate Cloudinary image upload
 
-TODO: Reset window.currentUser
-TODO: Protect resources with before actions "401 restricted resource"
+Brooke's TODOs:
+
+- [x] Reset window.currentUser
+- [x] Protect resources with before actions "401 restricted resource"
 
 ### [Phase 4: Start Styling][phase-four] (1 day)
 
