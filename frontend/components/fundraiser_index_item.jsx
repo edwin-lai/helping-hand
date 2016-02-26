@@ -20,21 +20,24 @@ module.exports = React.createClass({
 
     if (userId === fundraiser.user_id && this.props.source === 'idx') {
       return(
-        <li>
-          <img src={fundraiser.thumbnail_url} />
-          <br />
-          <Link to={'/fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
-          <Link to={'/fundraisers/' + fundraiser.id + '/edit'}>Edit</Link>
+        <li className="my-fundraisers-item">
+          <Link to={'/fundraisers/' + fundraiser.id} className="fundraiser-link">{fundraiser.title}</Link>
           <button onClick={this.destroyFundraiser}>Delete</button>
+          <Link to={'/fundraisers/' + fundraiser.id + '/edit'} className="button">Edit</Link>
         </li>
       );
     } else {
       return(
-        <li>
+        <li className="fundraiser-index-item">
           <img src={fundraiser.thumbnail_url} />
           <Link to={'/fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
-          {this.props.fundraiser.first_name}
-          {this.props.fundraiser.last_name}
+          <br />
+          <section className="recipient-name">
+            {this.props.fundraiser.first_name + ' ' + this.props.fundraiser.last_name}
+          </section>
+          <section className="goal">
+            Goal: {this.props.fundraiser.goal_amount} CareCoins
+          </section>
         </li>
       );
     }

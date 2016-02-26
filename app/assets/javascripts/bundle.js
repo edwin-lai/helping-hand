@@ -19729,10 +19729,15 @@
 	    }
 	    return React.createElement(
 	      'ul',
-	      null,
+	      { className: 'my-fundraisers' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'My Fundraisers'
+	      ),
 	      React.createElement(
 	        Link,
-	        { to: 'fundraisers/new' },
+	        { to: 'fundraisers/new', className: 'button' },
 	        'New Fundraiser'
 	      ),
 	      this.fundraisers()
@@ -26648,37 +26653,46 @@
 	    if (userId === fundraiser.user_id && this.props.source === 'idx') {
 	      return React.createElement(
 	        'li',
-	        null,
-	        React.createElement('img', { src: fundraiser.thumbnail_url }),
-	        React.createElement('br', null),
+	        { className: 'my-fundraisers-item' },
 	        React.createElement(
 	          Link,
-	          { to: '/fundraisers/' + fundraiser.id },
+	          { to: '/fundraisers/' + fundraiser.id, className: 'fundraiser-link' },
 	          fundraiser.title
-	        ),
-	        React.createElement(
-	          Link,
-	          { to: '/fundraisers/' + fundraiser.id + '/edit' },
-	          'Edit'
 	        ),
 	        React.createElement(
 	          'button',
 	          { onClick: this.destroyFundraiser },
 	          'Delete'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: '/fundraisers/' + fundraiser.id + '/edit', className: 'button' },
+	          'Edit'
 	        )
 	      );
 	    } else {
 	      return React.createElement(
 	        'li',
-	        null,
+	        { className: 'fundraiser-index-item' },
 	        React.createElement('img', { src: fundraiser.thumbnail_url }),
 	        React.createElement(
 	          Link,
 	          { to: '/fundraisers/' + fundraiser.id },
 	          fundraiser.title
 	        ),
-	        this.props.fundraiser.first_name,
-	        this.props.fundraiser.last_name
+	        React.createElement('br', null),
+	        React.createElement(
+	          'section',
+	          { className: 'recipient-name' },
+	          this.props.fundraiser.first_name + ' ' + this.props.fundraiser.last_name
+	        ),
+	        React.createElement(
+	          'section',
+	          { className: 'goal' },
+	          'Goal: ',
+	          this.props.fundraiser.goal_amount,
+	          ' CareCoins'
+	        )
 	      );
 	    }
 	  }
@@ -31873,7 +31887,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { onSubmit: this.createUser, className: 'auth-form' },
+	      { onSubmit: this.createUser, className: 'form' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -31952,7 +31966,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { onSubmit: this.login, className: 'auth-form' },
+	      { onSubmit: this.login, className: 'form' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -32017,6 +32031,12 @@
 	    }.bind(this));
 	  },
 	
+	  image: function () {
+	    if (this.state.thumbnail_url) {
+	      return React.createElement('img', { src: this.state.thumbnail_url });
+	    }
+	  },
+	
 	  openUploadWidget: function (event) {
 	    event.preventDefault();
 	    cloudinary.openUploadWidget({
@@ -32033,7 +32053,12 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { className: 'fundraiserForm', onSubmit: this.createFundraiser },
+	      { className: 'form', onSubmit: this.createFundraiser },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'New Fundraiser'
+	      ),
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'title' },
@@ -32060,6 +32085,7 @@
 	        { htmlFor: 'description' },
 	        'Description'
 	      ),
+	      React.createElement('br', null),
 	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
 	      React.createElement('br', null),
 	      React.createElement(
@@ -32069,7 +32095,7 @@
 	      ),
 	      React.createElement('img', { src: this.state.thumbnail_url }),
 	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'Create Fundraiser' })
+	      React.createElement('input', { type: 'submit', value: 'Create Fundraiser', className: 'submit' })
 	    );
 	  }
 	});
@@ -32143,7 +32169,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { className: 'fundraiserForm', onSubmit: this.updateFundraiser },
+	      { className: 'form', onSubmit: this.updateFundraiser },
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'title' },
@@ -32170,6 +32196,7 @@
 	        { htmlFor: 'description' },
 	        'Description'
 	      ),
+	      React.createElement('br', null),
 	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
 	      React.createElement('br', null),
 	      React.createElement(
@@ -32179,7 +32206,7 @@
 	      ),
 	      React.createElement('img', { src: this.state.thumbnail_url }),
 	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'Update Fundraiser' })
+	      React.createElement('input', { type: 'submit', value: 'Update Fundraiser', className: 'submit' })
 	    );
 	  }
 	});
@@ -32463,7 +32490,7 @@
 	
 	    return React.createElement(
 	      'content',
-	      null,
+	      { className: 'fundraiser' },
 	      fundraiser.title,
 	      React.createElement('br', null),
 	      React.createElement('img', { src: fundraiser.image_url }),
@@ -32652,7 +32679,7 @@
 	        React.createElement(
 	          Link,
 	          { to: '/' },
-	          'Fundraisers'
+	          'Helping Hand'
 	        ),
 	        React.createElement(
 	          Link,
@@ -32672,7 +32699,7 @@
 	        React.createElement(
 	          Link,
 	          { to: '/' },
-	          'Fundraisers'
+	          'Helping Hand'
 	        ),
 	        React.createElement(
 	          Link,

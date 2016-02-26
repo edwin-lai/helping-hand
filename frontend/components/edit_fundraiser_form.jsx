@@ -60,7 +60,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <form className="fundraiserForm" onSubmit={this.updateFundraiser}>
+    return <form className="form" onSubmit={this.updateFundraiser}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />
@@ -71,12 +71,13 @@ module.exports = React.createClass({
       <input type="text" id="category" valueLink={this.linkState('category')}/>
       <br />
       <label htmlFor="description">Description</label>
+      <br />
       <textarea id="description" valueLink={this.linkState('description')}/>
       <br />
       <button onClick={this.openUploadWidget}>Upload Image</button>
       <img src={this.state.thumbnail_url} />
       <br />
-      <input type="submit" value="Update Fundraiser" />
+      <input type="submit" value="Update Fundraiser" className="submit" />
     </form>;
   }
 });

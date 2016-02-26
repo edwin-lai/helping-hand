@@ -32,7 +32,7 @@ module.exports = React.createClass({
     }
 
     return(
-      <content>
+      <content className="fundraiser">
         {fundraiser.title}
         <br />
         <img src={fundraiser.image_url} />

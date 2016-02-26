@@ -1,4 +1,5 @@
 json.array! @fundraisers do |fundraiser|
+  json.id fundraiser.id
   json.title fundraiser.title
   json.category fundraiser.category
   json.user_id fundraiser.user_id

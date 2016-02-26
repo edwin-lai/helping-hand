@@ -30,6 +30,12 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
+  image: function () {
+    if (this.state.thumbnail_url) {
+      return <img src={this.state.thumbnail_url} />;
+    }
+  },
+
   openUploadWidget: function(event) {
     event.preventDefault();
     cloudinary.openUploadWidget({
@@ -45,7 +51,8 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <form className="fundraiserForm" onSubmit={this.createFundraiser}>
+    return <form className="form" onSubmit={this.createFundraiser}>
+      <h1>New Fundraiser</h1>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />
@@ -56,12 +63,13 @@ module.exports = React.createClass({
       <input type="text" id="category" valueLink={this.linkState('category')}/>
       <br />
       <label htmlFor="description">Description</label>
+      <br />
       <textarea id="description" valueLink={this.linkState('description')}/>
       <br />
       <button onClick={this.openUploadWidget}>Upload Image</button>
       <img src={this.state.thumbnail_url} />
       <br />
-      <input type="submit" value="Create Fundraiser" />
+      <input type="submit" value="Create Fundraiser" className="submit"/>
     </form>;
   }
 });

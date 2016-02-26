@@ -29,7 +29,7 @@ var NewUserForm = React.createClass({
   },
 
   render: function () {
-    return <form onSubmit={this.createUser} className="auth-form">
+    return <form onSubmit={this.createUser} className="form">
       <h1>New User</h1>
       <label htmlFor="firstName">First Name</label>
       <input type="text" id="firstName" valueLink={this.linkState('first_name')} />

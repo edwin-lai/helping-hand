@@ -36,13 +36,13 @@ module.exports = React.createClass({
   render: function () {
     if (this.state.currentUser.id) {
       return <nav className="navbar">
-        <Link to="/">Fundraisers</Link>
+        <Link to="/">Helping Hand</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
         <button onClick={this.logout} className="auth">Logout</button>
       </nav>;
     } else {
       return <nav className="navbar">
-        <Link to="/">Fundraisers</Link>
+        <Link to="/">Helping Hand</Link>
         <Link to="/login" className="auth">Login</Link>
         <Link to="/users/new" className="auth">New User</Link>
       </nav>;

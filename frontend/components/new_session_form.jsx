@@ -28,7 +28,7 @@ var NewSessionForm = React.createClass({
   },
 
   render: function () {
-    return <form onSubmit={this.login} className="auth-form">
+    return <form onSubmit={this.login} className="form">
       <h1>Log In</h1>
       <label htmlFor="email">Email</label>
       <input type="text" id="email" valueLink={this.linkState('email')} />
