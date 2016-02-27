@@ -26591,8 +26591,16 @@
 	  },
 	
 	  createFundraiser: function (data, callback) {
-	    $.post('api/fundraisers', { fundraiser: data });
-	    callback();
+	    $.ajax({
+	      type: 'POST',
+	      url: 'api/fundraisers',
+	      data: { fundraiser: data },
+	      dataType: 'json',
+	      success: callback,
+	      error: function () {
+	        console.log(arguments);
+	      }
+	    });
 	  },
 	
 	  updateFundraiser: function (id, data, callback) {
@@ -26600,9 +26608,12 @@
 	      url: 'api/fundraisers/' + id,
 	      type: 'patch',
 	      data: { fundraiser: data },
-	      dataType: 'json'
+	      dataType: 'json',
+	      success: callback,
+	      error: function () {
+	        console.log(arguments);
+	      }
 	    });
-	    callback();
 	  },
 	
 	  destroyFundraiser: function (id) {
@@ -26671,7 +26682,16 @@
 	  },
 	
 	  createUser: function (data, callback) {
-	    $.post('api/users/', { user: data }, callback);
+	    $.ajax({
+	      type: "POST",
+	      url: 'api/users/',
+	      data: { user: data },
+	      dataType: 'json',
+	      success: callback,
+	      error: function () {
+	        console.log(arguments);
+	      }
+	    });
 	  }
 	};
 
@@ -31939,7 +31959,16 @@
 
 	module.exports = {
 	  signIn: function (data, callback) {
-	    $.post('/api/session', { user: data }, callback);
+	    $.ajax({
+	      type: "POST",
+	      url: '/api/session',
+	      data: { user: data },
+	      dataType: 'json',
+	      success: callback,
+	      error: function () {
+	        console.log(arguments);
+	      }
+	    });
 	  },
 	
 	  signOut: function (callback) {

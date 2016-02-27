@@ -20,6 +20,15 @@ module.exports = {
   },
 
   createUser: function (data, callback) {
-    $.post('api/users/', { user: data }, callback);
+    $.ajax({
+      type: "POST",
+      url: 'api/users/',
+      data: { user: data },
+      dataType: 'json',
+      success: callback,
+      error: function () {
+        console.log(arguments);
+      }
+    });
   }
 };

@@ -15,8 +15,16 @@ module.exports = {
   },
 
   createFundraiser: function (data, callback) {
-    $.post('api/fundraisers', { fundraiser: data });
-    callback();
+    $.ajax({
+      type: 'POST',
+      url: 'api/fundraisers',
+      data: { fundraiser: data },
+      dataType: 'json',
+      success: callback,
+      error: function () {
+        console.log(arguments);
+      }
+    });
   },
 
   updateFundraiser: function (id, data, callback) {
@@ -24,9 +32,12 @@ module.exports = {
       url: 'api/fundraisers/' + id,
       type: 'patch',
       data: { fundraiser: data },
-      dataType: 'json'
+      dataType: 'json',
+      success: callback,
+      error: function () {
+        console.log(arguments);
+      }
     });
-    callback();
   },
 
   destroyFundraiser: function (id) {

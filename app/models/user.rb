@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :fundraisers
+  has_many :donations
 
   attr_reader :password
 

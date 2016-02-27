@@ -1,6 +1,15 @@
 module.exports = {
   signIn: function (data, callback) {
-    $.post('/api/session', {user: data}, callback);
+    $.ajax({
+      type: "POST",
+      url: '/api/session',
+      data: {user: data},
+      dataType: 'json',
+      success: callback,
+      error: function () {
+        console.log(arguments);
+      }
+    });
   },
 
   signOut: function (callback) {
