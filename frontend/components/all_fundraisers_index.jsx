@@ -28,7 +28,9 @@ var FundraisersIndex = React.createClass({
   },
 
   render: function () {
-    return <ul>
+    return <ul className="index">
+      <h1 className="tagline">Show That You Care</h1>
+      <h1><Link to="/users/new" className="giant-button">Sign Up Today!</Link></h1>
       {this.fundraisers()}
     </ul>;
   }

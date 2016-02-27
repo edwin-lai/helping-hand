@@ -82,11 +82,11 @@ Brooke's TODOs:
 
 ### [Phase 4: Start Styling][phase-four] (1 day)
 
-**Objective:** Existing pages (including singup/signin) will look good.
+**Objective:** Existing pages (including signup/signin) will look good.
 
-- [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] add basic colors & styles
+- [x] create a basic style guide
+- [x] position elements on the page
+- [x] add basic colors & styles
 
 ### [Phase 5: Donations][phase-five] (1 day)
 

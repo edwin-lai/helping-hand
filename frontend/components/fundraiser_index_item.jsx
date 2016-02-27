@@ -33,7 +33,8 @@ module.exports = React.createClass({
           <Link to={'/fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
           <br />
           <section className="recipient-name">
-            {this.props.fundraiser.first_name + ' ' + this.props.fundraiser.last_name}
+            {this.props.fundraiser.user.first_name + ' ' +
+              this.props.fundraiser.user.last_name}
           </section>
           <section className="goal">
             Goal: {this.props.fundraiser.goal_amount} CareCoins

@@ -2,10 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$navbar-text-color: rgb(254, 254, 254);
-$navbar-bg-color: rgb(0, 180, 180);
-$navbar-hover-bg-color: rgb(0, 0, 254);
+$navbar-text-color: rgb(255, 255, 255);
+$navbar-bg-color: rgb(88, 214, 0);
+$navbar-hover-bg-color: rgb(0, 240, 0);
 $form-border-color: rgb(0, 0, 0);
+$border-color: rgb(0, 0, 0);
 
 .form {
   display: inline-block;
@@ -55,15 +56,69 @@ $form-border-color: rgb(0, 0, 0);
 
 .fundraiser {
   font-family: 'Lato', sans-serif;
+
+  .category {
+    display: inline-block;
+    float: right;
+    margin: 10px;
+    padding: 10px 20px;
+  }
+
+  .description {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .edit {
+    background-color: $navbar-bg-color;
+    border: 1px solid $form-border-color;
+    border-radius: 5px;
+    color: $navbar-text-color;
+    display: inline-block;
+    float: right;
+    margin: 10px;
+    padding: 10px 20px;
+
+    &:hover {
+      background: $navbar-hover-bg-color;
+      color: $navbar-text-color;
+      text-decoration: none;
+    }
+  }
+
+  .goal,
+  .recipient {
+    display: inline-block;
+    margin: 10px;
+    margin-left: 0;
+    padding: 10px 20px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 900;
+    padding-top: 10px;
+    text-align: center;
+    width: 100%;
+  }
+
+  img {
+    height: auto;
+    width: 100%;
+  }
 }
 
 .fundraiser-index-item {
-  border: 1px solid $form-border-color;
+  border: 1px solid $border-color;
+  border-radius: 5px;
   display: inline-block;
-  height: 175px;
+  height: 180px;
   margin: 10px;
   margin-top: 20px;
-  width: 250px;
+  width: 300px;
 
   a {
     font-family: 'Lato', sans-serif;
@@ -76,16 +131,48 @@ $form-border-color: rgb(0, 0, 0);
   img {
     height: 120px;
     margin: auto;
+    padding: 10px;
     width: 150px;
   }
 
   section {
     display: inline-block;
+    float: left;
     font-family: 'Lato', sans-serif;
+    padding: 0px 10px;
   }
 
   .goal {
     float: right;
+  }
+}
+
+.index {
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  width: auto;
+
+  .giant-button {
+    background: $navbar-bg-color;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    color: $navbar-text-color;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 10px 20px;
+
+    &:hover {
+      background: $navbar-hover-bg-color;
+      color: $navbar-text-color;
+      text-decoration: none;
+    }
+  }
+
+  .tagline {
+    font-size: 48px;
+    font-weight: 900;
+    margin: 20px;
   }
 }
 
@@ -128,7 +215,7 @@ $form-border-color: rgb(0, 0, 0);
   }
 
   li {
-    border: 1px solid black;
+    border: 1px solid $border-color;
     border-radius: 5px;
     margin: 10px;
   }
