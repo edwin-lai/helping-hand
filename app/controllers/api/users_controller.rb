@@ -12,7 +12,12 @@ class Api::UsersController < ApplicationController
   def create
     user_params[:bank] = 500
     @user = User.new(user_params)
-    sign_in(@user) if @user.save
+    if @user.save
+      sign_in(@user)
+      render :create
+    else
+      render json: { errors: @user.errors.full_messages }, status: 422
+    end
   end
 
   def show

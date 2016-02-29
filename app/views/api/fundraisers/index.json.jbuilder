@@ -7,5 +7,7 @@ json.array! @fundraisers do |fundraiser|
   json.description fundraiser.description
   json.thumbnail_url fundraiser.thumbnail_url
   json.goal_amount fundraiser.goal_amount
+  json.donations fundraiser.donations
+  json.total_donations fundraiser.total_donations
   json.user fundraiser.user, :first_name, :last_name
 end

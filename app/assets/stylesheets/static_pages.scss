@@ -8,10 +8,18 @@ $navbar-hover-bg-color: rgb(0, 240, 0);
 $form-border-color: rgb(0, 0, 0);
 $border-color: rgb(0, 0, 0);
 
+.content {
+  margin-top: 30px;
+  position: absolute;
+  width: 100%;
+}
+
 .form {
   display: inline-block;
   font-family: "Lato", sans-serif;
+  margin: auto;
   padding: 10px 20px;
+  width: 100%;
 
   h1 {
     font-size: 36px;
@@ -24,16 +32,26 @@ $border-color: rgb(0, 0, 0);
     padding: 10px;
   }
 
-  input,
-  textarea {
+  input {
     border: 1px solid $form-border-color;
     border-radius: 5px;
     margin-bottom: 20px;
     padding: 10px;
   }
 
+  textarea {
+    border: 1px solid $form-border-color;
+    border-radius: 5px;
+    height: 100px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 248px;
+  }
+
   label {
-    padding-right: 10px;
+    display: inherit;
+    height: 30px;
+    width: 80px;
   }
 
   button,
@@ -56,12 +74,15 @@ $border-color: rgb(0, 0, 0);
 
 .fundraiser {
   font-family: 'Lato', sans-serif;
+  position: relative;
+  top: 18px;
 
   .category {
     display: inline-block;
     float: right;
     margin: 10px;
     padding: 10px 20px;
+    position: relative;
   }
 
   .description {
@@ -81,6 +102,7 @@ $border-color: rgb(0, 0, 0);
     float: right;
     margin: 10px;
     padding: 10px 20px;
+    position: relative;
 
     &:hover {
       background: $navbar-hover-bg-color;
@@ -95,6 +117,7 @@ $border-color: rgb(0, 0, 0);
     margin: 10px;
     margin-left: 0;
     padding: 10px 20px;
+    position: relative;
   }
 
   h1 {
@@ -178,6 +201,7 @@ $border-color: rgb(0, 0, 0);
 
 .my-fundraisers {
   font-family: 'Lato', sans-serif;
+  margin-top: 18px;
 
   h1 {
     display: inline-block;
@@ -225,7 +249,12 @@ $border-color: rgb(0, 0, 0);
   background: $navbar-bg-color;
   font-family: 'Lato', sans-serif;
   font-weight: 900;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   width: 100%;
+  z-index: 9999;
 
   a,
   button {

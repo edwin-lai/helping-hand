@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    resources :fundraisers
+    resources :fundraisers do
+      resources :donations, only: :index
+    end
+    resources :donations, except: [:index, :destroy]
     get 'users/current_user', to: 'users#show_current_user'
-    resources :users, only: [:index, :create, :new, :show], defaults: { format: :json }
+    resources :users, only: [:index, :create, :new, :show] do
+      resources :donations, only: :index
+    end
     resource :session, only: [:new, :create, :destroy]
   end
   root 'static_pages#root'

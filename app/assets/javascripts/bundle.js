@@ -19700,7 +19700,11 @@
 	      'content',
 	      null,
 	      React.createElement(NavBar, null),
-	      this.props.children
+	      React.createElement(
+	        'content',
+	        { className: 'content' },
+	        this.props.children
+	      )
 	    );
 	  }
 	});
@@ -19752,15 +19756,20 @@
 	      'ul',
 	      { className: 'my-fundraisers' },
 	      React.createElement(
-	        'h1',
+	        'header',
 	        null,
-	        'My Fundraisers'
+	        React.createElement(
+	          'h1',
+	          null,
+	          'My Fundraisers'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: 'fundraisers/new', className: 'button' },
+	          'New Fundraiser'
+	        )
 	      ),
-	      React.createElement(
-	        Link,
-	        { to: 'fundraisers/new', className: 'button' },
-	        'New Fundraiser'
-	      ),
+	      React.createElement('br', null),
 	      this.fundraisers()
 	    );
 	  }
@@ -19787,20 +19796,39 @@
 	  });
 	};
 	
+	FundraiserStore.receiveAllFundraisers = function (payload) {
+	  _fundraisers = payload.fundraisers;
+	};
+	
+	FundraiserStore.receiveSingleFundraiser = function (payload) {
+	  var index = _fundraisers.findIndex(function (fundraiser) {
+	    return fundraiser.id === payload.fundraiser.id;
+	  });
+	  if (index !== -1) {
+	    _fundraisers[index] = payload.fundraiser;
+	  } else {
+	    _fundraisers.push(payload.fundraiser);
+	  }
+	};
+	
+	FundraiserStore.deleteFundraiser = function (payload) {
+	  _fundraisers = _fundraisers.filter(function (fundraiser) {
+	    return fundraiser.id !== payload.fundraiserId;
+	  });
+	};
+	
 	FundraiserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case 'FUNDRAISERS_RECEIVED':
-	      _fundraisers = payload.fundraisers;
+	      FundraiserStore.receiveAllFundraisers(payload);
 	      FundraiserStore.__emitChange();
 	      break;
 	    case 'RECEIVE_FUNDRAISER':
-	      _fundraisers.push(payload.fundraiser);
+	      FundraiserStore.receiveSingleFundraiser(payload);
 	      FundraiserStore.__emitChange();
 	      break;
 	    case 'DELETE_FUNDRAISER':
-	      _fundraisers = _fundraisers.filter(function (fundraiser) {
-	        return fundraiser.id !== payload.fundraiserId;
-	      });
+	      FundraiserStore.deleteFundraiser(payload);
 	      FundraiserStore.__emitChange();
 	      break;
 	  }
@@ -26599,6 +26627,7 @@
 	      success: callback,
 	      error: function () {
 	        console.log(arguments);
+	        debugger;
 	      }
 	    });
 	  },
@@ -26775,7 +26804,11 @@
 	      return React.createElement(
 	        'li',
 	        { className: 'fundraiser-index-item' },
-	        React.createElement('img', { src: fundraiser.thumbnail_url }),
+	        React.createElement(
+	          Link,
+	          { to: '/fundraisers/' + fundraiser.id },
+	          React.createElement('img', { src: fundraiser.thumbnail_url })
+	        ),
 	        React.createElement(
 	          Link,
 	          { to: '/fundraisers/' + fundraiser.id },
@@ -32015,6 +32048,22 @@
 	    });
 	  },
 	
+	  giantButtonLink: function () {
+	    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+	      return "/users/new";
+	    } else {
+	      return "/fundraisers/new";
+	    }
+	  },
+	
+	  giantButtonText: function () {
+	    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+	      return "Sign Up Today!";
+	    } else {
+	      return "Make a New Fundraiser!";
+	    }
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'ul',
@@ -32029,8 +32078,8 @@
 	        null,
 	        React.createElement(
 	          Link,
-	          { to: '/users/new', className: 'giant-button' },
-	          'Sign Up Today!'
+	          { to: this.giantButtonLink(), className: 'giant-button' },
+	          this.giantButtonText()
 	        )
 	      ),
 	      this.fundraisers()
@@ -32424,6 +32473,7 @@
 	var React = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(250);
 	var FundraiserUtil = __webpack_require__(183);
+	var FundraiserActions = __webpack_require__(184);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32448,8 +32498,9 @@
 	
 	  createFundraiser: function (event) {
 	    event.preventDefault();
-	    FundraiserUtil.createFundraiser(this.state, function () {
-	      this.context.router.push('/fundraisers');
+	    FundraiserUtil.createFundraiser(this.state, function (fundraiser) {
+	      FundraiserActions.receiveSingleFundraiser(fundraiser);
+	      this.context.router.push('/fundraisers' + fundraiser.id);
 	    }.bind(this));
 	  },
 	
@@ -32532,6 +32583,7 @@
 	var LinkedStateMixin = __webpack_require__(250);
 	var FundraiserUtil = __webpack_require__(183);
 	var FundraiserStore = __webpack_require__(161);
+	var FundraiserActions = __webpack_require__(184);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32570,7 +32622,8 @@
 	
 	  updateFundraiser: function (event) {
 	    event.preventDefault();
-	    FundraiserUtil.updateFundraiser(this.state.id, this.state, function () {
+	    FundraiserUtil.updateFundraiser(this.state.id, this.state, function (fundraiser) {
+	      FundraiserActions.receiveSingleFundraiser(fundraiser);
 	      this.context.router.push('/fundraisers/' + this.props.params.id);
 	    }.bind(this));
 	  },
@@ -32638,9 +32691,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Link = __webpack_require__(188).Link;
 	var FundraiserStore = __webpack_require__(161);
 	var FundraiserUtil = __webpack_require__(183);
+	var FundraiserSidebar = __webpack_require__(262);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32662,16 +32715,6 @@
 	    this.listener.remove();
 	  },
 	
-	  editLink: function (fundraiser) {
-	    if (fundraiser.user_id === window.currentUserId) {
-	      return React.createElement(
-	        Link,
-	        { to: '/fundraisers/' + fundraiser.id + '/edit', className: 'edit' },
-	        'Edit'
-	      );
-	    }
-	  },
-	
 	  render: function () {
 	    if (!this.state.user) {
 	      return React.createElement(
@@ -32690,34 +32733,160 @@
 	        this.state.title
 	      ),
 	      React.createElement('br', null),
-	      React.createElement('img', { src: this.state.image_url }),
-	      React.createElement('br', null),
+	      React.createElement(
+	        'main',
+	        { className: 'main' },
+	        React.createElement('img', { src: this.state.image_url }),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'content',
+	          { className: 'description' },
+	          this.state.description
+	        ),
+	        React.createElement('br', null)
+	      ),
+	      React.createElement(FundraiserSidebar, { fundraiser: this.state })
+	    );
+	  }
+	});
+
+/***/ },
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DonationBox = __webpack_require__(265);
+	var Recipient = __webpack_require__(263);
+	var Donations = __webpack_require__(264);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  render: function () {
+	    return React.createElement(
+	      'section',
+	      { className: 'sidebar' },
+	      React.createElement(DonationBox, { fundraiser: this.props.fundraiser }),
+	      React.createElement(Recipient, { fundraiser: this.props.fundraiser }),
+	      React.createElement(Donations, { fundraiser: this.props.donations })
+	    );
+	  }
+	});
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  render: function () {
+	    return React.createElement(
+	      'content',
+	      { className: 'recipient' },
+	      'Created ',
+	      this.props.fundraisercreated_at,
+	      'By ',
+	      this.props.fundraiser.user.first_name + ' ' + this.props.fundraiser.user.last_name
+	    );
+	  }
+	});
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Donation = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./fundraiser_sidebar_donation.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  donations: function () {
+	    return this.props.fundraiser.donations.map(function (donation) {
+	      return React.createElement(Donation, { donation: donation });
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'section',
+	      { className: 'donations' },
 	      React.createElement(
 	        'content',
-	        { className: 'recipient' },
-	        'By ',
-	        this.state.user.first_name + ' ' + this.state.user.last_name
+	        { className: 'num-donations' },
+	        this.props.fundraiser.donations.length
 	      ),
 	      React.createElement(
-	        'content',
-	        { className: 'goal' },
-	        'Goal: ',
-	        this.state.goal_amount,
-	        ' CareCoins'
-	      ),
-	      this.editLink(this.state),
+	        'ul',
+	        null,
+	        this.donations
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(188).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  editLink: function (fundraiser) {
+	    if (fundraiser.user_id === window.currentUserId) {
+	      return React.createElement(
+	        Link,
+	        { to: '/fundraisers/' + fundraiser.id + '/edit', className: 'edit' },
+	        'Edit'
+	      );
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'section',
+	      { className: 'donation-box' },
 	      React.createElement(
 	        'content',
 	        { className: 'category' },
 	        'Category: ',
-	        this.state.category
+	        this.props.fundraiser.category
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'section',
+	        { className: 'donation-status' },
+	        React.createElement(
+	          'content',
+	          { className: 'total-donations' },
+	          this.props.fundraiser.total_donations
+	        ),
+	        React.createElement(
+	          'content',
+	          { className: 'goal' },
+	          'of ',
+	          this.props.fundraiser.goal_amount,
+	          ' CareCoins'
+	        )
 	      ),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'content',
-	        { className: 'description' },
-	        this.state.description
+	        { className: 'popularity' },
+	        'Raised by ',
+	        this.props.fundraiser.num_donors
 	      ),
+	      this.editLink(this.props.fundraiser),
 	      React.createElement('br', null)
 	    );
 	  }

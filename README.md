@@ -92,7 +92,7 @@ Brooke's TODOs:
 
 **Objective:** Donations belong to Fundraisers, and can be viewed by fundraiser.
 
-- [ ] create `Donation` model
+- [x] create `Donation` model
 - build out API, Flux loop, and components for:
   - [ ] Donation CRUD
   - [ ] adding donations requires a fundraiser

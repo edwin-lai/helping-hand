@@ -6,4 +6,12 @@ class Fundraiser < ActiveRecord::Base
   has_many :donations
 
   belongs_to :user
+
+  def total_donations
+    donations.map(&:amount).inject(:+)
+  end
+
+  def num_donors
+    donations.map(&:user_id).uniq.size
+  end
 end

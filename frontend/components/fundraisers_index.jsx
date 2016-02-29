@@ -36,8 +36,11 @@ var FundraisersIndex = React.createClass({
       window.location.assign('/');
     }
     return <ul className="my-fundraisers">
-      <h1>My Fundraisers</h1>
-      <Link to={'fundraisers/new'} className="button">New Fundraiser</Link>
+      <header>
+        <h1>My Fundraisers</h1>
+        <Link to={'fundraisers/new'} className="button">New Fundraiser</Link>
+      </header>
+      <br />
       {this.fundraisers()}
     </ul>;
   }

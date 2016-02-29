@@ -29,7 +29,9 @@ module.exports = React.createClass({
     } else {
       return(
         <li className="fundraiser-index-item">
-          <img src={fundraiser.thumbnail_url} />
+          <Link to={'/fundraisers/' + fundraiser.id}>
+            <img src={fundraiser.thumbnail_url} />
+          </Link>
           <Link to={'/fundraisers/' + fundraiser.id}>{fundraiser.title}</Link>
           <br />
           <section className="recipient-name">

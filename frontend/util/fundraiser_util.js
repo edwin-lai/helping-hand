@@ -23,6 +23,7 @@ module.exports = {
       success: callback,
       error: function () {
         console.log(arguments);
+        debugger;
       }
     });
   },

@@ -1,7 +1,7 @@
 var React = require('react');
-var Link = require('react-router').Link;
 var FundraiserStore = require('../stores/fundraiser.js');
 var FundraiserUtil = require('../util/fundraiser_util.js');
+var FundraiserSidebar = require('./fundraiser_sidebar/fundraiser_sidebar.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -21,13 +21,7 @@ module.exports = React.createClass({
     this.listener.remove();
   },
 
-  editLink: function (fundraiser) {
-    if ( fundraiser.user_id === window.currentUserId) {
-      return <Link to={'/fundraisers/' + fundraiser.id + '/edit'} className="edit">
-        Edit
-      </Link>;
-    }
-  },
+
 
   render: function () {
     if (!this.state.user) {
@@ -38,23 +32,15 @@ module.exports = React.createClass({
       <content className="fundraiser">
         <h1>{this.state.title}</h1>
         <br />
-        <img src={this.state.image_url} />
-        <br />
-        <content className="recipient">
-          By {this.state.user.first_name + ' ' + this.state.user.last_name}
-        </content>
-        <content className="goal">
-          Goal: {this.state.goal_amount} CareCoins
-        </content>
-        {this.editLink(this.state)}
-        <content className="category">
-          Category: {this.state.category}
-        </content>
-        <br />
-        <content className="description">
-          {this.state.description}
-        </content>
-        <br />
+        <main className="main">
+          <img src={this.state.image_url} />
+          <br />
+          <content className="description">
+            {this.state.description}
+          </content>
+          <br />
+        </main>
+        <FundraiserSidebar fundraiser={this.state} />
       </content>
     );
   }

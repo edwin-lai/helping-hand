@@ -27,10 +27,30 @@ var FundraisersIndex = React.createClass({
     });
   },
 
+  giantButtonLink: function () {
+    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+      return "/users/new";
+    } else {
+      return "/fundraisers/new";
+    }
+  },
+
+  giantButtonText: function () {
+    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+      return "Sign Up Today!";
+    } else {
+      return "Make a New Fundraiser!";
+    }
+  },
+
   render: function () {
     return <ul className="index">
       <h1 className="tagline">Show That You Care</h1>
-      <h1><Link to="/users/new" className="giant-button">Sign Up Today!</Link></h1>
+      <h1>
+        <Link to={this.giantButtonLink()} className="giant-button">
+          {this.giantButtonText()}
+        </Link>
+      </h1>
       {this.fundraisers()}
     </ul>;
   }

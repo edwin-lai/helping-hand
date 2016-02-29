@@ -6,7 +6,7 @@ module.exports = React.createClass({
   render: function () {
     return <content>
       <NavBar />
-      {this.props.children}
+      <content className="content">{this.props.children}</content>
     </content>;
   }
 });

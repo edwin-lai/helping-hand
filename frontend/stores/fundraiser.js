@@ -13,20 +13,39 @@ FundraiserStore.find = function (id) {
   });
 };
 
+FundraiserStore.receiveAllFundraisers = function (payload) {
+    _fundraisers = payload.fundraisers;
+};
+
+FundraiserStore.receiveSingleFundraiser = function (payload) {
+  var index = _fundraisers.findIndex(function (fundraiser) {
+      return fundraiser.id === payload.fundraiser.id;
+  });
+  if (index !== -1) {
+    _fundraisers[index] = payload.fundraiser;
+  } else {
+    _fundraisers.push(payload.fundraiser);
+  }
+};
+
+FundraiserStore.deleteFundraiser = function (payload) {
+  _fundraisers = _fundraisers.filter(function (fundraiser) {
+    return fundraiser.id !== payload.fundraiserId;
+  });
+};
+
 FundraiserStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case 'FUNDRAISERS_RECEIVED':
-      _fundraisers = payload.fundraisers;
+      FundraiserStore.receiveAllFundraisers(payload);
       FundraiserStore.__emitChange();
       break;
     case 'RECEIVE_FUNDRAISER':
-      _fundraisers.push(payload.fundraiser);
+      FundraiserStore.receiveSingleFundraiser(payload);
       FundraiserStore.__emitChange();
       break;
     case 'DELETE_FUNDRAISER':
-      _fundraisers = _fundraisers.filter(function (fundraiser) {
-        return fundraiser.id !== payload.fundraiserId;
-      });
+      FundraiserStore.deleteFundraiser(payload);
       FundraiserStore.__emitChange();
       break;
   }

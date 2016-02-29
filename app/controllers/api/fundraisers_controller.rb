@@ -12,6 +12,7 @@ class Api::FundraisersController < ApplicationController
   def create
     @fundraiser = Fundraiser.new(fundraiser_params)
     @fundraiser.save!
+    render :show
   end
 
   def show
@@ -27,6 +28,7 @@ class Api::FundraisersController < ApplicationController
     @fundraiser = Fundraiser.find_by_id(params['id'])
     @fundraiser.update!(fundraiser_params)
     require_correct_user
+    render :show if current_user.id == @fundraiser.user_id
   end
 
   def destroy

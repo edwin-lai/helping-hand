@@ -3,6 +3,7 @@
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var FundraiserUtil = require('../util/fundraiser_util.js');
+var FundraiserActions = require('../actions/fundraiser_actions.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -25,8 +26,9 @@ module.exports = React.createClass({
 
   createFundraiser: function (event) {
     event.preventDefault();
-    FundraiserUtil.createFundraiser(this.state, function () {
-      this.context.router.push('/fundraisers');
+    FundraiserUtil.createFundraiser(this.state, function (fundraiser) {
+      FundraiserActions.receiveSingleFundraiser(fundraiser);
+      this.context.router.push('/fundraisers' + fundraiser.id);
     }.bind(this));
   },
 
