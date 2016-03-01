@@ -23,8 +23,10 @@ class Api::DonationsController < ApplicationController
     if @donation.save!
       @donation.user.bank -= @donation.amount
       @donation.fundraiser.user.bank += @donation.amount
+      render :show
+    else
+      render json: { errors: @donation.errors.full_messages }, status: 422
     end
-    render :show
   end
 
   def show

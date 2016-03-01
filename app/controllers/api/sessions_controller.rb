@@ -4,16 +4,15 @@ class Api::SessionsController < ApplicationController
   end
 
   def create
-    # session[:session_token] = "SOME TOKEN"
-    # @user = User.last
     @user = User.find_by_credentials(
       params[:user][:email],
       params[:user][:password]
     )
-    # sign_in(@user) if @user
     if @user
       session[:session_token] = @user.session_token
       session[:email] = @user.email
+    else
+      render json: { errors: @user.errors.full_messages }, status: 422
     end
   end
 

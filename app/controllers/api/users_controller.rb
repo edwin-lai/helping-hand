@@ -16,6 +16,7 @@ class Api::UsersController < ApplicationController
       sign_in(@user)
       render :create
     else
+      puts @user.errors.full_messages
       render json: { errors: @user.errors.full_messages }, status: 422
     end
   end

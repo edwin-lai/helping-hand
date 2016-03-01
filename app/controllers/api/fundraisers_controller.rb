@@ -11,8 +11,11 @@ class Api::FundraisersController < ApplicationController
 
   def create
     @fundraiser = Fundraiser.new(fundraiser_params)
-    @fundraiser.save!
-    render :show
+    if @fundraiser.save!
+      render :show
+    else
+      render json: { errors: @fundraiser.errors.full_messages }, status: 422
+    end
   end
 
   def show
