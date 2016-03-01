@@ -94,11 +94,11 @@ Brooke's TODOs:
 
 - [x] create `Donation` model
 - build out API, Flux loop, and components for:
-  - [ ] Donation CRUD
+  - [x] Donation CRUD
   - [x] adding donations requires a fundraiser
   - [x] viewing donations by fundraiser
   - [x] Users cannot donate more CareCoins than they have in their bank
-- [ ] Use CSS to style new views
+- [x] Use CSS to style new views
 
 ### [Phase 6: Search Fundraisers by Title][phase-six] (0.5 days)
 
