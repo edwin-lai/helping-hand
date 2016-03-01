@@ -22,11 +22,11 @@ $border-color: rgb(200, 200, 200);
 }
 
 .form {
-  display: inline-block;
+  display: block;
   font-family: "Lato", sans-serif;
-  margin: auto;
+  margin: 0 auto;
   padding: 10px 20px;
-  width: 100%;
+  width: 280px;
 
   h1 {
     font-size: 36px;
@@ -40,14 +40,16 @@ $border-color: rgb(200, 200, 200);
   }
 
   input {
-    border: 1px solid $button-border-color;
+    border: 1px solid $border-color;
     border-radius: 5px;
+    box-shadow: 1px 1px 1px inset;
+    display: inline-block;
     margin-bottom: 20px;
     padding: 10px;
   }
 
   textarea {
-    border: 1px solid $button-border-color;
+    border: 1px solid $border-color;
     border-radius: 5px;
     height: 100px;
     margin-bottom: 20px;
@@ -56,7 +58,7 @@ $border-color: rgb(200, 200, 200);
   }
 
   label {
-    display: inherit;
+    display: inline-block;
     height: 30px;
     width: 90px;
   }
@@ -82,6 +84,10 @@ $border-color: rgb(200, 200, 200);
       color: $button-text-color;
       text-decoration: none;
     }
+  }
+
+  .guest-login {
+    float: right;
   }
 }
 
@@ -405,6 +411,7 @@ $border-color: rgb(200, 200, 200);
 .navbar {
   background: $navbar-bg-color;
   border-top: 5px solid $button-bg-color;
+  box-shadow: 1px 1px 3px $border-color;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   left: 0;
@@ -431,7 +438,25 @@ $border-color: rgb(200, 200, 200);
     }
   }
 
-  .auth {
+  .bank {
+    border: 0;
+    color: $navbar-text-color;
+    display: inline-block;
+    float: right;
+    padding: 10px 20px;
+
+    span {
+      color: inherit;
+    }
+
+    &:hover {
+      background: $navbar-hover-bg-color;
+      color: $navbar-text-color;
+      text-decoration: none;
+    }
+  }
+
+  .auth{
     float: right;
   }
 }

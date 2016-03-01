@@ -27,6 +27,21 @@ var NewSessionForm = React.createClass({
     }.bind(this));
   },
 
+  guestLogin: function (event) {
+    event.preventDefault();
+    SessionUtil.signIn(
+      {
+        email: 'guest.user@helping-hand.com',
+        password: 'password'
+      },
+      function (user) {
+        window.currentUserId = user.id;
+        UserActions.receiveCurrentUser(user);
+        this.context.router.push('/fundraisers');
+      }.bind(this)
+    );
+  },
+
   render: function () {
     return <form onSubmit={this.login} className="form">
       <h1>Log In</h1>
@@ -41,6 +56,9 @@ var NewSessionForm = React.createClass({
       />
       <br />
       <input type="submit" value="Log In" className="submit" />
+      <button onClick={this.guestLogin} className="guest-login">
+        Guest Login
+      </button>
     </form>;
   }
 });

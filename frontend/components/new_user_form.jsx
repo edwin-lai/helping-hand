@@ -2,6 +2,7 @@ var React = require('react');
 var UserUtil = require('../util/user_util.js');
 var UserActions = require('../actions/user_actions.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var SessionUtil = require('../util/session_util.js');
 
 var NewUserForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -28,6 +29,21 @@ var NewUserForm = React.createClass({
     }.bind(this));
   },
 
+  guestLogin: function (event) {
+    event.preventDefault();
+    SessionUtil.signIn(
+      {
+        email: 'guest.user@helping-hand.com',
+        password: 'password'
+      },
+      function (user) {
+        window.currentUserId = user.id;
+        UserActions.receiveCurrentUser(user);
+        this.context.router.push('/fundraisers');
+      }.bind(this)
+    );
+  },
+
   render: function () {
     return <form onSubmit={this.createUser} className="form">
       <h1>New User</h1>
@@ -44,6 +60,9 @@ var NewUserForm = React.createClass({
       <input type="password" id="password" valueLink={this.linkState('password')} />
       <br />
       <input type="submit" value="Sign Up" className="submit" />
+      <button onClick={this.guestLogin} className="guest-login">
+        Guest Login
+      </button>
     </form>;
   }
 });

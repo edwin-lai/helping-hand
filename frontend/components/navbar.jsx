@@ -90,6 +90,9 @@ module.exports = React.createClass({
         <Link name="logo" to="/" className="logo">Helping Hand</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
         <button onClick={this.logout} className="auth">Logout</button>
+        <content className="bank">
+          {UserStore.currentUser().bank} CareCoins
+        </content>
       </nav>;
     } else {
       return <nav className="navbar">

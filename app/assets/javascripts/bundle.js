@@ -32043,6 +32043,12 @@
 	          'button',
 	          { onClick: this.logout, className: 'auth' },
 	          'Logout'
+	        ),
+	        React.createElement(
+	          'content',
+	          { className: 'bank' },
+	          UserStore.currentUser().bank,
+	          ' CareCoins'
 	        )
 	      );
 	    } else {
@@ -32273,6 +32279,7 @@
 	var UserUtil = __webpack_require__(247);
 	var UserActions = __webpack_require__(246);
 	var LinkedStateMixin = __webpack_require__(250);
+	var SessionUtil = __webpack_require__(245);
 	
 	var NewUserForm = React.createClass({
 	  displayName: 'NewUserForm',
@@ -32295,6 +32302,18 @@
 	  createUser: function (event) {
 	    event.preventDefault();
 	    UserUtil.createUser(this.state, function (user) {
+	      window.currentUserId = user.id;
+	      UserActions.receiveCurrentUser(user);
+	      this.context.router.push('/fundraisers');
+	    }.bind(this));
+	  },
+	
+	  guestLogin: function (event) {
+	    event.preventDefault();
+	    SessionUtil.signIn({
+	      email: 'guest.user@helping-hand.com',
+	      password: 'password'
+	    }, function (user) {
 	      window.currentUserId = user.id;
 	      UserActions.receiveCurrentUser(user);
 	      this.context.router.push('/fundraisers');
@@ -32338,7 +32357,12 @@
 	      ),
 	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
 	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'Sign Up', className: 'submit' })
+	      React.createElement('input', { type: 'submit', value: 'Sign Up', className: 'submit' }),
+	      React.createElement(
+	        'button',
+	        { onClick: this.guestLogin, className: 'guest-login' },
+	        'Guest Login'
+	      )
 	    );
 	  }
 	});
@@ -32610,6 +32634,18 @@
 	    }.bind(this));
 	  },
 	
+	  guestLogin: function (event) {
+	    event.preventDefault();
+	    SessionUtil.signIn({
+	      email: 'guest.user@helping-hand.com',
+	      password: 'password'
+	    }, function (user) {
+	      window.currentUserId = user.id;
+	      UserActions.receiveCurrentUser(user);
+	      this.context.router.push('/fundraisers');
+	    }.bind(this));
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'form',
@@ -32637,7 +32673,12 @@
 	        valueLink: this.linkState('password')
 	      }),
 	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'Log In', className: 'submit' })
+	      React.createElement('input', { type: 'submit', value: 'Log In', className: 'submit' }),
+	      React.createElement(
+	        'button',
+	        { onClick: this.guestLogin, className: 'guest-login' },
+	        'Guest Login'
+	      )
 	    );
 	  }
 	});

@@ -37,8 +37,8 @@ class Api::FundraisersController < ApplicationController
   def destroy
     @fundraiser = Fundraiser.find_by_id(params['id'])
     require_correct_user
-    @fundraiser.destroy! unless current_user.id == @fundraiser.user_id
-    render :root unless current_user.id == @fundraiser.user_id
+    @fundraiser.destroy! if current_user.id == @fundraiser.user_id
+    render json: { fundraiser: @fundraiser } if current_user.id == @fundraiser.user_id
   end
 
   private
