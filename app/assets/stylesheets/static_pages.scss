@@ -77,20 +77,54 @@ $border-color: rgb(0, 0, 0);
   position: relative;
   top: 18px;
 
-  .category {
-    display: inline-block;
-    float: right;
-    margin: 10px;
-    padding: 10px 20px;
-    position: relative;
-  }
-
   .description {
     border: 1px solid $border-color;
     border-radius: 5px;
     display: block;
     margin: 10px;
     padding: 10px;
+  }
+
+  .donation-box {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+
+    .category {
+      background-color: $navbar-bg-color;
+      border-bottom: 1px solid $border-color;
+      color: $navbar-text-color;
+      display: block;
+      text-align: right;
+      width: auto;
+    }
+
+    .donation-status,
+    .popularity {
+      margin: 10px;
+    }
+
+    .total-donations {
+      font-size: 48px;
+      font-weight: 700;
+    }
+
+  }
+
+  .huge-button {
+    background: $navbar-bg-color;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    color: $navbar-text-color;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 10px 20px;
+
+    &:hover {
+      background: $navbar-hover-bg-color;
+      color: $navbar-text-color;
+      text-decoration: none;
+    }
   }
 
   .edit {
@@ -131,6 +165,16 @@ $border-color: rgb(0, 0, 0);
   img {
     height: auto;
     width: 100%;
+  }
+
+  .main {
+    float: left;
+    width: 60%;
+  }
+
+  .sidebar {
+    float: right;
+    width: 40%;
   }
 }
 
@@ -203,6 +247,11 @@ $border-color: rgb(0, 0, 0);
   font-family: 'Lato', sans-serif;
   margin-top: 18px;
 
+  header {
+    display: inline-block;
+    width: 100%
+  }
+
   h1 {
     display: inline-block;
     font-size: 36px;
@@ -238,6 +287,10 @@ $border-color: rgb(0, 0, 0);
     }
   }
 
+  div {
+    display: inline;
+  }
+
   li {
     border: 1px solid $border-color;
     border-radius: 5px;
@@ -261,6 +314,7 @@ $border-color: rgb(0, 0, 0);
     border: 0;
     color: $navbar-text-color;
     display: inline-block;
+    float: left;
     padding: 10px 20px;
 
 

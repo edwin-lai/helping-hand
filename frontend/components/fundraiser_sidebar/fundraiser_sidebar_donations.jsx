@@ -7,8 +7,12 @@ module.exports = React.createClass({
 
   donations: function () {
     return this.props.donations.map(function (donation) {
-      return <Donation key={donation.id} donation={donation} />;
-    });
+      return <Donation
+        key={donation.id}
+        donation={donation}
+        fundraiser={this.props.fundraiser}
+      />;
+    }.bind(this));
   },
 
   render: function() {

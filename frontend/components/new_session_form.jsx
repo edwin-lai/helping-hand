@@ -34,7 +34,11 @@ var NewSessionForm = React.createClass({
       <input type="text" id="email" valueLink={this.linkState('email')} />
       <br />
       <label htmlFor="password">Password</label>
-      <input type="password" id="password" valueLink={this.linkState('password')} />
+      <input
+        type="password"
+        id="password"
+        valueLink={this.linkState('password')}
+      />
       <br />
       <input type="submit" value="Log In" className="submit" />
     </form>;

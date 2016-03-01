@@ -14,7 +14,7 @@ module.exports = React.createClass({
     return {
       amount: 0,
       user_id: window.currentUserId,
-      fundraiser_id: this.props.params.id,
+      fundraiser_id: this.props.fundraiserId,
       comment: '',
       visible: true
     };
@@ -24,9 +24,12 @@ module.exports = React.createClass({
     event.preventDefault();
     var that = this;
     DonationUtil.createDonation(this.state, function () {
-      FundraiserUtil.fetchSingleFundraiser(that.props.params.id, function () {
-        that.context.router.push('/fundraisers/' + that.props.params.id);
-      });
+      FundraiserUtil.fetchSingleFundraiser(
+        that.props.fundraiserId,
+        function () {
+          that.context.router.push('/fundraisers/' + that.props.fundraiserId);
+        }
+      );
     });
   },
 

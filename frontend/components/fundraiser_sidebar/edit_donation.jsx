@@ -22,15 +22,15 @@ module.exports = React.createClass({
     event.preventDefault();
     var that = this;
     DonationUtil.updateDonation(this.state, function () {
-      FundraiserUtil.fetchSingleFundraiser(DonationStore.get().fundraiser_id,
+      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiser.id,
       function () {
-        that.context.router.push('/fundraisers/' + that.props.params.id);
+        that.context.router.push('/fundraisers/' + that.props.fundraiser.id);
       });
     });
   },
 
   render: function () {
-    return <form className="form" onSubmit={this.createDonation}>
+    return <form className="form" onSubmit={this.updateDonation}>
       <label htmlFor="comment" className="long-label">Edit Your Comment</label>
       <br />
       <textarea id="comment" valueLink={this.linkState('comment')} />

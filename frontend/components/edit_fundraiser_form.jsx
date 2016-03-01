@@ -14,36 +14,32 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return {
-      title: '',
-      description: '',
-      image_url: '',
-      thumbnail_url: '',
-      goal_amount: undefined,
-      category: '',
-      user_id: window.currentUserId
-    };
+    return this.props.fundraiser;
   },
 
-  componentDidMount: function () {
-    this.listener = FundraiserStore.addListener(function () {
-      if (FundraiserStore.find(parseInt(this.props.params.id)) !== undefined) {
-        this.setState(FundraiserStore.find(parseInt(this.props.params.id)));
-      }
-    }.bind(this));
-    FundraiserUtil.fetchSingleFundraiser(parseInt(this.props.params.id));
-  },
-
-  componentWillUnmount: function () {
-    this.listener.remove();
-  },
+  // componentDidMount: function () {
+  //   this.listener = FundraiserStore.addListener(function () {
+  //     if (FundraiserStore.find(parseInt(this.props.fundraiser.id)) !== undefined) {
+  //       this.setState(FundraiserStore.find(parseInt(this.props.params.id)));
+  //     }
+  //   }.bind(this));
+  //   FundraiserUtil.fetchSingleFundraiser(parseInt(this.props.params.id));
+  // },
+  //
+  // componentWillUnmount: function () {
+  //   this.listener.remove();
+  // },
 
   updateFundraiser: function (event) {
     event.preventDefault();
-    FundraiserUtil.updateFundraiser(this.state.id, this.state, function (fundraiser) {
-      FundraiserActions.receiveSingleFundraiser(fundraiser);
-      this.context.router.push('/fundraisers/' + this.props.params.id);
-    }.bind(this));
+    FundraiserUtil.updateFundraiser(
+      this.state.id,
+      this.state,
+      function (fundraiser) {
+        FundraiserActions.receiveSingleFundraiser(fundraiser);
+        this.context.router.push('/fundraisers/' + this.state.id);
+      }.bind(this)
+    );
   },
 
   openUploadWidget: function(event) {
@@ -66,7 +62,11 @@ module.exports = React.createClass({
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />
       <label htmlFor="goal_amount">Goal</label>
-      <input type="number" id="goal_amount" valueLink={this.linkState('goal_amount')}/>
+      <input
+        type="number"
+        id="goal_amount"
+        valueLink={this.linkState('goal_amount')}
+      />
       <br />
       <label htmlFor="category">Category</label>
       <input type="text" id="category" valueLink={this.linkState('category')}/>

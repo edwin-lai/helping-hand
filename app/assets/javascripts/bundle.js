@@ -50,8 +50,6 @@
 	var App = __webpack_require__(159);
 	var AllFundraisersIndex = __webpack_require__(248);
 	var FundraisersIndex = __webpack_require__(160);
-	var NewUserForm = __webpack_require__(249);
-	var NewSessionForm = __webpack_require__(254);
 	var NewFundraiserForm = __webpack_require__(255);
 	var EditFundraiserForm = __webpack_require__(256);
 	var Fundraiser = __webpack_require__(257);
@@ -68,9 +66,11 @@
 	window.userStore = __webpack_require__(243);
 	window.sessionUtil = __webpack_require__(245);
 	
-	Modal.setAppElement(document.getElementById('root'));
-	
 	document.addEventListener('DOMContentLoaded', function () {
+	  var appElement = document.getElementById('root');
+	
+	  Modal.setAppElement(appElement);
+	
 	  ReactDOM.render(React.createElement(
 	    Router,
 	    { history: hashHistory },
@@ -83,11 +83,9 @@
 	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser }),
 	      React.createElement(Route, { path: 'fundraisers/:id/edit', component: EditFundraiserForm }),
 	      React.createElement(Route, { path: 'fundraisers/:id/donate', component: DonationForm }),
-	      React.createElement(Route, { path: 'donations/:id/edit', component: EditDonationForm }),
-	      React.createElement(Route, { path: 'users/new', component: NewUserForm }),
-	      React.createElement(Route, { path: 'login', component: NewSessionForm })
+	      React.createElement(Route, { path: 'donations/:id/edit', component: EditDonationForm })
 	    )
-	  ), document.getElementById('root'));
+	  ), appElement);
 	});
 
 /***/ },
@@ -19725,22 +19723,29 @@
 	var FundraiserUtil = __webpack_require__(183);
 	var FundraiserIndexItem = __webpack_require__(185);
 	var Link = __webpack_require__(186).Link;
+	var NewFundraiserForm = __webpack_require__(255);
+	var Modal = __webpack_require__(263);
 	
 	var FundraisersIndex = React.createClass({
 	  displayName: 'FundraisersIndex',
 	
 	  getInitialState: function () {
-	    return { fundraisers: FundraiserStore.all().filter(function (fundraiser) {
+	    return {
+	      fundraisers: FundraiserStore.all().filter(function (fundraiser) {
 	        return fundraiser.user_id === window.currentUserId;
-	      }) };
+	      }),
+	      modalIsOpen: false
+	    };
 	  },
 	
 	  componentDidMount: function () {
 	    var that = this;
 	    this.listener = FundraiserStore.addListener(function () {
-	      that.setState({ fundraisers: FundraiserStore.all().filter(function (fundraiser) {
+	      that.setState({
+	        fundraisers: FundraiserStore.all().filter(function (fundraiser) {
 	          return fundraiser.user_id === window.currentUserId;
-	        }) });
+	        })
+	      });
 	    });
 	    FundraiserUtil.fetchFundraisers();
 	  },
@@ -19753,6 +19758,38 @@
 	    return this.state.fundraisers.map(function (obj, idx) {
 	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj, source: 'idx' });
 	    });
+	  },
+	
+	  openModal: function () {
+	    this.setState({ modalIsOpen: true });
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false });
+	  },
+	
+	  newFundraiserButton: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openModal },
+	        'New Fundraiser'
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.modalIsOpen,
+	          onRequestClose: this.closeModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeModal },
+	          'Close'
+	        ),
+	        React.createElement(NewFundraiserForm, null)
+	      )
+	    );
 	  },
 	
 	  render: function () {
@@ -19770,11 +19807,7 @@
 	          null,
 	          'My Fundraisers'
 	        ),
-	        React.createElement(
-	          Link,
-	          { to: 'fundraisers/new', className: 'button' },
-	          'New Fundraiser'
-	        )
+	        this.newFundraiserButton()
 	      ),
 	      React.createElement('br', null),
 	      this.fundraisers()
@@ -26701,13 +26734,51 @@
 	var Link = __webpack_require__(186).Link;
 	var FundraiserUtil = __webpack_require__(183);
 	var UserStore = __webpack_require__(243);
+	var Modal = __webpack_require__(263);
+	var EditFundraiserForm = __webpack_require__(256);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
+	  getInitialState: function () {
+	    return { modalIsOpen: false };
+	  },
+	
 	  destroyFundraiser: function (event) {
 	    event.preventDefault();
 	    FundraiserUtil.destroyFundraiser(this.props.fundraiser.id);
+	  },
+	
+	  openModal: function () {
+	    this.setState({ modalIsOpen: true });
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false });
+	  },
+	
+	  editFundraiserButton: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openModal },
+	        'Edit'
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.modalIsOpen,
+	          onRequestClose: this.closeModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeModal },
+	          'Close'
+	        ),
+	        React.createElement(EditFundraiserForm, { fundraiser: this.props.fundraiser })
+	      )
+	    );
 	  },
 	
 	  render: function () {
@@ -26725,7 +26796,9 @@
 	        { className: 'my-fundraisers-item' },
 	        React.createElement(
 	          Link,
-	          { to: '/fundraisers/' + fundraiser.id, className: 'fundraiser-link' },
+	          {
+	            to: '/fundraisers/' + fundraiser.id,
+	            className: 'fundraiser-link' },
 	          fundraiser.title
 	        ),
 	        React.createElement(
@@ -26733,11 +26806,7 @@
 	          { onClick: this.destroyFundraiser },
 	          'Delete'
 	        ),
-	        React.createElement(
-	          Link,
-	          { to: '/fundraisers/' + fundraiser.id + '/edit', className: 'button' },
-	          'Edit'
-	        )
+	        this.editFundraiserButton()
 	      );
 	    } else {
 	      return React.createElement(
@@ -31849,12 +31918,19 @@
 	var UserActions = __webpack_require__(246);
 	var UserUtil = __webpack_require__(247);
 	var UserStore = __webpack_require__(243);
+	var Modal = __webpack_require__(263);
+	var LoginForm = __webpack_require__(254);
+	var NewUserForm = __webpack_require__(249);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    return { currentUser: UserStore.currentUser() };
+	    return {
+	      currentUser: UserStore.currentUser(),
+	      loginModalOpen: false,
+	      signUpModalOpen: false
+	    };
 	  },
 	
 	  contextTypes: {
@@ -31876,8 +31952,76 @@
 	    SessionUtil.signOut(function () {
 	      window.currentUserId = -1;
 	      UserActions.receiveCurrentUser({});
+	      this.setState({
+	        loginModalOpen: false,
+	        signUpModalOpen: false
+	      });
 	      this.context.router.push('/');
 	    }.bind(this));
+	  },
+	
+	  openLoginModal: function () {
+	    this.setState({ loginModalOpen: true });
+	  },
+	
+	  closeLoginModal: function () {
+	    this.setState({ loginModalOpen: false });
+	  },
+	
+	  loginButton: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openLoginModal, className: 'auth' },
+	        'Login'
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.loginModalOpen,
+	          onRequestClose: this.closeLoginModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeLoginModal },
+	          'Close'
+	        ),
+	        React.createElement(LoginForm, null)
+	      )
+	    );
+	  },
+	
+	  openSignUpModal: function () {
+	    this.setState({ signUpModalOpen: true });
+	  },
+	
+	  closeSignUpModal: function () {
+	    this.setState({ signUpModalOpen: false });
+	  },
+	
+	  signUpButton: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openSignUpModal, className: 'auth' },
+	        'Sign Up'
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signUpModalOpen,
+	          onRequestClose: this.closeSignUpModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeSignUpModal },
+	          'Close'
+	        ),
+	        React.createElement(NewUserForm, null)
+	      )
+	    );
 	  },
 	
 	  render: function () {
@@ -31887,7 +32031,7 @@
 	        { className: 'navbar' },
 	        React.createElement(
 	          Link,
-	          { to: '/' },
+	          { name: 'logo', to: '/', className: 'logo' },
 	          'Helping Hand'
 	        ),
 	        React.createElement(
@@ -31910,16 +32054,8 @@
 	          { to: '/' },
 	          'Helping Hand'
 	        ),
-	        React.createElement(
-	          Link,
-	          { to: '/login', className: 'auth' },
-	          'Login'
-	        ),
-	        React.createElement(
-	          Link,
-	          { to: '/users/new', className: 'auth' },
-	          'New User'
-	        )
+	        this.loginButton(),
+	        this.signUpButton()
 	      );
 	    }
 	  }
@@ -32033,12 +32169,17 @@
 	var FundraiserUtil = __webpack_require__(183);
 	var FundraiserIndexItem = __webpack_require__(185);
 	var Link = __webpack_require__(186).Link;
+	var Modal = __webpack_require__(263);
+	var NewUserForm = __webpack_require__(249);
 	
 	var FundraisersIndex = React.createClass({
 	  displayName: 'FundraisersIndex',
 	
 	  getInitialState: function () {
-	    return { fundraisers: FundraiserStore.all() };
+	    return {
+	      fundraisers: FundraiserStore.all(),
+	      signUpModalOpen: false
+	    };
 	  },
 	
 	  componentDidMount: function () {
@@ -32075,6 +32216,38 @@
 	    }
 	  },
 	
+	  openSignUpModal: function () {
+	    this.setState({ signUpModalOpen: true });
+	  },
+	
+	  closeSignUpModal: function () {
+	    this.setState({ signUpModalOpen: false });
+	  },
+	
+	  signUpButton: function () {
+	    return React.createElement(
+	      'h1',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openSignUpModal, className: 'giant-button' },
+	        this.giantButtonText()
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signUpModalOpen,
+	          onRequestClose: this.closeSignUpModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeSignUpModal },
+	          'Close'
+	        ),
+	        React.createElement(NewUserForm, null)
+	      )
+	    );
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'ul',
@@ -32084,15 +32257,7 @@
 	        { className: 'tagline' },
 	        'Show That You Care'
 	      ),
-	      React.createElement(
-	        'h1',
-	        null,
-	        React.createElement(
-	          Link,
-	          { to: this.giantButtonLink(), className: 'giant-button' },
-	          this.giantButtonText()
-	        )
-	      ),
+	      this.signUpButton(),
 	      this.fundraisers()
 	    );
 	  }
@@ -32466,7 +32631,11 @@
 	        { htmlFor: 'password' },
 	        'Password'
 	      ),
-	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
+	      React.createElement('input', {
+	        type: 'password',
+	        id: 'password',
+	        valueLink: this.linkState('password')
+	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Log In', className: 'submit' })
 	    );
@@ -32610,35 +32779,27 @@
 	  },
 	
 	  getInitialState: function () {
-	    return {
-	      title: '',
-	      description: '',
-	      image_url: '',
-	      thumbnail_url: '',
-	      goal_amount: undefined,
-	      category: '',
-	      user_id: window.currentUserId
-	    };
+	    return this.props.fundraiser;
 	  },
 	
-	  componentDidMount: function () {
-	    this.listener = FundraiserStore.addListener(function () {
-	      if (FundraiserStore.find(parseInt(this.props.params.id)) !== undefined) {
-	        this.setState(FundraiserStore.find(parseInt(this.props.params.id)));
-	      }
-	    }.bind(this));
-	    FundraiserUtil.fetchSingleFundraiser(parseInt(this.props.params.id));
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listener.remove();
-	  },
+	  // componentDidMount: function () {
+	  //   this.listener = FundraiserStore.addListener(function () {
+	  //     if (FundraiserStore.find(parseInt(this.props.fundraiser.id)) !== undefined) {
+	  //       this.setState(FundraiserStore.find(parseInt(this.props.params.id)));
+	  //     }
+	  //   }.bind(this));
+	  //   FundraiserUtil.fetchSingleFundraiser(parseInt(this.props.params.id));
+	  // },
+	  //
+	  // componentWillUnmount: function () {
+	  //   this.listener.remove();
+	  // },
 	
 	  updateFundraiser: function (event) {
 	    event.preventDefault();
 	    FundraiserUtil.updateFundraiser(this.state.id, this.state, function (fundraiser) {
 	      FundraiserActions.receiveSingleFundraiser(fundraiser);
-	      this.context.router.push('/fundraisers/' + this.props.params.id);
+	      this.context.router.push('/fundraisers/' + this.state.id);
 	    }.bind(this));
 	  },
 	
@@ -32671,7 +32832,11 @@
 	        { htmlFor: 'goal_amount' },
 	        'Goal'
 	      ),
-	      React.createElement('input', { type: 'number', id: 'goal_amount', valueLink: this.linkState('goal_amount') }),
+	      React.createElement('input', {
+	        type: 'number',
+	        id: 'goal_amount',
+	        valueLink: this.linkState('goal_amount')
+	      }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
@@ -32798,20 +32963,46 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(186).Link;
+	var Modal = __webpack_require__(263);
+	var NewDonationForm = __webpack_require__(287);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
-	  editLink: function (fundraiser) {
-	    if (fundraiser.user_id === window.currentUserId) {
-	      return React.createElement(
-	        Link,
+	  getInitialState: function () {
+	    return { modalIsOpen: false };
+	  },
+	
+	  openModal: function () {
+	    this.setState({ modalIsOpen: true });
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false });
+	  },
+	
+	  newDonationButton: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openModal, className: 'huge-button' },
+	        'Donate Now!'
+	      ),
+	      React.createElement(
+	        Modal,
 	        {
-	          to: '/fundraisers/' + fundraiser.id + '/edit',
-	          className: 'edit' },
-	        'Edit'
-	      );
-	    }
+	          isOpen: this.state.modalIsOpen,
+	          onRequestClose: this.closeModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeModal },
+	          'Close'
+	        ),
+	        React.createElement(NewDonationForm, { fundraiserId: this.props.fundraiser.id })
+	      )
+	    );
 	  },
 	
 	  render: function () {
@@ -32849,15 +33040,8 @@
 	        this.props.fundraiser.num_donors,
 	        ' people'
 	      ),
-	      this.editLink(this.props.fundraiser),
 	      React.createElement('br', null),
-	      React.createElement(
-	        Link,
-	        {
-	          to: '/fundraisers/' + this.props.fundraiser.id + '/donate',
-	          className: 'edit' },
-	        'Donate Now'
-	      )
+	      this.newDonationButton()
 	    );
 	  }
 	});
@@ -32898,8 +33082,12 @@
 	
 	  donations: function () {
 	    return this.props.donations.map(function (donation) {
-	      return React.createElement(Donation, { key: donation.id, donation: donation });
-	    });
+	      return React.createElement(Donation, {
+	        key: donation.id,
+	        donation: donation,
+	        fundraiser: this.props.fundraiser
+	      });
+	    }.bind(this));
 	  },
 	
 	  render: function () {
@@ -32931,10 +33119,6 @@
 	var Modal = __webpack_require__(263);
 	var EditDonationForm = __webpack_require__(283);
 	
-	var appElement = document.getElementById('root');
-	
-	Modal.setAppElement(appElement);
-	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -32951,32 +33135,32 @@
 	  },
 	
 	  editCommentButton: function () {
-	    if (false /* this.props.donation.user.id === window.currentUserId */) {
-	        return React.createElement(
-	          'div',
-	          null,
+	    if (this.props.donation.user.id === window.currentUserId) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.openModal, className: 'small-button' },
+	          'Edit Comment'
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.modalIsOpen,
+	            onRequestClose: this.closeModal },
 	          React.createElement(
 	            'button',
-	            { onClick: this.openModal },
-	            'Edit Comment'
+	            { onClick: this.closeModal },
+	            'Close'
 	          ),
-	          React.createElement(
-	            Modal,
-	            {
-	              isOpen: this.state.modalIsOpen,
-	              onRequestClose: this.closeModal },
-	            React.createElement(
-	              'button',
-	              { onClick: this.closeModal },
-	              'Close'
-	            ),
-	            React.createElement(EditDonationForm, {
-	              fundraiser: this.props.fundraiser,
-	              donation: this.props.donation })
-	          ),
-	          ';'
-	        );
-	      }
+	          React.createElement(EditDonationForm, {
+	            fundraiser: this.props.fundraiser,
+	            donation: this.props.donation
+	          })
+	        )
+	      );
+	    }
 	  },
 	
 	  render: function () {
@@ -34974,8 +35158,8 @@
 	    event.preventDefault();
 	    var that = this;
 	    DonationUtil.updateDonation(this.state, function () {
-	      FundraiserUtil.fetchSingleFundraiser(DonationStore.get().fundraiser_id, function () {
-	        that.context.router.push('/fundraisers/' + that.props.params.id);
+	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiser.id, function () {
+	        that.context.router.push('/fundraisers/' + that.props.fundraiser.id);
 	      });
 	    });
 	  },
@@ -34983,7 +35167,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { className: 'form', onSubmit: this.createDonation },
+	      { className: 'form', onSubmit: this.updateDonation },
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'comment', className: 'long-label' },
@@ -35104,7 +35288,7 @@
 	    return {
 	      amount: 0,
 	      user_id: window.currentUserId,
-	      fundraiser_id: this.props.params.id,
+	      fundraiser_id: this.props.fundraiserId,
 	      comment: '',
 	      visible: true
 	    };
@@ -35114,8 +35298,8 @@
 	    event.preventDefault();
 	    var that = this;
 	    DonationUtil.createDonation(this.state, function () {
-	      FundraiserUtil.fetchSingleFundraiser(that.props.params.id, function () {
-	        that.context.router.push('/fundraisers/' + that.props.params.id);
+	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiserId, function () {
+	        that.context.router.push('/fundraisers/' + that.props.fundraiserId);
 	      });
 	    });
 	  },

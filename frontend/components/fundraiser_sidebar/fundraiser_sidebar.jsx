@@ -9,7 +9,7 @@ module.exports = React.createClass({
       <DonationBox fundraiser={this.props.fundraiser} />
       <Recipient fundraiser={this.props.fundraiser} />
       <Donations
-        fundraiser = {this.props.fundraiser} 
+        fundraiser={this.props.fundraiser} 
         donations={this.props.fundraiser.donations} />
     </section>;
   }

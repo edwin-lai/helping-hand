@@ -20,7 +20,7 @@ class Api::DonationsController < ApplicationController
 
   def create
     @donation = Donation.new(donation_params)
-    if @donation.save!
+    if @donation.save
       @donation.user.bank -= @donation.amount
       @donation.fundraiser.user.bank += @donation.amount
       render :show

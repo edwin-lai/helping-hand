@@ -9,7 +9,7 @@ class Fundraiser < ActiveRecord::Base
   belongs_to :user
 
   def total_donations
-    donations.map(&:amount).inject(:+)
+    donations.empty? ? 0 : donations.map(&:amount).inject(:+)
   end
 
   def num_donors

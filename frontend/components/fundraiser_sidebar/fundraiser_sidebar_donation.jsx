@@ -4,9 +4,6 @@ var Link = require('react-router').Link;
 var Modal = require('react-modal');
 var EditDonationForm = require('./edit_donation.jsx');
 
-var appElement = document.getElementById('root');
-
-Modal.setAppElement(appElement);
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -22,17 +19,20 @@ module.exports = React.createClass({
   },
 
   editCommentButton: function () {
-    if (false /* this.props.donation.user.id === window.currentUserId */) {
+    if (this.props.donation.user.id === window.currentUserId) {
       return <div>
-        <button onClick={this.openModal}>Edit Comment</button>
+        <button onClick={this.openModal} className="small-button">
+          Edit Comment
+        </button>
         <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>
           <button onClick={this.closeModal}>Close</button>
           <EditDonationForm
             fundraiser={this.props.fundraiser}
-            donation={this.props.donation}/>
-        </Modal>;
+            donation={this.props.donation}
+          />
+        </Modal>
       </div>;
     }
   },

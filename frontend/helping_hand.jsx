@@ -4,8 +4,6 @@ var Modal = require('react-modal');
 var App = require('./components/app.jsx');
 var AllFundraisersIndex = require('./components/all_fundraisers_index.jsx');
 var FundraisersIndex = require('./components/fundraisers_index.jsx');
-var NewUserForm = require('./components/new_user_form.jsx');
-var NewSessionForm = require('./components/new_session_form.jsx');
 var NewFundraiserForm = require('./components/new_fundraiser_form.jsx');
 var EditFundraiserForm = require('./components/edit_fundraiser_form.jsx');
 var Fundraiser = require('./components/fundraiser.jsx');
@@ -22,9 +20,11 @@ window.userUtil = require('./util/user_util.js');
 window.userStore = require('./stores/user.js');
 window.sessionUtil = require('./util/session_util.js');
 
-Modal.setAppElement(document.getElementById('root'));
-
 document.addEventListener('DOMContentLoaded', function () {
+  var appElement = document.getElementById('root');
+
+  Modal.setAppElement(appElement);
+
   ReactDOM.render(
     <Router history = {hashHistory}>
       <Route path='/' component={App}>
@@ -35,10 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
         <Route path='fundraisers/:id/edit' component={EditFundraiserForm} />
         <Route path='fundraisers/:id/donate' component={DonationForm} />
         <Route path='donations/:id/edit' component={EditDonationForm} />
-        <Route path='users/new' component={NewUserForm} />
-        <Route path='login' component={NewSessionForm} />
       </Route>
     </Router>,
-    document.getElementById('root')
+    appElement
   );
 });

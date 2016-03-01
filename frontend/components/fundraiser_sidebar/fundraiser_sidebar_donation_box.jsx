@@ -1,15 +1,33 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var Modal = require('react-modal');
+var NewDonationForm = require('../new_donation_form.jsx');
 
 module.exports = React.createClass({
-  editLink: function (fundraiser) {
-    if (fundraiser.user_id === window.currentUserId) {
-      return <Link
-        to={'/fundraisers/' + fundraiser.id + '/edit'}
-        className="edit">
-        Edit
-      </Link>;
-    }
+  getInitialState: function () {
+    return {modalIsOpen: false};
+  },
+
+  openModal: function () {
+    this.setState({modalIsOpen: true});
+  },
+
+  closeModal: function () {
+    this.setState({modalIsOpen: false});
+  },
+
+  newDonationButton: function () {
+    return <div>
+      <button onClick={this.openModal} className="huge-button">
+        Donate Now!
+      </button>
+      <Modal
+        isOpen={this.state.modalIsOpen}
+        onRequestClose={this.closeModal}>
+        <button onClick={this.closeModal}>Close</button>
+        <NewDonationForm fundraiserId={this.props.fundraiser.id} />
+      </Modal>
+    </div>;
   },
 
   render: function() {
@@ -30,13 +48,8 @@ module.exports = React.createClass({
       <content className="popularity">
         Raised by {this.props.fundraiser.num_donors} people
       </content>
-      {this.editLink(this.props.fundraiser)}
       <br />
-      <Link
-        to={'/fundraisers/' + this.props.fundraiser.id + '/donate'}
-        className="edit">
-        Donate Now
-      </Link>
+      {this.newDonationButton()}
     </section>;
   }
 });
