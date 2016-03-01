@@ -27,7 +27,8 @@ module.exports = React.createClass({
       FundraiserUtil.fetchSingleFundraiser(
         that.props.fundraiserId,
         function () {
-          that.context.router.push('/fundraisers/' + that.props.fundraiserId);
+          // that.context.router.push('/fundraisers/' + that.props.fundraiserId);
+          that.props.closeModal();
         }
       );
     });
@@ -50,7 +51,7 @@ module.exports = React.createClass({
       <br />
       <textarea id="comment" valueLink={this.linkState('comment')} />
       <br />
-      <label htmlFor="visible">Visible?</label>
+      <label htmlFor="visible">Public</label>
       <input
         type="checkbox"
         id="visible"

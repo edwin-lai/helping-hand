@@ -33000,7 +33000,10 @@
 	          { onClick: this.closeModal },
 	          'Close'
 	        ),
-	        React.createElement(NewDonationForm, { fundraiserId: this.props.fundraiser.id })
+	        React.createElement(NewDonationForm, {
+	          fundraiserId: this.props.fundraiser.id,
+	          closeModal: this.closeModal
+	        })
 	      )
 	    );
 	  },
@@ -33015,7 +33018,6 @@
 	        'Category: ',
 	        this.props.fundraiser.category
 	      ),
-	      React.createElement('br', null),
 	      React.createElement(
 	        'section',
 	        { className: 'donation-status' },
@@ -33032,7 +33034,6 @@
 	          ' CareCoins'
 	        )
 	      ),
-	      React.createElement('br', null),
 	      React.createElement(
 	        'content',
 	        { className: 'popularity' },
@@ -33040,7 +33041,6 @@
 	        this.props.fundraiser.num_donors,
 	        ' people'
 	      ),
-	      React.createElement('br', null),
 	      this.newDonationButton()
 	    );
 	  }
@@ -33061,6 +33061,7 @@
 	      { className: 'recipient' },
 	      'Created ',
 	      this.props.fundraiser.created_at,
+	      React.createElement('br', null),
 	      'By ',
 	      this.props.fundraiser.user.first_name + ' ' + this.props.fundraiser.user.last_name
 	    );
@@ -33126,6 +33127,25 @@
 	    return { modalIsOpen: false };
 	  },
 	
+	  comment: function () {
+	    if (this.props.donation.comment) {
+	      return React.createElement(
+	        'content',
+	        { className: 'comment' },
+	        this.props.donation.comment
+	      );
+	    }
+	  },
+	
+	  donorName: function () {
+	    if (this.props.donation.visible) {
+	      var donor = this.props.donation.user;
+	      return donor.first_name + ' ' + donor.last_name;
+	    } else {
+	      return 'Anonymous';
+	    }
+	  },
+	
 	  openModal: function () {
 	    this.setState({ modalIsOpen: true });
 	  },
@@ -33135,7 +33155,7 @@
 	  },
 	
 	  editCommentButton: function () {
-	    if (this.props.donation.user.id === window.currentUserId) {
+	    if (this.props.donation.user.id === window.currentUserId && this.props.donation.visible) {
 	      return React.createElement(
 	        'div',
 	        null,
@@ -33164,40 +33184,27 @@
 	  },
 	
 	  render: function () {
-	    var donor = this.props.donation.user;
+	
 	    return React.createElement(
 	      'li',
 	      { className: 'donation' },
 	      React.createElement(
 	        'content',
 	        { className: 'amount' },
-	        this.props.donation.amount
-	      ),
-	      React.createElement(
-	        'content',
-	        { className: 'care-coins' },
+	        this.props.donation.amount,
 	        ' CareCoins'
 	      ),
-	      React.createElement('br', null),
 	      React.createElement(
 	        'content',
 	        { className: 'donor-name' },
-	        donor.first_name,
-	        ' ',
-	        donor.last_name
+	        this.donorName()
 	      ),
-	      React.createElement('br', null),
 	      React.createElement(
 	        'content',
 	        { className: 'timestamp' },
 	        this.props.donation.created_at
 	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'content',
-	        { className: 'comment' },
-	        this.props.donation.comment
-	      ),
+	      this.comment(),
 	      this.editCommentButton()
 	    );
 	  }
@@ -35299,7 +35306,8 @@
 	    var that = this;
 	    DonationUtil.createDonation(this.state, function () {
 	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiserId, function () {
-	        that.context.router.push('/fundraisers/' + that.props.fundraiserId);
+	        // that.context.router.push('/fundraisers/' + that.props.fundraiserId);
+	        that.props.closeModal();
 	      });
 	    });
 	  },
@@ -35335,7 +35343,7 @@
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'visible' },
-	        'Visible?'
+	        'Public'
 	      ),
 	      React.createElement('input', {
 	        type: 'checkbox',

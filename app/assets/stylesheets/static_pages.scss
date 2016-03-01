@@ -85,27 +85,98 @@ $border-color: rgb(0, 0, 0);
     padding: 10px;
   }
 
+  .donations {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    margin: 10px;
+    position: relative;
+
+    .num-donations {
+      background-color: $navbar-bg-color;
+      border-bottom: 1px solid $border-color;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      color: $navbar-text-color;
+      display: block;
+      padding: 10px 20px;
+    }
+  }
+
+  .donation {
+    border-bottom: 1px solid $border-color;
+    display: block;
+    padding: 20px;
+
+    .amount {
+      display: inherit;
+      font-size: 24px;
+    }
+
+    .comment {
+      display: inherit;
+      padding: 10px 0;
+    }
+
+    .donor-name {
+      display: inherit;
+    }
+
+    .timestamp {
+      display: inherit;
+      font-size: 8px;
+    }
+
+    .small-button {
+      background: $navbar-bg-color;
+      border: 1px solid $border-color;
+      border-radius: 5px;
+      color: $navbar-text-color;
+      padding: 5px;
+      position: relative;
+
+      &:hover {
+        background: $navbar-hover-bg-color;
+        color: $navbar-text-color;
+        text-decoration: none;
+      }
+    }
+  }
+
   .donation-box {
     border: 1px solid $border-color;
     border-radius: 5px;
+    margin: 10px;
 
     .category {
       background-color: $navbar-bg-color;
       border-bottom: 1px solid $border-color;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
       color: $navbar-text-color;
       display: block;
+      padding: 10px 20px;
       text-align: right;
       width: auto;
     }
 
-    .donation-status,
+    .donation-status {
+      margin-bottom: 10px;
+      margin-left: 10px;
+      position: relative;
+      top: -8px;
+    }
+
     .popularity {
-      margin: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      position: relative;
+      top: -27px;
     }
 
     .total-donations {
       font-size: 48px;
       font-weight: 700;
+      position: relative;
     }
 
   }
@@ -115,10 +186,15 @@ $border-color: rgb(0, 0, 0);
     border: 1px solid $border-color;
     border-radius: 5px;
     color: $navbar-text-color;
-    display: inline-block;
+    display: block;
     font-size: 30px;
     font-weight: 700;
+    margin: 10px auto;
     padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    top: -20px;
+    width: 80%;
 
     &:hover {
       background: $navbar-hover-bg-color;
@@ -170,6 +246,13 @@ $border-color: rgb(0, 0, 0);
   .main {
     float: left;
     width: 60%;
+  }
+
+  .recipient {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    display: block;
+    margin: 10px;
   }
 
   .sidebar {

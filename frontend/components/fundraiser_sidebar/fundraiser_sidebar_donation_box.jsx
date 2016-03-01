@@ -25,7 +25,10 @@ module.exports = React.createClass({
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>
         <button onClick={this.closeModal}>Close</button>
-        <NewDonationForm fundraiserId={this.props.fundraiser.id} />
+        <NewDonationForm
+          fundraiserId={this.props.fundraiser.id}
+          closeModal={this.closeModal}
+        />
       </Modal>
     </div>;
   },
@@ -35,7 +38,6 @@ module.exports = React.createClass({
       <content className="category">
         Category: {this.props.fundraiser.category}
       </content>
-      <br />
       <section className="donation-status">
         <content className="total-donations">
           {this.props.fundraiser.total_donations}
@@ -44,11 +46,9 @@ module.exports = React.createClass({
           of {this.props.fundraiser.goal_amount} CareCoins
         </content>
       </section>
-      <br />
       <content className="popularity">
         Raised by {this.props.fundraiser.num_donors} people
       </content>
-      <br />
       {this.newDonationButton()}
     </section>;
   }
