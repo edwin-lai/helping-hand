@@ -7,9 +7,12 @@ module.exports = {
     });
   },
 
-  fetchUsers: function () {
+  fetchUsers: function (callback) {
     $.get('api/users/', function (users) {
       UserActions.receiveUsers(users);
+      if (callback) {
+        callback();
+      }
     });
   },
 

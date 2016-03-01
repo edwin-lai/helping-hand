@@ -16,7 +16,7 @@ class Api::FundraisersController < ApplicationController
   end
 
   def show
-    @fundraiser = Fundraiser.find_by_id(params['id'])
+    @fundraiser = Fundraiser.includes(:user, donations: [:user]).find_by_id(params['id'])
   end
 
   def edit

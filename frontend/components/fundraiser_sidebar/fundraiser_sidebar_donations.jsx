@@ -1,19 +1,22 @@
 var React = require('react');
 var Donation = require('./fundraiser_sidebar_donation.jsx');
+var UserUtil = require('../../util/user_util.js');
+var UserStore = require('../../stores/user.js');
 
 module.exports = React.createClass({
+
   donations: function () {
-    return this.props.fundraiser.donations.map(function (donation) {
-      return <Donation donation={donation} />;
+    return this.props.donations.map(function (donation) {
+      return <Donation key={donation.id} donation={donation} />;
     });
   },
 
   render: function() {
     return <section className="donations">
       <content className="num-donations">
-        {this.props.fundraiser.donations.length}
+        {this.props.donations.length} Donations
       </content>
-      <ul>{this.donations}</ul>
+      <ul>{this.donations()}</ul>
     </section>;
   }
 });

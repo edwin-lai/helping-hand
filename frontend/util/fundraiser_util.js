@@ -1,5 +1,4 @@
 var FundraiserActions = require('../actions/fundraiser_actions.js');
-var UserUtil = require('../util/user_util.js');
 
 module.exports = {
   fetchFundraisers: function () {
@@ -8,9 +7,10 @@ module.exports = {
     });
   },
 
-  fetchSingleFundraiser: function (id) {
+  fetchSingleFundraiser: function (id, callback) {
     $.get('api/fundraisers/' + id, function (fundraiser) {
       FundraiserActions.receiveSingleFundraiser(fundraiser);
+      if (callback) { callback (); }
     });
   },
 
@@ -23,7 +23,6 @@ module.exports = {
       success: callback,
       error: function () {
         console.log(arguments);
-        debugger;
       }
     });
   },

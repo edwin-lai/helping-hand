@@ -4,7 +4,9 @@ var Link = require('react-router').Link;
 module.exports = React.createClass({
   editLink: function (fundraiser) {
     if (fundraiser.user_id === window.currentUserId) {
-      return <Link to={'/fundraisers/' + fundraiser.id + '/edit'} className="edit">
+      return <Link
+        to={'/fundraisers/' + fundraiser.id + '/edit'}
+        className="edit">
         Edit
       </Link>;
     }
@@ -26,10 +28,15 @@ module.exports = React.createClass({
       </section>
       <br />
       <content className="popularity">
-        Raised by {this.props.fundraiser.num_donors}
+        Raised by {this.props.fundraiser.num_donors} people
       </content>
       {this.editLink(this.props.fundraiser)}
       <br />
+      <Link
+        to={'/fundraisers/' + this.props.fundraiser.id + '/donate'}
+        className="edit">
+        Donate Now
+      </Link>
     </section>;
   }
 });

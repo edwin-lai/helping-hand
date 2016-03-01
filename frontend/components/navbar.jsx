@@ -28,9 +28,9 @@ module.exports = React.createClass({
   logout: function () {
     SessionUtil.signOut(function () {
       window.currentUserId = -1;
-      UserUtil.fetchCurrentUser();
-      window.location.assign('/');
-    });
+      UserActions.receiveCurrentUser({});
+      this.context.router.push('/');
+    }.bind(this));
   },
 
   render: function () {

@@ -28,7 +28,7 @@ module.exports = React.createClass({
     event.preventDefault();
     FundraiserUtil.createFundraiser(this.state, function (fundraiser) {
       FundraiserActions.receiveSingleFundraiser(fundraiser);
-      this.context.router.push('/fundraisers' + fundraiser.id);
+      this.context.router.push('/fundraisers/' + fundraiser.id);
     }.bind(this));
   },
 
@@ -59,7 +59,11 @@ module.exports = React.createClass({
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />
       <label htmlFor="goal_amount">Goal</label>
-      <input type="number" id="goal_amount" valueLink={this.linkState('goal_amount')}/>
+      <input
+        type="number"
+        id="goal_amount"
+        valueLink={this.linkState('goal_amount')}
+      />
       <br />
       <label htmlFor="category">Category</label>
       <input type="text" id="category" valueLink={this.linkState('category')}/>

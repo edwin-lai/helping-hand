@@ -21,18 +21,17 @@ module.exports = React.createClass({
       thumbnail_url: '',
       goal_amount: undefined,
       category: '',
-      user_id: 1
+      user_id: window.currentUserId
     };
   },
 
   componentDidMount: function () {
-    var that = this;
     this.listener = FundraiserStore.addListener(function () {
-      if (FundraiserStore.find(parseInt(that.props.params.id)) !== undefined) {
-        that.setState(FundraiserStore.find(parseInt(that.props.params.id)));
+      if (FundraiserStore.find(parseInt(this.props.params.id)) !== undefined) {
+        this.setState(FundraiserStore.find(parseInt(this.props.params.id)));
       }
-    });
-    FundraiserUtil.fetchSingleFundraiser(parseInt(that.props.params.id));
+    }.bind(this));
+    FundraiserUtil.fetchSingleFundraiser(parseInt(this.props.params.id));
   },
 
   componentWillUnmount: function () {

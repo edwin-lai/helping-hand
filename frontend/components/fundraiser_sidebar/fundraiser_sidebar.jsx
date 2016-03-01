@@ -8,7 +8,9 @@ module.exports = React.createClass({
     return <section className="sidebar">
       <DonationBox fundraiser={this.props.fundraiser} />
       <Recipient fundraiser={this.props.fundraiser} />
-      <Donations fundraiser={this.props.donations} />
+      <Donations
+        fundraiser = {this.props.fundraiser} 
+        donations={this.props.fundraiser.donations} />
     </section>;
   }
 });
