@@ -31,10 +31,12 @@ button,
   font-family: 'Lato', sans-serif;
   padding: 5px;
   position: relative;
+}
 
-  &:hover {
-    background: $button-hover-bg-color;
-    color: $button-text-color;
-    text-decoration: none;
-  }
+.giant-button {
+  border-bottom: 3px solid $button-border-color;
+  border-left-color: $button-border-color;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 10px 20px;
 }

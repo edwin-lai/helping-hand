@@ -33,9 +33,16 @@ var FundraisersIndex = React.createClass({
   },
 
   fundraisers: function () {
-    return this.state.fundraisers.map(function (obj, idx) {
-      return <FundraiserIndexItem key={idx} fundraiser={obj} source='idx' />;
-    });
+    if (this.state.fundraisers.length) {
+      return this.state.fundraisers.map(function (obj, idx) {
+        return <FundraiserIndexItem key={idx} fundraiser={obj} source='idx' />;
+      });
+    } else {
+      return <content className="no-fundraisers">
+        You haven't made any fundraisers yet.
+        {this.newFundraiserButton("giant-button")}
+        </content>;
+    }
   },
 
   openModal: function () {
@@ -46,9 +53,11 @@ var FundraisersIndex = React.createClass({
     this.setState({modalIsOpen: false});
   },
 
-  newFundraiserButton: function () {
+  newFundraiserButton: function (className) {
     return <div>
-      <button onClick={this.openModal}>New Fundraiser</button>
+      <button onClick={this.openModal} className={className}>
+        New Fundraiser
+      </button>
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>

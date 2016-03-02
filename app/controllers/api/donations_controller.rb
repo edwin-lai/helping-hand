@@ -3,7 +3,7 @@ class Api::DonationsController < ApplicationController
 
   def index
     if params[:fundraiser_id]
-      @donations = Donation.where(
+      @donations = Donation.includes(:user).where(
         fundraiser_id: params[:fundraiser_id]
       ).order(
         created_at: :desc

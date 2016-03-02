@@ -2,7 +2,7 @@ class Api::FundraisersController < ApplicationController
   before_action :require_login, except: [:index, :show]
 
   def index
-    @fundraisers = Fundraiser.all
+    @fundraisers = Fundraiser.includes(:user, donations: [:user]).all
   end
 
   def new

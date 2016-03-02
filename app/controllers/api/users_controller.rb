@@ -22,14 +22,14 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_id(params['id'])
+    @user = User.includes(:donations, fundraisers: [donations: [:user]]).find_by_id(params['id'])
   end
 
   def update
     if user_update_params['add'].to_i <= 0
       render json: { errors: 'Must enter a positive number.' }, status: 422
     else
-      @user = User.find_by_id(params['id'])
+      @user = User.includes(:donations, :fundraisers).find_by_id(params['id'])
       @user.update(bank: @user.bank + user_update_params['add'].to_i)
       render :show
     end

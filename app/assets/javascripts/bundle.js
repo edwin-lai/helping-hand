@@ -21666,9 +21666,18 @@
 	  },
 	
 	  fundraisers: function () {
-	    return this.state.fundraisers.map(function (obj, idx) {
-	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj, source: 'idx' });
-	    });
+	    if (this.state.fundraisers.length) {
+	      return this.state.fundraisers.map(function (obj, idx) {
+	        return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj, source: 'idx' });
+	      });
+	    } else {
+	      return React.createElement(
+	        'content',
+	        { className: 'no-fundraisers' },
+	        'You haven\'t made any fundraisers yet.',
+	        this.newFundraiserButton("giant-button")
+	      );
+	    }
 	  },
 	
 	  openModal: function () {
@@ -21679,13 +21688,13 @@
 	    this.setState({ modalIsOpen: false });
 	  },
 	
-	  newFundraiserButton: function () {
+	  newFundraiserButton: function (className) {
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'button',
-	        { onClick: this.openModal },
+	        { onClick: this.openModal, className: className },
 	        'New Fundraiser'
 	      ),
 	      React.createElement(
