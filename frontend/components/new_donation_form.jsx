@@ -57,12 +57,15 @@ module.exports = React.createClass({
         type="number"
         id="donation-amount"
         className="huge-box"
-        valueLink={this.linkState('amount')}>
-      </input>
+        valueLink={this.linkState('amount')}
+      />
+      <label htmlFor="donation-amount">CareCoins</label>
       <br />
-      <label htmlFor="comment" className="long-label">Leave a Comment</label>
-      <br />
-      <textarea id="comment" valueLink={this.linkState('comment')} />
+      <textarea
+        id="comment"
+        valueLink={this.linkState('comment')}
+        placeholder="Leave a comment..."
+      />
       <br />
       <label htmlFor="visible">Public</label>
       <input

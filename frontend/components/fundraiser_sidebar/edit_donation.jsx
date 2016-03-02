@@ -49,7 +49,11 @@ module.exports = React.createClass({
       <div className="error">
         {this.state.error}
       </div>
-      <textarea id="comment" valueLink={this.linkState('comment')} />
+      <textarea
+        id="comment"
+        valueLink={this.linkState('comment')}
+        placeholder="Leave a comment..."
+      />
       <br />
       <input type="submit" className="submit" value="Edit Comment" />
     </form>;

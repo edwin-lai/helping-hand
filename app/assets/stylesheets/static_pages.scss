@@ -28,6 +28,10 @@ $border-color: rgb(200, 200, 200);
   padding: 10px 20px;
   width: 280px;
 
+  input {
+    font-weight: 300;
+  }
+
   h1 {
     font-size: 36px;
     font-weight: 900;
@@ -51,6 +55,7 @@ $border-color: rgb(200, 200, 200);
   textarea {
     border: 1px solid $border-color;
     border-radius: 5px;
+    font-weight: 300;
     height: 100px;
     margin-bottom: 20px;
     padding: 10px;
@@ -76,6 +81,7 @@ $border-color: rgb(200, 200, 200);
     box-shadow: 1px 1px 1px $button-border-color;
     color: $button-text-color;
     display: inline-block;
+    font-weight: 400;
     margin-bottom: 20px;
     padding: 10px;
 

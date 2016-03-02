@@ -69,22 +69,33 @@ module.exports = React.createClass({
       <div className="error">
         {this.state.error}
       </div>
-      <label htmlFor="title">Title</label>
-      <input type="text" id="title" valueLink={this.linkState('title')} />
+      <input
+        type="text"
+        id="title"
+        valueLink={this.linkState('title')}
+        placeholder="Title"
+      />
       <br />
-      <label htmlFor="goal_amount">Goal</label>
       <input
         type="number"
         id="goal_amount"
         valueLink={this.linkState('goal_amount')}
+        placeholder="Goal"
+      /> CareCoins
+      <br />
+      <input
+        type="text"
+        id="category"
+        valueLink={this.linkState('category')}
+        placeholder="Category"
       />
       <br />
-      <label htmlFor="category">Category</label>
-      <input type="text" id="category" valueLink={this.linkState('category')}/>
       <br />
-      <label htmlFor="description">Description</label>
-      <br />
-      <textarea id="description" valueLink={this.linkState('description')}/>
+      <textarea
+        id="description"
+        valueLink={this.linkState('description')}
+        placeholder="Tell us about your cause..."
+      />
       <br />
       <button onClick={this.openUploadWidget}>Upload Image</button>
       <img src={this.state.thumbnail_url} />

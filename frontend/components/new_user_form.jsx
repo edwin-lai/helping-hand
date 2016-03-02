@@ -61,28 +61,32 @@ var NewUserForm = React.createClass({
       <div className="error">
         {this.state.error}
       </div>
-      <label htmlFor="firstName">First Name</label>
       <input
         type="text"
         id="firstName"
         valueLink={this.linkState('first_name')}
+        placeholder="First Name"
       />
       <br />
-      <label htmlFor="lastName">Last Name</label>
       <input
         type="text"
         id="lastName"
         valueLink={this.linkState('last_name')}
+        placeholder="Last Name"
       />
       <br />
-      <label htmlFor="email">Email</label>
-      <input type="text" id="email" valueLink={this.linkState('email')} />
+      <input
+        type="text"
+        id="email"
+        valueLink={this.linkState('email')}
+        placeholder="Email"
+      />
       <br />
-      <label htmlFor="password">Password</label>
       <input
         type="password"
         id="password"
         valueLink={this.linkState('password')}
+        placeholder="Password"
       />
       <br />
       <input type="submit" value="Sign Up" className="submit" />

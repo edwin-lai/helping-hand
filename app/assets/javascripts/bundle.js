@@ -32374,44 +32374,32 @@
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'firstName' },
-	        'First Name'
-	      ),
 	      React.createElement('input', {
 	        type: 'text',
 	        id: 'firstName',
-	        valueLink: this.linkState('first_name')
+	        valueLink: this.linkState('first_name'),
+	        placeholder: 'First Name'
 	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'lastName' },
-	        'Last Name'
-	      ),
 	      React.createElement('input', {
 	        type: 'text',
 	        id: 'lastName',
-	        valueLink: this.linkState('last_name')
+	        valueLink: this.linkState('last_name'),
+	        placeholder: 'Last Name'
 	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'email' },
-	        'Email'
-	      ),
-	      React.createElement('input', { type: 'text', id: 'email', valueLink: this.linkState('email') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'email',
+	        valueLink: this.linkState('email'),
+	        placeholder: 'Email'
+	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'password' },
-	        'Password'
-	      ),
 	      React.createElement('input', {
 	        type: 'password',
 	        id: 'password',
-	        valueLink: this.linkState('password')
+	        valueLink: this.linkState('password'),
+	        placeholder: 'Password'
 	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Sign Up', className: 'submit' }),
@@ -32728,23 +32716,18 @@
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'email' },
-	        'Email'
-	      ),
-	      React.createElement('input', { type: 'text', id: 'email', valueLink: this.linkState('email') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'email',
+	        valueLink: this.linkState('email'),
+	        placeholder: 'Email'
+	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'password' },
-	        'Password'
-	      ),
 	      React.createElement('input', {
 	        type: 'password',
 	        id: 'password',
 	        valueLink: this.linkState('password'),
-	        placeholder: 'password'
+	        placeholder: 'Password'
 	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Log In', className: 'submit' }),
@@ -32843,38 +32826,34 @@
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'title' },
-	        'Title'
-	      ),
-	      React.createElement('input', { type: 'text', id: 'title', valueLink: this.linkState('title') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'title',
+	        valueLink: this.linkState('title'),
+	        placeholder: 'Title'
+	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'goal_amount' },
-	        'Goal'
-	      ),
 	      React.createElement('input', {
 	        type: 'number',
 	        id: 'goal_amount',
-	        valueLink: this.linkState('goal_amount')
+	        valueLink: this.linkState('goal_amount'),
+	        placeholder: 'Goal'
+	      }),
+	      ' CareCoins',
+	      React.createElement('br', null),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'category',
+	        valueLink: this.linkState('category'),
+	        placeholder: 'Category'
 	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'category' },
-	        'Category'
-	      ),
-	      React.createElement('input', { type: 'text', id: 'category', valueLink: this.linkState('category') }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'description' },
-	        'Description'
-	      ),
-	      React.createElement('br', null),
-	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
+	      React.createElement('textarea', {
+	        id: 'description',
+	        valueLink: this.linkState('description'),
+	        placeholder: 'Tell us about your cause...'
+	      }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'button',
@@ -32959,38 +32938,32 @@
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'title' },
-	        'Title'
-	      ),
-	      React.createElement('input', { type: 'text', id: 'title', valueLink: this.linkState('title') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'title',
+	        valueLink: this.linkState('title'),
+	        placeholder: 'Title'
+	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'goal_amount' },
-	        'Goal'
-	      ),
 	      React.createElement('input', {
 	        type: 'number',
 	        id: 'goal_amount',
-	        valueLink: this.linkState('goal_amount')
+	        valueLink: this.linkState('goal_amount'),
+	        placeholder: 'Goal'
 	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'category' },
-	        'Category'
-	      ),
-	      React.createElement('input', { type: 'text', id: 'category', valueLink: this.linkState('category') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'category',
+	        valueLink: this.linkState('category'),
+	        placeholder: 'Category'
+	      }),
 	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'description' },
-	        'Description'
-	      ),
-	      React.createElement('br', null),
-	      React.createElement('textarea', { id: 'description', valueLink: this.linkState('description') }),
+	      React.createElement('textarea', {
+	        id: 'description',
+	        valueLink: this.linkState('description'),
+	        placeholder: 'Tell us your story...'
+	      }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'button',
@@ -35350,7 +35323,11 @@
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement('textarea', { id: 'comment', valueLink: this.linkState('comment') }),
+	      React.createElement('textarea', {
+	        id: 'comment',
+	        valueLink: this.linkState('comment'),
+	        placeholder: 'Leave a comment...'
+	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', className: 'submit', value: 'Edit Comment' })
 	    );
@@ -35515,15 +35492,19 @@
 	        type: 'number',
 	        id: 'donation-amount',
 	        className: 'huge-box',
-	        valueLink: this.linkState('amount') }),
-	      React.createElement('br', null),
+	        valueLink: this.linkState('amount')
+	      }),
 	      React.createElement(
 	        'label',
-	        { htmlFor: 'comment', className: 'long-label' },
-	        'Leave a Comment'
+	        { htmlFor: 'donation-amount' },
+	        'CareCoins'
 	      ),
 	      React.createElement('br', null),
-	      React.createElement('textarea', { id: 'comment', valueLink: this.linkState('comment') }),
+	      React.createElement('textarea', {
+	        id: 'comment',
+	        valueLink: this.linkState('comment'),
+	        placeholder: 'Leave a comment...'
+	      }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
