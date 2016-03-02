@@ -7,13 +7,15 @@ var UserStore = require('../stores/user.js');
 var Modal = require('react-modal');
 var LoginForm = require('./new_session_form.jsx');
 var NewUserForm = require('./new_user_form.jsx');
+var AddCareCoinsForm = require('./add_carecoins_form.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {
     return {
       currentUser: UserStore.currentUser(),
       loginModalOpen: false,
-      signUpModalOpen: false
+      signUpModalOpen: false,
+      bankModalOpen: false
     };
   },
 
@@ -84,15 +86,35 @@ module.exports = React.createClass({
     </div>;
   },
 
+  openBankModal: function () {
+    this.setState({bankModalOpen: true});
+  },
+
+  closeBankModal: function () {
+    this.setState({bankModalOpen: false});
+  },
+
+  addCareCoinsButton: function () {
+    return <div>
+      <button onClick={this.openBankModal} className="bank">
+        {UserStore.currentUser().bank} CareCoins
+      </button>
+      <Modal
+        isOpen={this.state.bankModalOpen}
+        onRequestClose={this.closeBankModal}>
+        <button onClick={this.closeBankModal}>Close</button>
+        <AddCareCoinsForm closeModal={this.closeBankModal}/>
+      </Modal>
+    </div>;
+  },
+
   render: function () {
     if (this.state.currentUser.id) {
       return <nav className="navbar">
         <Link name="logo" to="/" className="logo">Helping Hand</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
         <button onClick={this.logout} className="auth">Logout</button>
-        <content className="bank">
-          {UserStore.currentUser().bank} CareCoins
-        </content>
+        {this.addCareCoinsButton()}
       </nav>;
     } else {
       return <nav className="navbar">

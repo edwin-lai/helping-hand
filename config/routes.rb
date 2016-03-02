@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     end
     resources :donations, except: [:index, :destroy]
     get 'users/current_user', to: 'users#show_current_user'
-    resources :users, only: [:index, :create, :new, :show] do
+    resources :users, only: [:index, :create, :new, :show, :update] do
       resources :donations, only: :index
     end
     resource :session, only: [:new, :create, :destroy]

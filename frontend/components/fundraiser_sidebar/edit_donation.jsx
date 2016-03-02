@@ -35,18 +35,20 @@ module.exports = React.createClass({
     DonationUtil.updateDonation(this.state, function () {
       FundraiserUtil.fetchSingleFundraiser(that.props.fundraiser.id,
       function () {
-        that.context.router.push('/fundraisers/' + that.props.fundraiser.id);
+        that.props.closeModal();
       });
     });
   },
 
   render: function () {
     return <form className="form" onSubmit={this.updateDonation}>
+      <label htmlFor="comment" className="long-label">
+        <h1>Edit Your Comment</h1>
+      </label>
+      <br />
       <div className="error">
         {this.state.error}
       </div>
-      <label htmlFor="comment" className="long-label">Edit Your Comment</label>
-      <br />
       <textarea id="comment" valueLink={this.linkState('comment')} />
       <br />
       <input type="submit" className="submit" value="Edit Comment" />

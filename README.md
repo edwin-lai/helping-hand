@@ -17,7 +17,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Create an account
 - [x] Log in / Log out
 - [x] Create, read, update, and delete fundraisers
-- [ ] Users can donate CareCoins to other users
+- [x] Users can donate CareCoins to other users
   - (login not necessary to donate on real site)
 - [ ] ~~Users can withdraw money from fundraisers~~
 - [ ] Users can search fundraisers by title

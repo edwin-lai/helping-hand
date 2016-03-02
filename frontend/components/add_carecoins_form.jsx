@@ -2,7 +2,8 @@ var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var UserUtil = require('../util/user_util.js');
 var UserStore = require('../stores/user.js');
-var UserActions = require('../actions/user_actions.js')
+var UserActions = require('../actions/user_actions.js');
+var ErrorStore = require('../stores/error.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -10,28 +11,40 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       id: window.currentUserId,
-      bank: UserStore.currentUser().bank
+      add: 0
     };
+  },
+
+  componentDidMount: function () {
+    this.listener = ErrorStore.addListener(function () {
+      this.setState({ error: ErrorStore.get() });
+    }.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
   },
 
   addToBank: function (event) {
     event.preventDefault();
-    var that = this;
-    UserUtil.addToBank(this.state, function () {
-      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiser.id,
-      function () {
-        that.context.router.push('/fundraisers/' + that.props.fundraiser.id);
-      });
-    });
+    UserUtil.addToBank(this.state, function (user) {
+      UserActions.receiveCurrentUser(user);
+      this.props.closeModal();
+    }.bind(this));
   },
 
   render: function () {
-    return <form className="form" onSubmit={this.updateDonation}>
-      <label htmlFor="comment" className="long-label">Edit Your Comment</label>
+    return <form className="form" onSubmit={this.addToBank}>
+      <label htmlFor="add-carecoins" className="long-label">
+        <h1>Add CareCoins</h1>
+      </label>
       <br />
-      <textarea id="comment" valueLink={this.linkState('comment')} />
+      <div className="error">
+        {this.state.error}
+      </div>
+      <input id="add-carecoins" valueLink={this.linkState('add')} />
       <br />
-      <input type="submit" className="submit" value="Edit Comment" />
+      <input type="submit" className="submit" value="Add CareCoins" />
     </form>;
   }
 });

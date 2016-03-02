@@ -21,8 +21,9 @@ class Api::DonationsController < ApplicationController
   def create
     @donation = Donation.new(donation_params)
     if @donation.save
-      @donation.user.bank -= @donation.amount
-      @donation.fundraiser.user.bank += @donation.amount
+      @donation.user.update(bank: @donation.user.bank - @donation.amount)
+      recipient = @donation.fundraiser.user
+      recipient.update(bank: recipient.bank + @donation.amount)
       render :show
     else
       render json: { errors: @donation.errors.full_messages }, status: 422

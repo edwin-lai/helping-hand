@@ -31912,6 +31912,7 @@
 	var Modal = __webpack_require__(263);
 	var LoginForm = __webpack_require__(254);
 	var NewUserForm = __webpack_require__(249);
+	var AddCareCoinsForm = __webpack_require__(290);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -31920,7 +31921,8 @@
 	    return {
 	      currentUser: UserStore.currentUser(),
 	      loginModalOpen: false,
-	      signUpModalOpen: false
+	      signUpModalOpen: false,
+	      bankModalOpen: false
 	    };
 	  },
 	
@@ -32015,6 +32017,39 @@
 	    );
 	  },
 	
+	  openBankModal: function () {
+	    this.setState({ bankModalOpen: true });
+	  },
+	
+	  closeBankModal: function () {
+	    this.setState({ bankModalOpen: false });
+	  },
+	
+	  addCareCoinsButton: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openBankModal, className: 'bank' },
+	        UserStore.currentUser().bank,
+	        ' CareCoins'
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.bankModalOpen,
+	          onRequestClose: this.closeBankModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeBankModal },
+	          'Close'
+	        ),
+	        React.createElement(AddCareCoinsForm, { closeModal: this.closeBankModal })
+	      )
+	    );
+	  },
+	
 	  render: function () {
 	    if (this.state.currentUser.id) {
 	      return React.createElement(
@@ -32035,12 +32070,7 @@
 	          { onClick: this.logout, className: 'auth' },
 	          'Logout'
 	        ),
-	        React.createElement(
-	          'content',
-	          { className: 'bank' },
-	          UserStore.currentUser().bank,
-	          ' CareCoins'
-	        )
+	        this.addCareCoinsButton()
 	      );
 	    } else {
 	      return React.createElement(
@@ -32152,6 +32182,18 @@
 	      url: 'api/users/',
 	      data: { user: data },
 	      dataType: 'json',
+	      success: callback,
+	      error: function (error) {
+	        ErrorActions.receiveError(error.responseJSON);
+	      }
+	    });
+	  },
+	
+	  addToBank: function (data, callback) {
+	    $.ajax({
+	      type: "PATCH",
+	      url: 'api/users/' + window.currentUserId,
+	      data: { user: data },
 	      success: callback,
 	      error: function (error) {
 	        ErrorActions.receiveError(error.responseJSON);
@@ -33291,7 +33333,8 @@
 	          ),
 	          React.createElement(EditDonationForm, {
 	            fundraiser: this.props.fundraiser,
-	            donation: this.props.donation
+	            donation: this.props.donation,
+	            closeModal: this.closeModal
 	          })
 	        )
 	      );
@@ -35292,7 +35335,7 @@
 	    var that = this;
 	    DonationUtil.updateDonation(this.state, function () {
 	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiser.id, function () {
-	        that.context.router.push('/fundraisers/' + that.props.fundraiser.id);
+	        that.props.closeModal();
 	      });
 	    });
 	  },
@@ -35302,16 +35345,20 @@
 	      'form',
 	      { className: 'form', onSubmit: this.updateDonation },
 	      React.createElement(
+	        'label',
+	        { htmlFor: 'comment', className: 'long-label' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Edit Your Comment'
+	        )
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
 	        'div',
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement(
-	        'label',
-	        { htmlFor: 'comment', className: 'long-label' },
-	        'Edit Your Comment'
-	      ),
-	      React.createElement('br', null),
 	      React.createElement('textarea', { id: 'comment', valueLink: this.linkState('comment') }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', className: 'submit', value: 'Edit Comment' })
@@ -35546,6 +35593,73 @@
 	};
 	
 	module.exports = ErrorStore;
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(250);
+	var UserUtil = __webpack_require__(247);
+	var UserStore = __webpack_require__(243);
+	var UserActions = __webpack_require__(246);
+	var ErrorStore = __webpack_require__(289);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      id: window.currentUserId,
+	      add: 0
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  addToBank: function (event) {
+	    event.preventDefault();
+	    UserUtil.addToBank(this.state, function (user) {
+	      UserActions.receiveCurrentUser(user);
+	      this.props.closeModal();
+	    }.bind(this));
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { className: 'form', onSubmit: this.addToBank },
+	      React.createElement(
+	        'label',
+	        { htmlFor: 'add-carecoins', className: 'long-label' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Add CareCoins'
+	        )
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
+	      ),
+	      React.createElement('input', { id: 'add-carecoins', valueLink: this.linkState('add') }),
+	      React.createElement('br', null),
+	      React.createElement('input', { type: 'submit', className: 'submit', value: 'Add CareCoins' })
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

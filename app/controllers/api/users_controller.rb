@@ -25,6 +25,16 @@ class Api::UsersController < ApplicationController
     @user = User.find_by_id(params['id'])
   end
 
+  def update
+    if user_update_params['add'].to_i <= 0
+      render json: { errors: 'Must enter a positive number.' }, status: 422
+    else
+      @user = User.find_by_id(params['id'])
+      @user.update(bank: @user.bank + user_update_params['add'].to_i)
+      render :show
+    end
+  end
+
   def show_current_user
   end
 
@@ -32,6 +42,10 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :first_name, :last_name)
+  end
+
+  def user_update_params
+    params.require(:user).permit(:add)
   end
 
   def require_logged_out

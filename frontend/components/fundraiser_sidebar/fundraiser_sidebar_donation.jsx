@@ -50,6 +50,7 @@ module.exports = React.createClass({
           <EditDonationForm
             fundraiser={this.props.fundraiser}
             donation={this.props.donation}
+            closeModal={this.closeModal}
           />
         </Modal>
       </div>;

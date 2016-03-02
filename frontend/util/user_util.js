@@ -34,5 +34,17 @@ module.exports = {
         ErrorActions.receiveError(error.responseJSON);
       }
     });
+  },
+
+  addToBank: function (data, callback) {
+    $.ajax({
+      type: "PATCH",
+      url: 'api/users/' + window.currentUserId,
+      data: { user: data },
+      success: callback,
+      error: function (error) {
+        ErrorActions.receiveError(error.responseJSON);
+      }
+    });
   }
 };
