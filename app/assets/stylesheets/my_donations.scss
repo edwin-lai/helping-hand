@@ -1,0 +1,25 @@
+.my-donations-item {
+  padding: 10px;
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .donation-amount {
+    float: right;
+  }
+}
+
+.no-donations {
+  display: block;
+  font-size: 36px;
+  text-align: center;
+  transform: translateY(50%);
+  width: 99%;
+
+  .giant-button {
+    margin-top: 36px;
+  }
+}

@@ -14,6 +14,7 @@
  *= require ./reset.scss
  *= require ./static_pages.scss
  *= require ./button.scss
+ *= require ./my_donations.scss
  *= require ./fundraiser/my_fundraisers.scss
  *= require ./fundraiser/fundraiser.scss
  *= require ./fundraiser/sidebar.scss

@@ -53,6 +53,7 @@
 	var FundraisersIndex = __webpack_require__(180);
 	var Fundraiser = __webpack_require__(281);
 	var NavBar = __webpack_require__(272);
+	var MyDonations = __webpack_require__(292);
 	
 	var Router = __webpack_require__(207).Router;
 	var Route = __webpack_require__(207).Route;
@@ -72,7 +73,8 @@
 	      { path: '/', component: App },
 	      React.createElement(IndexRoute, { component: AllFundraisersIndex }),
 	      React.createElement(Route, { path: 'fundraisers', component: FundraisersIndex }),
-	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser })
+	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser }),
+	      React.createElement(Route, { path: 'myDonations', component: MyDonations })
 	    )
 	  ), appElement);
 	});
@@ -34530,6 +34532,11 @@
 	          'My Fundraisers'
 	        ),
 	        React.createElement(
+	          Link,
+	          { to: '/myDonations' },
+	          'My Donations'
+	        ),
+	        React.createElement(
 	          'button',
 	          { onClick: this.logout, className: 'auth' },
 	          'Logout'
@@ -35500,9 +35507,16 @@
 	      url: 'api/donations/' + id,
 	      success: function (donation) {
 	        DonationActions.receiveDonation(donation);
-	      },
-	      error: function () {
-	        console.log(arguments);
+	      }
+	    });
+	  },
+	
+	  fetchCurrentUserDonations: function () {
+	    $.ajax({
+	      type: 'GET',
+	      url: 'api/users/' + window.currentUserId + '/donations',
+	      success: function (donations) {
+	        DonationActions.receiveUserDonations(donations);
 	      }
 	    });
 	  }
@@ -35519,6 +35533,13 @@
 	    Dispatcher.dispatch({
 	      actionType: 'RECEIVE_DONATION',
 	      payload: donation
+	    });
+	  },
+	
+	  receiveUserDonations: function (donations) {
+	    Dispatcher.dispatch({
+	      actionType: 'RECEIVE_USER_DONATIONS',
+	      donations: donations
 	    });
 	  }
 	};
@@ -35771,21 +35792,122 @@
 	var Store = __webpack_require__(182).Store;
 	var Dispatcher = __webpack_require__(200);
 	var _donation = {};
+	var _userDonations = [];
 	var DonationStore = new Store(Dispatcher);
 	
 	DonationStore.get = function () {
 	  return _donation;
 	};
 	
+	DonationStore.userDonations = function () {
+	  return _userDonations;
+	};
+	
 	DonationStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case 'RECEIVE_DONATION':
 	      _donation = payload.donation;
+	      DonationStore.__emitChange();
+	      break;
+	    case 'RECEIVE_USER_DONATIONS':
+	      _userDonations = payload.donations;
+	      DonationStore.__emitChange();
 	      break;
 	  }
 	};
 	
 	module.exports = DonationStore;
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DonationStore = __webpack_require__(291);
+	var DonationUtil = __webpack_require__(285);
+	var FundraiserStore = __webpack_require__(181);
+	var FundraiserUtil = __webpack_require__(203);
+	var FundraiserIndexItem = __webpack_require__(206);
+	var Link = __webpack_require__(207).Link;
+	var NewFundraiserForm = __webpack_require__(271);
+	var Modal = __webpack_require__(159);
+	
+	var FundraisersIndex = React.createClass({
+	  displayName: 'FundraisersIndex',
+	
+	  getInitialState: function () {
+	    return { donations: DonationStore.userDonations() };
+	  },
+	
+	  componentDidMount: function () {
+	    var that = this;
+	    this.listener = DonationStore.addListener(function () {
+	      that.setState({ donations: DonationStore.userDonations() });
+	    });
+	    DonationUtil.fetchCurrentUserDonations();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  donation: function (donations) {
+	    return donations.map(function (donation) {
+	      return React.createElement(
+	        'li',
+	        { className: 'my-donations-item' },
+	        React.createElement(
+	          Link,
+	          { to: "/fundraisers/" + donation.fundraiser.id },
+	          donation.fundraiser.title
+	        ),
+	        React.createElement(
+	          'content',
+	          { className: 'donation-amount' },
+	          donation.amount,
+	          ' CareCoins'
+	        )
+	      );
+	    });
+	  },
+	
+	  donations: function () {
+	    if (this.state.donations.length) {
+	      return this.donation(this.state.donations);
+	    } else {
+	      return React.createElement(
+	        'content',
+	        { className: 'no-donations' },
+	        'You haven\'t donated to anyone yet.',
+	        React.createElement('br', null),
+	        React.createElement(
+	          Link,
+	          { className: 'giant-button', to: '/' },
+	          'Discover Fundraisers'
+	        )
+	      );
+	    }
+	  },
+	
+	  render: function () {
+	    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+	      window.location.assign('/');
+	    }
+	    return React.createElement(
+	      'ul',
+	      { className: 'my-fundraisers' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'My Donations'
+	      ),
+	      React.createElement('br', null),
+	      this.donations()
+	    );
+	  }
+	});
+	
+	module.exports = FundraisersIndex;
 
 /***/ }
 /******/ ]);

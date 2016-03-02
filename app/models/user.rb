@@ -1,7 +1,13 @@
 class User < ActiveRecord::Base
   validates :password_digest, :first_name, :last_name, :bank, presence: :true
   validates :email, :session_token, uniqueness: :true, presence: :true
-  validates :password, length: { minimum: 6, allow_nil: true }, confirmation: true
+  validates :email, format: {
+    with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  }, if: '!email.nil?'
+  validates :password, length: {
+    minimum: 6,
+    allow_nil: true
+  }, confirmation: true
 
   has_many :fundraisers
   has_many :donations

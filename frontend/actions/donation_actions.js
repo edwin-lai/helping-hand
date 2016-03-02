@@ -6,5 +6,12 @@ module.exports = {
       actionType: 'RECEIVE_DONATION',
       payload: donation
     });
+  },
+
+  receiveUserDonations: function (donations) {
+    Dispatcher.dispatch({
+      actionType: 'RECEIVE_USER_DONATIONS',
+      donations: donations
+    });
   }
 };

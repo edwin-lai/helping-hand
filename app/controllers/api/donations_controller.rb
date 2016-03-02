@@ -9,7 +9,8 @@ class Api::DonationsController < ApplicationController
         created_at: :desc
       )
     elsif params[:user_id]
-      @donations = Donation.where(user_id: params[:user_id]).order(created_at: :desc)
+      @donations = Donation.includes(:fundraiser).where(
+        user_id: params[:user_id]).order(created_at: :desc)
     end
     render :index
   end

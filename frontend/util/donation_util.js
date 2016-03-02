@@ -34,9 +34,16 @@ module.exports = {
       url: 'api/donations/' + id,
       success: function (donation) {
         DonationActions.receiveDonation(donation);
-      },
-      error: function () {
-        console.log(arguments);
+      }
+    });
+  },
+
+  fetchCurrentUserDonations: function() {
+    $.ajax({
+      type: 'GET',
+      url: 'api/users/' + window.currentUserId + '/donations',
+      success: function (donations) {
+        DonationActions.receiveUserDonations(donations);
       }
     });
   }
