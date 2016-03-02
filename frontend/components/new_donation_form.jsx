@@ -2,6 +2,7 @@ var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var DonationUtil = require('../util/donation_util.js');
 var FundraiserUtil = require('../util/fundraiser_util.js');
+var ErrorStore = require('../stores/error.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -20,6 +21,16 @@ module.exports = React.createClass({
     };
   },
 
+  componentDidMount: function () {
+    this.listener = ErrorStore.addListener(function () {
+      this.setState({ error: ErrorStore.get() });
+    }.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
+  },
+
   createDonation: function (event) {
     event.preventDefault();
     var that = this;
@@ -27,7 +38,6 @@ module.exports = React.createClass({
       FundraiserUtil.fetchSingleFundraiser(
         that.props.fundraiserId,
         function () {
-          // that.context.router.push('/fundraisers/' + that.props.fundraiserId);
           that.props.closeModal();
         }
       );
@@ -35,10 +45,13 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <form className="form" onSubmit={this.createDonation}>
+    return <form className="form donation-form" onSubmit={this.createDonation}>
       <label htmlFor="donation-amount" className="long-label">
         <h1>Enter your donation</h1>
       </label>
+      <div className="error">
+        {this.state.error}
+      </div>
       <br />
       <input
         type="number"

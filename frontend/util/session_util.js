@@ -1,3 +1,5 @@
+var ErrorActions = require('../actions/error_actions.js');
+
 module.exports = {
   signIn: function (data, callback) {
     $.ajax({
@@ -6,8 +8,8 @@ module.exports = {
       data: {user: data},
       dataType: 'json',
       success: callback,
-      error: function () {
-        console.log(arguments);
+      error: function (error) {
+        ErrorActions.receiveError(error.responseJSON);
       }
     });
   },

@@ -15,10 +15,9 @@ var FundraisersIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    var that = this;
     this.listener = FundraiserStore.addListener(function () {
-      that.setState({ fundraisers: FundraiserStore.all() });
-    });
+      this.setState({ fundraisers: FundraiserStore.all() });
+    }.bind(this));
     FundraiserUtil.fetchFundraisers();
   },
 
@@ -28,7 +27,11 @@ var FundraisersIndex = React.createClass({
 
   fundraisers: function () {
     return this.state.fundraisers.map(function (obj, idx) {
-      return <FundraiserIndexItem key={idx} fundraiser={obj} userId={obj.user}/>;
+      return <FundraiserIndexItem
+        key={idx}
+        fundraiser={obj}
+        userId={obj.user}
+      />;
     });
   },
 

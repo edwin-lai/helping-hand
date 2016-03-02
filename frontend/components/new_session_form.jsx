@@ -3,6 +3,7 @@ var SessionUtil = require('../util/session_util.js');
 var UserUtil = require('../util/user_util.js');
 var UserActions = require('../actions/user_actions.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var ErrorStore = require('../stores/error.js');
 
 var NewSessionForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -16,6 +17,16 @@ var NewSessionForm = React.createClass({
       email: '',
       password: '',
     };
+  },
+
+  componentDidMount: function () {
+    this.listener = ErrorStore.addListener(function () {
+      this.setState({ error: ErrorStore.get() });
+    }.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
   },
 
   login: function (event) {
@@ -45,6 +56,9 @@ var NewSessionForm = React.createClass({
   render: function () {
     return <form onSubmit={this.login} className="form">
       <h1>Log In</h1>
+      <div className="error">
+        {this.state.error}
+      </div>
       <label htmlFor="email">Email</label>
       <input type="text" id="email" valueLink={this.linkState('email')} />
       <br />

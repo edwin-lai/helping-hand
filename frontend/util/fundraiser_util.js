@@ -1,4 +1,5 @@
 var FundraiserActions = require('../actions/fundraiser_actions.js');
+var ErrorActions = require('../actions/error_actions.js');
 
 module.exports = {
   fetchFundraisers: function () {
@@ -21,8 +22,8 @@ module.exports = {
       data: { fundraiser: data },
       dataType: 'json',
       success: callback,
-      error: function () {
-        console.log(arguments);
+      error: function (error) {
+        ErrorActions.receiveError(error.responseJSON);
       }
     });
   },
@@ -34,8 +35,9 @@ module.exports = {
       data: { fundraiser: data },
       dataType: 'json',
       success: callback,
-      error: function () {
-        console.log(arguments);
+      error: function (error) {
+        console.log(error.responseJSON)
+        ErrorActions.receiveError(error.responseJSON);
       }
     });
   },

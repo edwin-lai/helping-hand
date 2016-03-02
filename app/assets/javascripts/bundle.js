@@ -47,24 +47,17 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var Modal = __webpack_require__(263);
+	
 	var App = __webpack_require__(159);
 	var AllFundraisersIndex = __webpack_require__(248);
 	var FundraisersIndex = __webpack_require__(160);
-	var NewFundraiserForm = __webpack_require__(255);
-	var EditFundraiserForm = __webpack_require__(256);
 	var Fundraiser = __webpack_require__(257);
 	var NavBar = __webpack_require__(244);
-	var DonationForm = __webpack_require__(287);
-	var EditDonationForm = __webpack_require__(283);
 	
 	var Router = __webpack_require__(186).Router;
 	var Route = __webpack_require__(186).Route;
 	var IndexRoute = __webpack_require__(186).IndexRoute;
 	var hashHistory = __webpack_require__(186).hashHistory;
-	
-	window.userUtil = __webpack_require__(247);
-	window.userStore = __webpack_require__(243);
-	window.sessionUtil = __webpack_require__(245);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  var appElement = document.getElementById('root');
@@ -79,11 +72,7 @@
 	      { path: '/', component: App },
 	      React.createElement(IndexRoute, { component: AllFundraisersIndex }),
 	      React.createElement(Route, { path: 'fundraisers', component: FundraisersIndex }),
-	      React.createElement(Route, { path: 'fundraisers/new', component: NewFundraiserForm }),
-	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser }),
-	      React.createElement(Route, { path: 'fundraisers/:id/edit', component: EditFundraiserForm }),
-	      React.createElement(Route, { path: 'fundraisers/:id/donate', component: DonationForm }),
-	      React.createElement(Route, { path: 'donations/:id/edit', component: EditDonationForm })
+	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser })
 	    )
 	  ), appElement);
 	});
@@ -26643,6 +26632,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var FundraiserActions = __webpack_require__(184);
+	var ErrorActions = __webpack_require__(288);
 	
 	module.exports = {
 	  fetchFundraisers: function () {
@@ -26667,8 +26657,8 @@
 	      data: { fundraiser: data },
 	      dataType: 'json',
 	      success: callback,
-	      error: function () {
-	        console.log(arguments);
+	      error: function (error) {
+	        ErrorActions.receiveError(error.responseJSON);
 	      }
 	    });
 	  },
@@ -26680,8 +26670,9 @@
 	      data: { fundraiser: data },
 	      dataType: 'json',
 	      success: callback,
-	      error: function () {
-	        console.log(arguments);
+	      error: function (error) {
+	        console.log(error.responseJSON);
+	        ErrorActions.receiveError(error.responseJSON);
 	      }
 	    });
 	  },
@@ -32069,8 +32060,10 @@
 
 /***/ },
 /* 245 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var ErrorActions = __webpack_require__(288);
+	
 	module.exports = {
 	  signIn: function (data, callback) {
 	    $.ajax({
@@ -32079,8 +32072,8 @@
 	      data: { user: data },
 	      dataType: 'json',
 	      success: callback,
-	      error: function () {
-	        console.log(arguments);
+	      error: function (error) {
+	        ErrorActions.receiveError(error.responseJSON);
 	      }
 	    });
 	  },
@@ -32129,6 +32122,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var UserActions = __webpack_require__(246);
+	var ErrorActions = __webpack_require__(288);
 	
 	module.exports = {
 	  fetchCurrentUser: function () {
@@ -32159,8 +32153,8 @@
 	      data: { user: data },
 	      dataType: 'json',
 	      success: callback,
-	      error: function () {
-	        console.log(arguments);
+	      error: function (error) {
+	        ErrorActions.receiveError(error.responseJSON);
 	      }
 	    });
 	  }
@@ -32189,10 +32183,9 @@
 	  },
 	
 	  componentDidMount: function () {
-	    var that = this;
 	    this.listener = FundraiserStore.addListener(function () {
-	      that.setState({ fundraisers: FundraiserStore.all() });
-	    });
+	      this.setState({ fundraisers: FundraiserStore.all() });
+	    }.bind(this));
 	    FundraiserUtil.fetchFundraisers();
 	  },
 	
@@ -32202,7 +32195,11 @@
 	
 	  fundraisers: function () {
 	    return this.state.fundraisers.map(function (obj, idx) {
-	      return React.createElement(FundraiserIndexItem, { key: idx, fundraiser: obj, userId: obj.user });
+	      return React.createElement(FundraiserIndexItem, {
+	        key: idx,
+	        fundraiser: obj,
+	        userId: obj.user
+	      });
 	    });
 	  },
 	
@@ -32280,6 +32277,7 @@
 	var UserActions = __webpack_require__(246);
 	var LinkedStateMixin = __webpack_require__(250);
 	var SessionUtil = __webpack_require__(245);
+	var ErrorStore = __webpack_require__(289);
 	
 	var NewUserForm = React.createClass({
 	  displayName: 'NewUserForm',
@@ -32297,6 +32295,16 @@
 	      email: '',
 	      password: ''
 	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
 	  },
 	
 	  createUser: function (event) {
@@ -32330,18 +32338,31 @@
 	        'New User'
 	      ),
 	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
+	      ),
+	      React.createElement(
 	        'label',
 	        { htmlFor: 'firstName' },
 	        'First Name'
 	      ),
-	      React.createElement('input', { type: 'text', id: 'firstName', valueLink: this.linkState('first_name') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'firstName',
+	        valueLink: this.linkState('first_name')
+	      }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'lastName' },
 	        'Last Name'
 	      ),
-	      React.createElement('input', { type: 'text', id: 'lastName', valueLink: this.linkState('last_name') }),
+	      React.createElement('input', {
+	        type: 'text',
+	        id: 'lastName',
+	        valueLink: this.linkState('last_name')
+	      }),
 	      React.createElement('br', null),
 	      React.createElement(
 	        'label',
@@ -32355,7 +32376,11 @@
 	        { htmlFor: 'password' },
 	        'Password'
 	      ),
-	      React.createElement('input', { type: 'password', id: 'password', valueLink: this.linkState('password') }),
+	      React.createElement('input', {
+	        type: 'password',
+	        id: 'password',
+	        valueLink: this.linkState('password')
+	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Sign Up', className: 'submit' }),
 	      React.createElement(
@@ -32608,6 +32633,7 @@
 	var UserUtil = __webpack_require__(247);
 	var UserActions = __webpack_require__(246);
 	var LinkedStateMixin = __webpack_require__(250);
+	var ErrorStore = __webpack_require__(289);
 	
 	var NewSessionForm = React.createClass({
 	  displayName: 'NewSessionForm',
@@ -32623,6 +32649,16 @@
 	      email: '',
 	      password: ''
 	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
 	  },
 	
 	  login: function (event) {
@@ -32654,6 +32690,11 @@
 	        'h1',
 	        null,
 	        'Log In'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
 	      ),
 	      React.createElement(
 	        'label',
@@ -32695,6 +32736,7 @@
 	var LinkedStateMixin = __webpack_require__(250);
 	var FundraiserUtil = __webpack_require__(183);
 	var FundraiserActions = __webpack_require__(184);
+	var ErrorStore = __webpack_require__(289);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32715,6 +32757,16 @@
 	      category: '',
 	      user_id: window.currentUserId
 	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
 	  },
 	
 	  createFundraiser: function (event) {
@@ -32752,6 +32804,11 @@
 	        'h1',
 	        null,
 	        'New Fundraiser'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
 	      ),
 	      React.createElement(
 	        'label',
@@ -32809,6 +32866,7 @@
 	var FundraiserUtil = __webpack_require__(183);
 	var FundraiserStore = __webpack_require__(161);
 	var FundraiserActions = __webpack_require__(184);
+	var ErrorStore = __webpack_require__(289);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32823,18 +32881,15 @@
 	    return this.props.fundraiser;
 	  },
 	
-	  // componentDidMount: function () {
-	  //   this.listener = FundraiserStore.addListener(function () {
-	  //     if (FundraiserStore.find(parseInt(this.props.fundraiser.id)) !== undefined) {
-	  //       this.setState(FundraiserStore.find(parseInt(this.props.params.id)));
-	  //     }
-	  //   }.bind(this));
-	  //   FundraiserUtil.fetchSingleFundraiser(parseInt(this.props.params.id));
-	  // },
-	  //
-	  // componentWillUnmount: function () {
-	  //   this.listener.remove();
-	  // },
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
 	
 	  updateFundraiser: function (event) {
 	    event.preventDefault();
@@ -32861,6 +32916,16 @@
 	    return React.createElement(
 	      'form',
 	      { className: 'form', onSubmit: this.updateFundraiser },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Edit Fundraiser'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
+	      ),
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'title' },
@@ -35185,6 +35250,7 @@
 	var DonationUtil = __webpack_require__(284);
 	var FundraiserUtil = __webpack_require__(183);
 	var DonationStore = __webpack_require__(286);
+	var ErrorStore = __webpack_require__(289);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35202,6 +35268,16 @@
 	    };
 	  },
 	
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
 	  updateDonation: function (event) {
 	    event.preventDefault();
 	    var that = this;
@@ -35216,6 +35292,11 @@
 	    return React.createElement(
 	      'form',
 	      { className: 'form', onSubmit: this.updateDonation },
+	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
+	      ),
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'comment', className: 'long-label' },
@@ -35234,6 +35315,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var DonationActions = __webpack_require__(285);
+	var ErrorActions = __webpack_require__(288);
 	
 	module.exports = {
 	  createDonation: function (data, callback) {
@@ -35243,8 +35325,8 @@
 	      data: { donation: data },
 	      dataType: 'json',
 	      success: callback,
-	      error: function () {
-	        console.log(arguments);
+	      error: function (error) {
+	        ErrorActions.receiveError(error.responseJSON);
 	      }
 	    });
 	  },
@@ -35256,8 +35338,8 @@
 	      data: { donation: data },
 	      dataType: 'json',
 	      success: callback,
-	      error: function () {
-	        console.log(arguments);
+	      error: function (error) {
+	        ErrorActions.receiveError(error.responseJSON);
 	      }
 	    });
 	  },
@@ -35322,6 +35404,7 @@
 	var LinkedStateMixin = __webpack_require__(250);
 	var DonationUtil = __webpack_require__(284);
 	var FundraiserUtil = __webpack_require__(183);
+	var ErrorStore = __webpack_require__(289);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35342,12 +35425,21 @@
 	    };
 	  },
 	
+	  componentDidMount: function () {
+	    this.listener = ErrorStore.addListener(function () {
+	      this.setState({ error: ErrorStore.get() });
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
 	  createDonation: function (event) {
 	    event.preventDefault();
 	    var that = this;
 	    DonationUtil.createDonation(this.state, function () {
 	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiserId, function () {
-	        // that.context.router.push('/fundraisers/' + that.props.fundraiserId);
 	        that.props.closeModal();
 	      });
 	    });
@@ -35356,7 +35448,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { className: 'form', onSubmit: this.createDonation },
+	      { className: 'form donation-form', onSubmit: this.createDonation },
 	      React.createElement(
 	        'label',
 	        { htmlFor: 'donation-amount', className: 'long-label' },
@@ -35365,6 +35457,11 @@
 	          null,
 	          'Enter your donation'
 	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'error' },
+	        this.state.error
 	      ),
 	      React.createElement('br', null),
 	      React.createElement('input', {
@@ -35396,6 +35493,50 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(180);
+	
+	module.exports = {
+	  receiveError: function (error) {
+	    Dispatcher.dispatch({
+	      actionType: 'ERROR',
+	      error: error
+	    });
+	  }
+	};
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(162).Store;
+	var Dispatcher = __webpack_require__(180);
+	var _error = {};
+	var ErrorStore = new Store(Dispatcher);
+	
+	ErrorStore.get = function () {
+	  console.log(_error);
+	  if (!_error.length) {
+	    return $.map(_error, function (value, index) {
+	      return [value];
+	    });
+	  }
+	};
+	
+	ErrorStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ERROR":
+	      _error = payload.error;
+	      ErrorStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = ErrorStore;
 
 /***/ }
 /******/ ]);

@@ -1,4 +1,5 @@
 var UserActions = require('../actions/user_actions.js');
+var ErrorActions = require('../actions/error_actions.js');
 
 module.exports = {
   fetchCurrentUser: function () {
@@ -29,8 +30,8 @@ module.exports = {
       data: { user: data },
       dataType: 'json',
       success: callback,
-      error: function () {
-        console.log(arguments);
+      error: function (error) {
+        ErrorActions.receiveError(error.responseJSON);
       }
     });
   }

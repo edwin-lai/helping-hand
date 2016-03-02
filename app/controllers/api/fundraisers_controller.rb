@@ -29,9 +29,12 @@ class Api::FundraisersController < ApplicationController
 
   def update
     @fundraiser = Fundraiser.find_by_id(params['id'])
-    @fundraiser.update!(fundraiser_params)
     require_correct_user
-    render :show if current_user.id == @fundraiser.user_id
+    if @fundraiser.update(fundraiser_params)
+      render :show if current_user.id == @fundraiser.user_id
+    else
+      render json: { errors: @fundraiser.errors.full_messages }, status: 422
+    end
   end
 
   def destroy

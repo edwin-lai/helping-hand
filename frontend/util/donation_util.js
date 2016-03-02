@@ -1,4 +1,5 @@
 var DonationActions = require('../actions/donation_actions.js');
+var ErrorActions = require('../actions/error_actions.js');
 
 module.exports = {
   createDonation: function (data, callback) {
@@ -8,8 +9,8 @@ module.exports = {
       data: { donation: data },
       dataType: 'json',
       success: callback,
-      error: function () {
-        console.log(arguments);
+      error: function (error) {
+        ErrorActions.receiveError(error.responseJSON);
       }
     });
   },
@@ -21,8 +22,8 @@ module.exports = {
       data: { donation: data },
       dataType: 'json',
       success: callback,
-      error: function () {
-        console.log(arguments);
+      error: function (error) {
+        ErrorActions.receiveError(error.responseJSON);
       }
     });
   },

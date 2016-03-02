@@ -3,6 +3,7 @@ var UserUtil = require('../util/user_util.js');
 var UserActions = require('../actions/user_actions.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var SessionUtil = require('../util/session_util.js');
+var ErrorStore = require('../stores/error.js');
 
 var NewUserForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -18,6 +19,16 @@ var NewUserForm = React.createClass({
       email: '',
       password: '',
     };
+  },
+
+  componentDidMount: function () {
+    this.listener = ErrorStore.addListener(function () {
+      this.setState({ error: ErrorStore.get() });
+    }.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
   },
 
   createUser: function (event) {
@@ -47,17 +58,32 @@ var NewUserForm = React.createClass({
   render: function () {
     return <form onSubmit={this.createUser} className="form">
       <h1>New User</h1>
+      <div className="error">
+        {this.state.error}
+      </div>
       <label htmlFor="firstName">First Name</label>
-      <input type="text" id="firstName" valueLink={this.linkState('first_name')} />
+      <input
+        type="text"
+        id="firstName"
+        valueLink={this.linkState('first_name')}
+      />
       <br />
       <label htmlFor="lastName">Last Name</label>
-      <input type="text" id="lastName" valueLink={this.linkState('last_name')} />
+      <input
+        type="text"
+        id="lastName"
+        valueLink={this.linkState('last_name')}
+      />
       <br />
       <label htmlFor="email">Email</label>
       <input type="text" id="email" valueLink={this.linkState('email')} />
       <br />
       <label htmlFor="password">Password</label>
-      <input type="password" id="password" valueLink={this.linkState('password')} />
+      <input
+        type="password"
+        id="password"
+        valueLink={this.linkState('password')}
+      />
       <br />
       <input type="submit" value="Sign Up" className="submit" />
       <button onClick={this.guestLogin} className="guest-login">

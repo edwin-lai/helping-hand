@@ -4,6 +4,7 @@ var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var FundraiserUtil = require('../util/fundraiser_util.js');
 var FundraiserActions = require('../actions/fundraiser_actions.js');
+var ErrorStore = require('../stores/error.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -22,6 +23,16 @@ module.exports = React.createClass({
       category: '',
       user_id: window.currentUserId
     };
+  },
+
+  componentDidMount: function () {
+    this.listener = ErrorStore.addListener(function () {
+      this.setState({ error: ErrorStore.get() });
+    }.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
   },
 
   createFundraiser: function (event) {
@@ -55,6 +66,9 @@ module.exports = React.createClass({
   render: function () {
     return <form className="form" onSubmit={this.createFundraiser}>
       <h1>New Fundraiser</h1>
+      <div className="error">
+        {this.state.error}
+      </div>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" valueLink={this.linkState('title')} />
       <br />

@@ -12,7 +12,7 @@ class Api::SessionsController < ApplicationController
       session[:session_token] = @user.session_token
       session[:email] = @user.email
     else
-      render json: { errors: @user.errors.full_messages }, status: 422
+      render json: { errors: 'Invalid username/password combination.' }, status: 422
     end
   end
 

@@ -89,6 +89,24 @@ $border-color: rgb(200, 200, 200);
   .guest-login {
     float: right;
   }
+
+  div span {
+    display: block;
+  }
+}
+
+.donation-form {
+  width: 329px;
+
+  .huge-box {
+    font-size: 36px;
+    font-weight: 700;
+    width: 329px;
+  }
+
+  textarea {
+    width: 329px;
+  }
 }
 
 .fundraiser {
@@ -102,7 +120,6 @@ $border-color: rgb(200, 200, 200);
     border-radius: 5px;
     box-shadow: 1px 1px 3px $border-color;
     display: block;
-    margin: 10px;
     padding: 10px;
   }
 
@@ -261,7 +278,9 @@ $border-color: rgb(200, 200, 200);
   }
 
   .main {
+    box-sizing: border-box;
     float: left;
+    padding: 10px;
     width: 60%;
   }
 
