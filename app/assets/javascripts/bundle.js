@@ -33071,6 +33071,7 @@
 	var Link = __webpack_require__(186).Link;
 	var Modal = __webpack_require__(263);
 	var NewDonationForm = __webpack_require__(287);
+	var LoginForm = __webpack_require__(254);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -33106,12 +33107,20 @@
 	          { onClick: this.closeModal },
 	          'Close'
 	        ),
-	        React.createElement(NewDonationForm, {
-	          fundraiserId: this.props.fundraiser.id,
-	          closeModal: this.closeModal
-	        })
+	        this.requireLoggedIn()
 	      )
 	    );
+	  },
+	
+	  requireLoggedIn: function () {
+	    if (window.currentUserId > 0) {
+	      return React.createElement(NewDonationForm, {
+	        fundraiserId: this.props.fundraiser.id,
+	        closeModal: this.closeModal
+	      });
+	    } else {
+	      return React.createElement(LoginForm, null);
+	    }
 	  },
 	
 	  render: function () {

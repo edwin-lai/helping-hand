@@ -2,6 +2,7 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Modal = require('react-modal');
 var NewDonationForm = require('../new_donation_form.jsx');
+var LoginForm = require('../new_session_form.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -25,12 +26,20 @@ module.exports = React.createClass({
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>
         <button onClick={this.closeModal}>Close</button>
-        <NewDonationForm
-          fundraiserId={this.props.fundraiser.id}
-          closeModal={this.closeModal}
-        />
+        {this.requireLoggedIn()}
       </Modal>
     </div>;
+  },
+
+  requireLoggedIn: function () {
+    if (window.currentUserId > 0) {
+      return <NewDonationForm
+        fundraiserId={this.props.fundraiser.id}
+        closeModal={this.closeModal}
+      />;
+    } else {
+      return <LoginForm />;
+    }
   },
 
   render: function() {
