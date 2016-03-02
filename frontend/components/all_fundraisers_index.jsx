@@ -5,12 +5,14 @@ var Link = require('react-router').Link;
 var Modal = require('react-modal');
 var NewUserForm = require('./new_user_form.jsx');
 var SearchBar = require('./fundraiser_search_bar.jsx');
+var NewFundraiserForm = require('./new_fundraiser_form.jsx');
 
 var FundraisersIndex = React.createClass({
   getInitialState: function () {
     return {
       fundraisers: FundraiserStore.all(),
-      signUpModalOpen: false
+      signUpModalOpen: false,
+      newFundraiserModalOpen: false
     };
   },
 
@@ -49,6 +51,14 @@ var FundraisersIndex = React.createClass({
     this.setState({signUpModalOpen: false});
   },
 
+  openNewFundraiserModal: function () {
+    this.setState({newFundraiserModalOpen: true});
+  },
+
+  closeNewFundraiserModal: function () {
+    this.setState({newFundraiserModalOpen: false});
+  },
+
   signUpButton: function () {
     return <h1>
       <button onClick={this.openSignUpModal} className="giant-button">
@@ -57,16 +67,45 @@ var FundraisersIndex = React.createClass({
       <Modal
         isOpen={this.state.signUpModalOpen}
         onRequestClose={this.closeSignUpModal}>
-          <button onClick={this.closeSignUpModal}>Close</button>
+          <button
+            className="small-button"
+            onClick={this.closeSignUpModal}>
+            Close
+          </button>
           <NewUserForm />
       </Modal>
     </h1>;
   },
 
+  newFundraiserButton: function () {
+    return <h1>
+      <button onClick={this.openNewFundraiserModal} className="giant-button">
+        {this.giantButtonText()}
+      </button>
+      <Modal
+        isOpen={this.state.newFundraiserModalOpen}
+        onRequestClose={this.closeNewFundraiserModal}>
+          <button
+            className="small-button"
+            onClick={this.closeNewFundraiserModal}>
+            Close
+          </button>
+          <NewFundraiserForm />
+      </Modal>
+    </h1>;
+  },
+
   render: function () {
+    var button;
+    if (window.currentUserId > 0) {
+      button = this.newFundraiserButton;
+    } else {
+      button = this.signUpButton;
+    }
+
     return <ul className="index">
-      <h1 className="tagline">Show That You Care</h1>
-      {this.signUpButton()}
+      <h1 className="tagline">Lend a Hand</h1>
+      {button()}
       <SearchBar fundraisers={this.state.fundraisers} />
     </ul>;
   }

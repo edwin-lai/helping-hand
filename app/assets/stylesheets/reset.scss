@@ -1,0 +1,41 @@
+html, body, header, nav, h1, a,
+ul, li, strong, main, button, i,
+section, img, div, h2, p, form,
+fieldset, label, input, textarea,
+span, article, footer, time, small {
+  background: transparent;
+  border: 0;
+  box-sizing: inherit;
+  color: rgb(80, 80, 80);
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: auto;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  height: auto;
+  width: 10%;
+}
+
+button,
+input[type="submit"],
+link {
+  cursor: pointer;
+}
+
+// Clearfix
+
+.group::after {
+  clear: both;
+  content: "";
+  display: block;
+}

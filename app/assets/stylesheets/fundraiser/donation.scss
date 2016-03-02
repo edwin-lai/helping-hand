@@ -1,0 +1,38 @@
+$box-bg-color: rgb(240, 240, 240);
+$button-bg-color: rgb(117, 242, 186);
+$button-border-color: rgb(182, 227, 201);
+$button-hover-bg-color: rgb(127, 252, 196);
+$button-text-color: rgb(250, 250, 250);
+$fundraiser-header-bg-color: rgb(191, 255, 234);
+$content-bg-color: rgb(250, 250, 250);
+$navbar-text-color: rgb(150, 150, 150);
+$navbar-bg-color: rgb(245, 245, 245);
+$navbar-hover-bg-color: rgb(250, 250, 250);
+$form-border-color: rgb(80, 80, 80);
+$border-color: rgb(200, 200, 200);
+
+.donation {
+  border-bottom: 1px solid $border-color;
+  display: block;
+  padding: 20px;
+
+  .amount {
+    display: inherit;
+    font-size: 24px;
+  }
+
+  .comment {
+    display: inherit;
+    padding: 10px 0;
+  }
+
+  .donor-name {
+    display: inherit;
+  }
+
+  .timestamp {
+    display: inherit;
+    font-size: 8px;
+  }
+
+}

@@ -6,7 +6,8 @@ module.exports = React.createClass({
   render: function () {
     return <content>
       <NavBar />
-      <content className="content">{this.props.children}</content>
+      <div className="spacer"></div>
+      {this.props.children}
     </content>;
   }
 });

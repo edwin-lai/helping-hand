@@ -19694,11 +19694,8 @@
 	      'content',
 	      null,
 	      React.createElement(NavBar, null),
-	      React.createElement(
-	        'content',
-	        { className: 'content' },
-	        this.props.children
-	      )
+	      React.createElement('div', { className: 'spacer' }),
+	      this.props.children
 	    );
 	  }
 	});
@@ -32213,6 +32210,7 @@
 	var Modal = __webpack_require__(263);
 	var NewUserForm = __webpack_require__(249);
 	var SearchBar = __webpack_require__(291);
+	var NewFundraiserForm = __webpack_require__(255);
 	
 	var FundraisersIndex = React.createClass({
 	  displayName: 'FundraisersIndex',
@@ -32220,7 +32218,8 @@
 	  getInitialState: function () {
 	    return {
 	      fundraisers: FundraiserStore.all(),
-	      signUpModalOpen: false
+	      signUpModalOpen: false,
+	      newFundraiserModalOpen: false
 	    };
 	  },
 	
@@ -32259,6 +32258,14 @@
 	    this.setState({ signUpModalOpen: false });
 	  },
 	
+	  openNewFundraiserModal: function () {
+	    this.setState({ newFundraiserModalOpen: true });
+	  },
+	
+	  closeNewFundraiserModal: function () {
+	    this.setState({ newFundraiserModalOpen: false });
+	  },
+	
 	  signUpButton: function () {
 	    return React.createElement(
 	      'h1',
@@ -32275,7 +32282,9 @@
 	          onRequestClose: this.closeSignUpModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeSignUpModal },
+	          {
+	            className: 'small-button',
+	            onClick: this.closeSignUpModal },
 	          'Close'
 	        ),
 	        React.createElement(NewUserForm, null)
@@ -32283,16 +32292,49 @@
 	    );
 	  },
 	
+	  newFundraiserButton: function () {
+	    return React.createElement(
+	      'h1',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openNewFundraiserModal, className: 'giant-button' },
+	        this.giantButtonText()
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.newFundraiserModalOpen,
+	          onRequestClose: this.closeNewFundraiserModal },
+	        React.createElement(
+	          'button',
+	          {
+	            className: 'small-button',
+	            onClick: this.closeNewFundraiserModal },
+	          'Close'
+	        ),
+	        React.createElement(NewFundraiserForm, null)
+	      )
+	    );
+	  },
+	
 	  render: function () {
+	    var button;
+	    if (window.currentUserId > 0) {
+	      button = this.newFundraiserButton;
+	    } else {
+	      button = this.signUpButton;
+	    }
+	
 	    return React.createElement(
 	      'ul',
 	      { className: 'index' },
 	      React.createElement(
 	        'h1',
 	        { className: 'tagline' },
-	        'Show That You Care'
+	        'Lend a Hand'
 	      ),
-	      this.signUpButton(),
+	      button(),
 	      React.createElement(SearchBar, { fundraisers: this.state.fundraisers })
 	    );
 	  }
@@ -33059,7 +33101,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'section',
-	      { className: 'sidebar' },
+	      { className: 'fundraiser-sidebar' },
 	      React.createElement(DonationBox, { fundraiser: this.props.fundraiser }),
 	      React.createElement(Recipient, { fundraiser: this.props.fundraiser }),
 	      React.createElement(Donations, {
@@ -35428,6 +35470,7 @@
 	var LinkedStateMixin = __webpack_require__(250);
 	var DonationUtil = __webpack_require__(284);
 	var FundraiserUtil = __webpack_require__(183);
+	var UserUtil = __webpack_require__(247);
 	var ErrorStore = __webpack_require__(289);
 	
 	module.exports = React.createClass({
@@ -35441,7 +35484,7 @@
 	
 	  getInitialState: function () {
 	    return {
-	      amount: 0,
+	      amount: undefined,
 	      user_id: window.currentUserId,
 	      fundraiser_id: this.props.fundraiserId,
 	      comment: '',
@@ -35463,6 +35506,7 @@
 	    event.preventDefault();
 	    var that = this;
 	    DonationUtil.createDonation(this.state, function () {
+	      // UserUtil.fetchSingleUser
 	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiserId, function () {
 	        that.props.closeModal();
 	      });
@@ -35492,7 +35536,8 @@
 	        type: 'number',
 	        id: 'donation-amount',
 	        className: 'huge-box',
-	        valueLink: this.linkState('amount')
+	        valueLink: this.linkState('amount'),
+	        placeholder: '0'
 	      }),
 	      React.createElement(
 	        'label',
@@ -35585,7 +35630,7 @@
 	  getInitialState: function () {
 	    return {
 	      id: window.currentUserId,
-	      add: 0
+	      add: undefined
 	    };
 	  },
 	
@@ -35626,7 +35671,11 @@
 	        { className: 'error' },
 	        this.state.error
 	      ),
-	      React.createElement('input', { id: 'add-carecoins', valueLink: this.linkState('add') }),
+	      React.createElement('input', {
+	        id: 'add-carecoins',
+	        valueLink: this.linkState('add'),
+	        placeholder: '0'
+	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', className: 'submit', value: 'Add CareCoins' })
 	    );
@@ -35651,13 +35700,38 @@
 	    this.setState({ searchString: e.target.value });
 	  },
 	
+	  searchResults: function (fundraisers) {
+	    if (fundraisers.length) {
+	      return React.createElement(
+	        'ul',
+	        null,
+	        fundraisers.map(function (fundraiser) {
+	          return React.createElement(FundraiserIndexItem, {
+	            key: fundraiser.id,
+	            fundraiser: fundraiser
+	          });
+	        })
+	      );
+	    } else {
+	      return React.createElement(
+	        'h1',
+	        { className: 'no-results' },
+	        'No results.',
+	        React.createElement('br', null),
+	        'Try searching for something else!'
+	      );
+	    }
+	  },
+	
 	  render: function () {
 	    var fundraisers = this.props.fundraisers;
 	    var searchString = this.state.searchString.trim().toLowerCase();
+	    var name;
 	
 	    if (searchString.length > 0) {
 	      fundraisers = fundraisers.filter(function (fundraiser) {
-	        return fundraiser.title.toLowerCase().match(searchString);
+	        name = fundraiser.user.first_name + ' ' + fundraiser.user.last_name;
+	        return fundraiser.title.toLowerCase().match(searchString) || name.toLowerCase().match(searchString) || fundraiser.category.toLowerCase().match(searchString);
 	      });
 	    }
 	
@@ -35671,16 +35745,7 @@
 	        onChange: this.handleChange,
 	        placeholder: 'Search'
 	      }),
-	      React.createElement(
-	        'ul',
-	        null,
-	        fundraisers.map(function (fundraiser) {
-	          return React.createElement(FundraiserIndexItem, {
-	            key: fundraiser.id,
-	            fundraiser: fundraiser
-	          });
-	        })
-	      )
+	      this.searchResults(fundraisers)
 	    );
 	  }
 	});

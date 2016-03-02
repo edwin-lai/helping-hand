@@ -2,6 +2,7 @@ var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var DonationUtil = require('../util/donation_util.js');
 var FundraiserUtil = require('../util/fundraiser_util.js');
+var UserUtil = require('../util/user_util.js');
 var ErrorStore = require('../stores/error.js');
 
 module.exports = React.createClass({
@@ -13,7 +14,7 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return {
-      amount: 0,
+      amount: undefined,
       user_id: window.currentUserId,
       fundraiser_id: this.props.fundraiserId,
       comment: '',
@@ -35,6 +36,7 @@ module.exports = React.createClass({
     event.preventDefault();
     var that = this;
     DonationUtil.createDonation(this.state, function () {
+      // UserUtil.fetchSingleUser
       FundraiserUtil.fetchSingleFundraiser(
         that.props.fundraiserId,
         function () {
@@ -58,6 +60,7 @@ module.exports = React.createClass({
         id="donation-amount"
         className="huge-box"
         valueLink={this.linkState('amount')}
+        placeholder="0"
       />
       <label htmlFor="donation-amount">CareCoins</label>
       <br />

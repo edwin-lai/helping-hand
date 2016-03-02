@@ -19,8 +19,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Create, read, update, and delete fundraisers
 - [x] Users can donate CareCoins to other users
   - (login not necessary to donate on real site)
-- [ ] ~~Users can withdraw money from fundraisers~~
-- [ ] Users can search fundraisers by title
+- [x] Users can search fundraisers by title
 
 ## Design Docs
 * [View Wireframes][views]
@@ -113,7 +112,7 @@ Brooke's TODOs:
 
 **Objective:** Make the site feel more cohesive and awesome.
 
-- [ ] Get feedback on my UI from others
+- [x] Get feedback on my UI from others
 - [ ] Refactor HTML classes & CSS rules
 - [x] Add modals, transitions, and other styling flourishes.
 
@@ -121,8 +120,7 @@ Brooke's TODOs:
 I will probably get to some of these. However, they are not part of the
 *minimum* viable product.
 - [ ] [User page listing fundraisers and donations by user][bonus-one] (0.5 days)
-- [ ] Assign tags to fundraisers (0.5 - 1 days)
-- [ ] Search fundraisers by tag and/or category (0.5 - 1 days)
+- [x] Search fundraisers by category (0.5 - 1 days)
   - (This will be accomplished by refactoring Phase 7, so it will not get its
         own phase page.)
 - [ ] Users can comment on fundraisers

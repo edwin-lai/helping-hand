@@ -1,0 +1,44 @@
+$border-color: rgb(200, 200, 200);
+$navbar-text-color: rgb(150, 150, 150);
+$navbar-bg-color: rgb(245, 245, 245);
+$navbar-hover-bg-color: rgb(250, 250, 250);
+$navbar-top-color: rgb(117, 242, 186);
+
+.navbar {
+  background: $navbar-bg-color;
+  border-top: 5px solid $navbar-top-color;
+  box-shadow: 1px 1px 3px $border-color;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+
+  a,
+  button {
+    background: inherit;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 0 0;
+    color: $navbar-text-color;
+    float: left;
+    padding: 10px 20px;
+
+    &:hover {
+      background: $navbar-hover-bg-color;
+      color: $navbar-text-color;
+    }
+  }
+
+  .auth,
+  .bank {
+    float: right;
+
+    span {
+      color: inherit;
+    }
+  }
+}

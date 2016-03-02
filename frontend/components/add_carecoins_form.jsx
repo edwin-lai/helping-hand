@@ -11,7 +11,7 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       id: window.currentUserId,
-      add: 0
+      add: undefined
     };
   },
 
@@ -42,7 +42,11 @@ module.exports = React.createClass({
       <div className="error">
         {this.state.error}
       </div>
-      <input id="add-carecoins" valueLink={this.linkState('add')} />
+      <input
+        id="add-carecoins"
+        valueLink={this.linkState('add')}
+        placeholder="0"
+      />
       <br />
       <input type="submit" className="submit" value="Add CareCoins" />
     </form>;

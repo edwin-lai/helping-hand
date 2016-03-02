@@ -1,0 +1,40 @@
+$button-bg-color: rgb(117, 242, 186);
+//$button-border-color: rgb(182, 227, 201);
+$button-border-color: rgb(200, 200, 200);
+$button-hover-bg-color: rgb(127, 252, 196);
+$button-text-color: rgb(250, 250, 250);
+
+button,
+.submit {
+  background: $button-bg-color;
+  border: 1px solid $button-border-color;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px $button-border-color;
+  color: $button-text-color;
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  padding: 10px;
+
+  &:hover {
+    background: $button-hover-bg-color;
+    color: $button-text-color;
+    text-decoration: none;
+  }
+}
+
+.small-button {
+  background: $button-bg-color;
+  border: 1px solid $button-border-color;
+  border-radius: 5px;
+  color: $button-text-color;
+  font-family: 'Lato', sans-serif;
+  padding: 5px;
+  position: relative;
+
+  &:hover {
+    background: $button-hover-bg-color;
+    color: $button-text-color;
+    text-decoration: none;
+  }
+}
