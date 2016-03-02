@@ -105,9 +105,9 @@ Brooke's TODOs:
 **Objective:** Implement search-by-title utility.
 
 - build out API, Flux loop, and components for:
-  - [ ] fetching titles by matching letter from database
-  - [ ] rendering search results on webpage for user to use
-- [ ] Style new elements
+  - [x] fetching titles by matching letter from store
+  - [x] rendering search results on webpage for user to use
+- [x] Style new elements
 
 ### [Phase 7: Styling Cleanup and Seeding][phase-seven] (1 day)
 
@@ -115,7 +115,7 @@ Brooke's TODOs:
 
 - [ ] Get feedback on my UI from others
 - [ ] Refactor HTML classes & CSS rules
-- [ ] Add modals, transitions, and other styling flourishes.
+- [x] Add modals, transitions, and other styling flourishes.
 
 ### Bonus Features (2+ days)
 I will probably get to some of these. However, they are not part of the

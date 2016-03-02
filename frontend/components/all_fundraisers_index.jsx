@@ -1,10 +1,10 @@
 var React = require('react');
 var FundraiserStore = require('../stores/fundraiser.js');
 var FundraiserUtil = require('../util/fundraiser_util.js');
-var FundraiserIndexItem = require('./fundraiser_index_item.jsx');
 var Link = require('react-router').Link;
 var Modal = require('react-modal');
 var NewUserForm = require('./new_user_form.jsx');
+var SearchBar = require('./fundraiser_search_bar.jsx');
 
 var FundraisersIndex = React.createClass({
   getInitialState: function () {
@@ -23,16 +23,6 @@ var FundraisersIndex = React.createClass({
 
   componentWillUnmount: function () {
     this.listener.remove();
-  },
-
-  fundraisers: function () {
-    return this.state.fundraisers.map(function (obj, idx) {
-      return <FundraiserIndexItem
-        key={idx}
-        fundraiser={obj}
-        userId={obj.user}
-      />;
-    });
   },
 
   giantButtonLink: function () {
@@ -77,7 +67,7 @@ var FundraisersIndex = React.createClass({
     return <ul className="index">
       <h1 className="tagline">Show That You Care</h1>
       {this.signUpButton()}
-      {this.fundraisers()}
+      <SearchBar fundraisers={this.state.fundraisers} />
     </ul>;
   }
 });

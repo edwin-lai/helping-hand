@@ -32209,10 +32209,10 @@
 	var React = __webpack_require__(1);
 	var FundraiserStore = __webpack_require__(161);
 	var FundraiserUtil = __webpack_require__(183);
-	var FundraiserIndexItem = __webpack_require__(185);
 	var Link = __webpack_require__(186).Link;
 	var Modal = __webpack_require__(263);
 	var NewUserForm = __webpack_require__(249);
+	var SearchBar = __webpack_require__(291);
 	
 	var FundraisersIndex = React.createClass({
 	  displayName: 'FundraisersIndex',
@@ -32233,16 +32233,6 @@
 	
 	  componentWillUnmount: function () {
 	    this.listener.remove();
-	  },
-	
-	  fundraisers: function () {
-	    return this.state.fundraisers.map(function (obj, idx) {
-	      return React.createElement(FundraiserIndexItem, {
-	        key: idx,
-	        fundraiser: obj,
-	        userId: obj.user
-	      });
-	    });
 	  },
 	
 	  giantButtonLink: function () {
@@ -32303,7 +32293,7 @@
 	        'Show That You Care'
 	      ),
 	      this.signUpButton(),
-	      this.fundraisers()
+	      React.createElement(SearchBar, { fundraisers: this.state.fundraisers })
 	    );
 	  }
 	});
@@ -32753,7 +32743,8 @@
 	      React.createElement('input', {
 	        type: 'password',
 	        id: 'password',
-	        valueLink: this.linkState('password')
+	        valueLink: this.linkState('password'),
+	        placeholder: 'password'
 	      }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Log In', className: 'submit' }),
@@ -35657,6 +35648,58 @@
 	      React.createElement('input', { id: 'add-carecoins', valueLink: this.linkState('add') }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', className: 'submit', value: 'Add CareCoins' })
+	    );
+	  }
+	});
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FundraiserIndexItem = __webpack_require__(185);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { searchString: '' };
+	  },
+	
+	  handleChange: function (e) {
+	    this.setState({ searchString: e.target.value });
+	  },
+	
+	  render: function () {
+	    var fundraisers = this.props.fundraisers;
+	    var searchString = this.state.searchString.trim().toLowerCase();
+	
+	    if (searchString.length > 0) {
+	      fundraisers = fundraisers.filter(function (fundraiser) {
+	        return fundraiser.title.toLowerCase().match(searchString);
+	      });
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('input', {
+	        type: 'text',
+	        className: 'search-bar',
+	        value: this.state.searchString,
+	        onChange: this.handleChange,
+	        placeholder: 'Search'
+	      }),
+	      React.createElement(
+	        'ul',
+	        null,
+	        fundraisers.map(function (fundraiser) {
+	          return React.createElement(FundraiserIndexItem, {
+	            key: fundraiser.id,
+	            fundraiser: fundraiser
+	          });
+	        })
+	      )
 	    );
 	  }
 	});

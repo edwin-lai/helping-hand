@@ -67,6 +67,7 @@ var NewSessionForm = React.createClass({
         type="password"
         id="password"
         valueLink={this.linkState('password')}
+        placeholder="password"
       />
       <br />
       <input type="submit" value="Log In" className="submit" />
