@@ -21,7 +21,9 @@
  *= require ./fundraiser/donation.scss
  *= require ./index.scss
  *= require ./fundraiser/fundraiser_index_item.scss
+ *= require ./form/modal.scss
  *= require ./form/form.scss
  *= require ./form/donation_form.scss
+ *= require ./form/fundraiser_form.scss
  *= require ./navbar.scss
  */

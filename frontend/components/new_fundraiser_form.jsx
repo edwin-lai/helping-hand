@@ -64,7 +64,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <form className="form" onSubmit={this.createFundraiser}>
+    return <form className="form long-form" onSubmit={this.createFundraiser}>
       <h1>New Fundraiser</h1>
       <div className="error">
         {this.state.error}
@@ -81,7 +81,8 @@ module.exports = React.createClass({
         id="goal_amount"
         valueLink={this.linkState('goal_amount')}
         placeholder="Goal"
-      /> CareCoins
+      />
+      <label className="CareCoins" htmlFor="goal_amount">CareCoins</label>
       <br />
       <input
         type="text"
@@ -97,8 +98,12 @@ module.exports = React.createClass({
         placeholder="Tell us about your cause..."
       />
       <br />
-      <button onClick={this.openUploadWidget}>Upload Image</button>
-      <img src={this.state.thumbnail_url} />
+      <div className="upload">
+        <button onClick={this.openUploadWidget} className="upload-button">
+          Upload Image
+        </button>
+        {this.image()}
+      </div>
       <br />
       <input type="submit" value="Create Fundraiser" className="submit"/>
     </form>;

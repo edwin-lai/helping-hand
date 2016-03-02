@@ -54,8 +54,14 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
+  image: function () {
+    if (this.state.thumbnail_url) {
+      return <img src={this.state.thumbnail_url} />;
+    }
+  },
+
   render: function () {
-    return <form className="form" onSubmit={this.updateFundraiser}>
+    return <form className="form long-form" onSubmit={this.updateFundraiser}>
       <h1>Edit Fundraiser</h1>
       <div className="error">
         {this.state.error}
@@ -73,6 +79,7 @@ module.exports = React.createClass({
         valueLink={this.linkState('goal_amount')}
         placeholder="Goal"
       />
+      <label htmlFor="goal_amount" className="care-coins">CareCoins</label>
       <br />
       <input
         type="text"
@@ -81,16 +88,21 @@ module.exports = React.createClass({
         placeholder="Category"
       />
       <br />
+      <br />
       <textarea
         id="description"
         valueLink={this.linkState('description')}
-        placeholder="Tell us your story..."
+        placeholder="Tell us about your cause..."
       />
       <br />
-      <button onClick={this.openUploadWidget}>Upload Image</button>
-      <img src={this.state.thumbnail_url} />
+      <div className="upload">
+        <button onClick={this.openUploadWidget} className="upload-button">
+          Upload Image
+        </button>
+        {this.image()}
+      </div>
       <br />
-      <input type="submit" value="Update Fundraiser" className="submit" />
+      <input type="submit" value="Update Fundraiser" className="submit"/>
     </form>;
   }
 });

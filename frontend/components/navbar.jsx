@@ -60,7 +60,9 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.loginModalOpen}
         onRequestClose={this.closeLoginModal}>
-          <button onClick={this.closeLoginModal}>Close</button>
+          <button onClick={this.closeLoginModal} className="small-button">
+            Close
+          </button>
           <LoginForm />
       </Modal>
     </div>;
@@ -80,7 +82,9 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.signUpModalOpen}
         onRequestClose={this.closeSignUpModal}>
-          <button onClick={this.closeSignUpModal}>Close</button>
+          <button onClick={this.closeSignUpModal} className="small-button">
+            Close
+          </button>
           <NewUserForm />
       </Modal>
     </div>;

@@ -1,0 +1,16 @@
+.ReactModal__Content,
+.ReactModal__Content--after-open {
+  height: 70%;
+  margin: auto;
+  width: 55%;
+
+  .small-button {
+    position: fixed;
+  }
+
+  .form:not(.long-form) {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

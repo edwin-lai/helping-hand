@@ -25,7 +25,9 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>
-        <button onClick={this.closeModal}>Close</button>
+        <button className="small-button" onClick={this.closeModal}>
+          Close
+        </button>
         {this.requireLoggedIn()}
       </Modal>
     </div>;

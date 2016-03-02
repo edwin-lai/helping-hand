@@ -33893,10 +33893,16 @@
 	    }.bind(this));
 	  },
 	
+	  image: function () {
+	    if (this.state.thumbnail_url) {
+	      return React.createElement('img', { src: this.state.thumbnail_url });
+	    }
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { className: 'form', onSubmit: this.updateFundraiser },
+	      { className: 'form long-form', onSubmit: this.updateFundraiser },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -33920,6 +33926,11 @@
 	        valueLink: this.linkState('goal_amount'),
 	        placeholder: 'Goal'
 	      }),
+	      React.createElement(
+	        'label',
+	        { htmlFor: 'goal_amount', className: 'care-coins' },
+	        'CareCoins'
+	      ),
 	      React.createElement('br', null),
 	      React.createElement('input', {
 	        type: 'text',
@@ -33928,18 +33939,23 @@
 	        placeholder: 'Category'
 	      }),
 	      React.createElement('br', null),
+	      React.createElement('br', null),
 	      React.createElement('textarea', {
 	        id: 'description',
 	        valueLink: this.linkState('description'),
-	        placeholder: 'Tell us your story...'
+	        placeholder: 'Tell us about your cause...'
 	      }),
 	      React.createElement('br', null),
 	      React.createElement(
-	        'button',
-	        { onClick: this.openUploadWidget },
-	        'Upload Image'
+	        'div',
+	        { className: 'upload' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openUploadWidget, className: 'upload-button' },
+	          'Upload Image'
+	        ),
+	        this.image()
 	      ),
-	      React.createElement('img', { src: this.state.thumbnail_url }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Update Fundraiser', className: 'submit' })
 	    );
@@ -34278,7 +34294,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'form',
-	      { className: 'form', onSubmit: this.createFundraiser },
+	      { className: 'form long-form', onSubmit: this.createFundraiser },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -34302,7 +34318,11 @@
 	        valueLink: this.linkState('goal_amount'),
 	        placeholder: 'Goal'
 	      }),
-	      ' CareCoins',
+	      React.createElement(
+	        'label',
+	        { className: 'CareCoins', htmlFor: 'goal_amount' },
+	        'CareCoins'
+	      ),
 	      React.createElement('br', null),
 	      React.createElement('input', {
 	        type: 'text',
@@ -34319,11 +34339,15 @@
 	      }),
 	      React.createElement('br', null),
 	      React.createElement(
-	        'button',
-	        { onClick: this.openUploadWidget },
-	        'Upload Image'
+	        'div',
+	        { className: 'upload' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openUploadWidget, className: 'upload-button' },
+	          'Upload Image'
+	        ),
+	        this.image()
 	      ),
-	      React.createElement('img', { src: this.state.thumbnail_url }),
 	      React.createElement('br', null),
 	      React.createElement('input', { type: 'submit', value: 'Create Fundraiser', className: 'submit' })
 	    );
@@ -34408,7 +34432,7 @@
 	          onRequestClose: this.closeLoginModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeLoginModal },
+	          { onClick: this.closeLoginModal, className: 'small-button' },
 	          'Close'
 	        ),
 	        React.createElement(LoginForm, null)
@@ -34440,7 +34464,7 @@
 	          onRequestClose: this.closeSignUpModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeSignUpModal },
+	          { onClick: this.closeSignUpModal, className: 'small-button' },
 	          'Close'
 	        ),
 	        React.createElement(NewUserForm, null)
@@ -35265,7 +35289,7 @@
 	          onRequestClose: this.closeModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeModal },
+	          { className: 'small-button', onClick: this.closeModal },
 	          'Close'
 	        ),
 	        this.requireLoggedIn()

@@ -8,39 +8,38 @@ $border-color: rgb(200, 200, 200);
 .form {
   display: block;
   font-family: "Lato", sans-serif;
-  margin: 0 auto;
-  padding: 10px 20px;
+  height: auto;
+  margin: auto;
   width: 280px;
 
   h1 {
     font-size: 36px;
     font-weight: 900;
-    padding: 10px 0;
+    padding-bottom: 10px;
   }
 
-  img {
-    display: inline-block;
-    padding: 10px;
-  }
-
-  input:not(.submit) {
+  input:not(.submit):not([type="checkbox"]) {
     border: 1px solid $border-color;
     border-radius: 5px;
     box-shadow: 1px 1px 1px inset;
+    box-sizing: border-box;
     display: inline-block;
     font-weight: 300;
     margin-bottom: 20px;
     padding: 10px;
+    width: inherit;
   }
 
   textarea {
     border: 1px solid $border-color;
     border-radius: 5px;
+    box-shadow: 1px 1px 1px inset;
+    box-sizing: border-box;
     font-weight: 300;
     height: 100px;
     margin-bottom: 20px;
     padding: 10px;
-    width: 248px;
+    width: inherit;
   }
 
   label {
