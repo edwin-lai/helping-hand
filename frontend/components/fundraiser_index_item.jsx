@@ -29,7 +29,9 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>
-        <button onClick={this.closeModal}>Close</button>
+        <button onClick={this.closeModal} className="small-button">
+          Close
+        </button>
         <EditFundraiserForm fundraiser={this.props.fundraiser}/>
       </Modal>
     </div>;

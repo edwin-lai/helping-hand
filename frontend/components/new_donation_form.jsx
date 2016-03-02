@@ -36,7 +36,7 @@ module.exports = React.createClass({
     event.preventDefault();
     var that = this;
     DonationUtil.createDonation(this.state, function () {
-      // UserUtil.fetchSingleUser
+      UserUtil.fetchCurrentUser();
       FundraiserUtil.fetchSingleFundraiser(
         that.props.fundraiserId,
         function () {

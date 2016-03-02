@@ -46,7 +46,9 @@ module.exports = React.createClass({
         <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}>
-          <button onClick={this.closeModal}>Close</button>
+          <button onClick={this.closeModal} className="small-button">
+            Close
+          </button>
           <EditDonationForm
             fundraiser={this.props.fundraiser}
             donation={this.props.donation}
@@ -58,7 +60,6 @@ module.exports = React.createClass({
   },
 
   render: function() {
-
     return <li className="donation">
       <content className="amount">
         {this.props.donation.amount} CareCoins

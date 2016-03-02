@@ -19770,7 +19770,7 @@
 	          onRequestClose: this.closeModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeModal },
+	          { onClick: this.closeModal, className: 'small-button' },
 	          'Close'
 	        ),
 	        React.createElement(NewFundraiserForm, null)
@@ -26761,7 +26761,7 @@
 	          onRequestClose: this.closeModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeModal },
+	          { onClick: this.closeModal, className: 'small-button' },
 	          'Close'
 	        ),
 	        React.createElement(EditFundraiserForm, { fundraiser: this.props.fundraiser })
@@ -32039,7 +32039,7 @@
 	          onRequestClose: this.closeBankModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeBankModal },
+	          { onClick: this.closeBankModal, className: 'small-button' },
 	          'Close'
 	        ),
 	        React.createElement(AddCareCoinsForm, { closeModal: this.closeBankModal })
@@ -33027,9 +33027,6 @@
 	var FundraiserStore = __webpack_require__(161);
 	var FundraiserUtil = __webpack_require__(183);
 	var FundraiserSidebar = __webpack_require__(258);
-	var Modal = __webpack_require__(263);
-	
-	Modal.setAppElement(document.getElementById('root'));
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -33334,7 +33331,7 @@
 	            onRequestClose: this.closeModal },
 	          React.createElement(
 	            'button',
-	            { onClick: this.closeModal },
+	            { onClick: this.closeModal, className: 'small-button' },
 	            'Close'
 	          ),
 	          React.createElement(EditDonationForm, {
@@ -33348,7 +33345,6 @@
 	  },
 	
 	  render: function () {
-	
 	    return React.createElement(
 	      'li',
 	      { className: 'donation' },
@@ -35506,7 +35502,7 @@
 	    event.preventDefault();
 	    var that = this;
 	    DonationUtil.createDonation(this.state, function () {
-	      // UserUtil.fetchSingleUser
+	      UserUtil.fetchCurrentUser();
 	      FundraiserUtil.fetchSingleFundraiser(that.props.fundraiserId, function () {
 	        that.props.closeModal();
 	      });

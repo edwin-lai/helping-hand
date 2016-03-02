@@ -24,6 +24,7 @@ $border-color: rgb(200, 200, 200);
   .comment {
     display: inherit;
     padding: 10px 0;
+    word-wrap: break-word;
   }
 
   .donor-name {
