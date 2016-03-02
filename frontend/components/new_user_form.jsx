@@ -18,6 +18,7 @@ var NewUserForm = React.createClass({
       last_name: '',
       email: '',
       password: '',
+      password_confirmation: '',
     };
   },
 
@@ -87,6 +88,13 @@ var NewUserForm = React.createClass({
         id="password"
         valueLink={this.linkState('password')}
         placeholder="Password"
+      />
+      <br />
+      <input
+        type="password"
+        id="password_confirmation"
+        valueLink={this.linkState('password_confirmation')}
+        placeholder="Confirm Password"
       />
       <br />
       <input type="submit" value="Sign Up" className="submit" />

@@ -12,4 +12,10 @@ class Donation < ActiveRecord::Base
   def user_bank
     user.bank
   end
+
+  def cannot_donate_to_self
+    if user.id == fundraiser.user.id
+      errors.add(:user, 'cannot donate to yourself.')
+    end
+  end
 end

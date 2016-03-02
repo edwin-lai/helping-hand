@@ -20,4 +20,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      fundraiser:
+        image_url: ''
+        goal_amount: 'Goal'
+        thumbnail_url: ''
+      donation:
+        user: 'You'
+    errors:
+      models:
+        fundraiser:
+          attributes:
+            image_url:
+              blank: 'Must upload an image'
+            thumbnail_url:
+              blank: ''
