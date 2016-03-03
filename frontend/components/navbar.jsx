@@ -119,7 +119,8 @@ module.exports = React.createClass({
       return <nav className="navbar">
         <Link name="logo" to="/" className="logo">Helping Hand</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
-        <Link to="/myDonations">My Donations</Link>
+        <Link to="/my_donations">My Donations</Link>
+        <Link to="/received_donations">Received Donations</Link>
         <button onClick={this.logout} className="auth">Logout</button>
         {this.addCareCoinsButton()}
       </nav>;

@@ -8,6 +8,7 @@ var FundraisersIndex = require('./components/fundraisers_index.jsx');
 var Fundraiser = require('./components/fundraiser.jsx');
 var NavBar = require('./components/navbar.jsx');
 var MyDonations = require('./components/my_donations.jsx');
+var ReceivedDonations = require('./components/received_donations.jsx');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -25,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
         <IndexRoute component={AllFundraisersIndex} />
         <Route path='fundraisers' component={FundraisersIndex} />
         <Route path='fundraisers/:id' component={Fundraiser} />
-        <Route path='myDonations' component={MyDonations} />
+        <Route path='my_donations' component={MyDonations} />
+        <Route path='received_donations' component={ReceivedDonations} />
       </Route>
     </Router>,
     appElement

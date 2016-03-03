@@ -54,6 +54,7 @@
 	var Fundraiser = __webpack_require__(281);
 	var NavBar = __webpack_require__(272);
 	var MyDonations = __webpack_require__(292);
+	var ReceivedDonations = __webpack_require__(293);
 	
 	var Router = __webpack_require__(207).Router;
 	var Route = __webpack_require__(207).Route;
@@ -74,7 +75,8 @@
 	      React.createElement(IndexRoute, { component: AllFundraisersIndex }),
 	      React.createElement(Route, { path: 'fundraisers', component: FundraisersIndex }),
 	      React.createElement(Route, { path: 'fundraisers/:id', component: Fundraiser }),
-	      React.createElement(Route, { path: 'myDonations', component: MyDonations })
+	      React.createElement(Route, { path: 'my_donations', component: MyDonations }),
+	      React.createElement(Route, { path: 'received_donations', component: ReceivedDonations })
 	    )
 	  ), appElement);
 	});
@@ -21697,7 +21699,7 @@
 	      React.createElement(
 	        'button',
 	        { onClick: this.openModal, className: className },
-	        'New Fundraiser'
+	        'Make a Fundraiser'
 	      ),
 	      React.createElement(
 	        Modal,
@@ -34533,8 +34535,13 @@
 	        ),
 	        React.createElement(
 	          Link,
-	          { to: '/myDonations' },
+	          { to: '/my_donations' },
 	          'My Donations'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: '/received_donations' },
+	          'Received Donations'
 	        ),
 	        React.createElement(
 	          'button',
@@ -35519,6 +35526,16 @@
 	        DonationActions.receiveUserDonations(donations);
 	      }
 	    });
+	  },
+	
+	  fetchReceivedDonations: function () {
+	    $.ajax({
+	      type: 'GET',
+	      url: 'api/users/' + window.currentUserId + '/received_donations',
+	      success: function (donations) {
+	        DonationActions.receiveUserDonations(donations);
+	      }
+	    });
 	  }
 	};
 
@@ -35825,15 +35842,10 @@
 	var React = __webpack_require__(1);
 	var DonationStore = __webpack_require__(291);
 	var DonationUtil = __webpack_require__(285);
-	var FundraiserStore = __webpack_require__(181);
-	var FundraiserUtil = __webpack_require__(203);
-	var FundraiserIndexItem = __webpack_require__(206);
 	var Link = __webpack_require__(207).Link;
-	var NewFundraiserForm = __webpack_require__(271);
-	var Modal = __webpack_require__(159);
 	
-	var FundraisersIndex = React.createClass({
-	  displayName: 'FundraisersIndex',
+	module.exports = React.createClass({
+	  displayName: 'exports',
 	
 	  getInitialState: function () {
 	    return { donations: DonationStore.userDonations() };
@@ -35855,7 +35867,7 @@
 	    return donations.map(function (donation) {
 	      return React.createElement(
 	        'li',
-	        { className: 'my-donations-item' },
+	        { className: 'my-donations-item', key: donation.id },
 	        React.createElement(
 	          Link,
 	          { to: "/fundraisers/" + donation.fundraiser.id },
@@ -35906,8 +35918,115 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var DonationStore = __webpack_require__(291);
+	var DonationUtil = __webpack_require__(285);
+	var FundraiserStore = __webpack_require__(181);
+	var FundraiserUtil = __webpack_require__(203);
+	var FundraiserIndexItem = __webpack_require__(206);
+	var Link = __webpack_require__(207).Link;
+	var NewFundraiserForm = __webpack_require__(271);
+	var Modal = __webpack_require__(159);
 	
-	module.exports = FundraisersIndex;
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      donations: DonationStore.userDonations(),
+	      modalIsOpen: false
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    var that = this;
+	    this.listener = DonationStore.addListener(function () {
+	      that.setState({ donations: DonationStore.userDonations() });
+	    });
+	    DonationUtil.fetchReceivedDonations();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  donation: function (donations) {
+	    var donor;
+	    var units;
+	
+	    return donations.map(function (donation) {
+	      donor = donation.user;
+	      if (donation.amount === 1) {
+	        units = ' CareCoin ';
+	      } else {
+	        units = ' CareCoins ';
+	      }
+	
+	      return React.createElement(
+	        'li',
+	        { className: 'my-donations-item', key: donation.id },
+	        React.createElement(
+	          Link,
+	          { to: "/fundraisers/" + donation.fundraiser.id },
+	          donation.fundraiser.title
+	        ),
+	        React.createElement(
+	          'content',
+	          { className: 'donation-amount' },
+	          donation.amount + units + 'from ' + donor.first_name + ' ' + donor.last_name
+	        )
+	      );
+	    });
+	  },
+	
+	  donations: function () {
+	    if (this.state.donations.length) {
+	      return this.donation(this.state.donations);
+	    } else {
+	      return React.createElement(
+	        'content',
+	        { className: 'no-donations' },
+	        'You haven\'t received any donations yet.',
+	        React.createElement('br', null),
+	        React.createElement(
+	          'button',
+	          { className: 'giant-button', onClick: this.openModal },
+	          'Make a Fundraiser'
+	        )
+	      );
+	    }
+	  },
+	
+	  openModal: function () {
+	    this.setState({ modalIsOpen: true });
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false });
+	  },
+	
+	  render: function () {
+	    if (window.currentUserId === -1 || window.currentUserId === undefined) {
+	      window.location.assign('/');
+	    }
+	    return React.createElement(
+	      'ul',
+	      { className: 'my-fundraisers' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Received Donations'
+	      ),
+	      React.createElement('br', null),
+	      this.donations()
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

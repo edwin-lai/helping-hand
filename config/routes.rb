@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :donations, only: :index
     end
     resource :session, only: [:new, :create, :destroy]
+    get 'users/:user_id/received_donations', to: 'donations#received_donations'
   end
   root 'static_pages#root'
   # The priority is based upon order of creation: first created -> highest priority.

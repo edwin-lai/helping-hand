@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :fundraisers
   has_many :donations
+  has_many :received_donations, through: :fundraisers, source: :donations
 
   attr_reader :password
 

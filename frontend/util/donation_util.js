@@ -46,5 +46,15 @@ module.exports = {
         DonationActions.receiveUserDonations(donations);
       }
     });
+  },
+
+  fetchReceivedDonations: function () {
+    $.ajax({
+      type: 'GET',
+      url: 'api/users/' + window.currentUserId + '/received_donations',
+      success: function (donations) {
+        DonationActions.receiveUserDonations(donations);
+      }
+    });
   }
 };

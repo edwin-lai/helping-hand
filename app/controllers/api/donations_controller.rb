@@ -47,6 +47,11 @@ class Api::DonationsController < ApplicationController
     render :show if current_user.id == @donation.user_id
   end
 
+  def received_donations
+    @donations = current_user.received_donations.sort_by(&:created_at).reverse
+    render :index
+  end
+
   private
 
   def require_login

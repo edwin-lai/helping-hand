@@ -56,7 +56,7 @@ var FundraisersIndex = React.createClass({
   newFundraiserButton: function (className) {
     return <div>
       <button onClick={this.openModal} className={className}>
-        New Fundraiser
+        Make a Fundraiser
       </button>
       <Modal
         isOpen={this.state.modalIsOpen}
