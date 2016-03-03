@@ -32,11 +32,13 @@
     "eslint": "^2.2.0",
     "eslint-plugin-promise": "^1.0.8",
     "flux": "^2.1.1",
+    "moment": "^2.11.2",
     "react": "^0.14.7",
     "react-addons-linked-state-mixin": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-modal": "^0.6.1",
     "react-router": "^2.0.0",
+    "react-time": "^4.0.0",
     "webpack": "^1.12.14"
   }
 }

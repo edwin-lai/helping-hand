@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Link = require('react-router').Link;
 var Modal = require('react-modal');
 var EditDonationForm = require('./edit_donation.jsx');
+var Time = require('react-time');
 
 
 module.exports = React.createClass({
@@ -67,7 +68,11 @@ module.exports = React.createClass({
       <content className="donor-name">
         {this.donorName()}
       </content>
-      <content className="timestamp">{this.props.donation.created_at}</content>
+      <Time
+        value={this.props.donation.created_at}
+        className="timestamp"
+        relative
+      />
       {this.comment()}
       {this.editCommentButton()}
     </li>;
