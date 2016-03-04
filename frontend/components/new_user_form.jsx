@@ -37,7 +37,7 @@ var NewUserForm = React.createClass({
     UserUtil.createUser(this.state, function (user) {
       window.currentUserId = user.id;
       UserActions.receiveCurrentUser(user);
-      this.context.router.push('/fundraisers');
+      this.context.router.push('/');
     }.bind(this));
   },
 
@@ -51,7 +51,7 @@ var NewUserForm = React.createClass({
       function (user) {
         window.currentUserId = user.id;
         UserActions.receiveCurrentUser(user);
-        this.context.router.push('/fundraisers');
+        this.context.router.push('/');
       }.bind(this)
     );
   },

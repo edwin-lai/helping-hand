@@ -34,7 +34,7 @@ var NewSessionForm = React.createClass({
     SessionUtil.signIn(this.state, function (user) {
       window.currentUserId = user.id;
       UserActions.receiveCurrentUser(user);
-      this.context.router.push('/fundraisers');
+      this.context.router.push('/');
     }.bind(this));
   },
 
@@ -48,7 +48,7 @@ var NewSessionForm = React.createClass({
       function (user) {
         window.currentUserId = user.id;
         UserActions.receiveCurrentUser(user);
-        this.context.router.push('/fundraisers');
+        this.context.router.push('/');
       }.bind(this)
     );
   },

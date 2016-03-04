@@ -2,6 +2,7 @@
 
 $border-color: rgb(200, 200, 200);
 $button-border-color: rgb(182, 227, 201);
+$search-bar-bg-color: rgba(189, 226, 252, 0.25);
 
 .index {
   font-family: 'Lato', sans-serif;
@@ -20,12 +21,13 @@ $button-border-color: rgb(182, 227, 201);
   }
 
   .search-bar {
+    background-color: $search-bar-bg-color;
     border: 1px solid $border-color;
     border-radius: 5px;
     box-shadow: 1px 1px 2px inset;
     box-sizing: border-box;
     display: block;
-    font-size: 18px;
+    font-size: 48px;
     font-weight: 300;
     margin: 36px 25%;
     padding: 10px;
