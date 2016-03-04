@@ -36639,6 +36639,10 @@
 	    this.setState({ searchString: query });
 	  },
 	
+	  clearSearchString: function () {
+	    this.setState({ searchString: '' });
+	  },
+	
 	  categories: function () {
 	    var that = this;
 	    return CATEGORIES.slice(1).map(function (obj, idx) {
@@ -36668,14 +36672,23 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('input', {
-	        type: 'text',
-	        className: 'search-bar',
-	        value: this.state.searchString,
-	        onChange: this.handleChange,
-	        placeholder: this.state.placeholder,
-	        onFocus: this.placeholderOn,
-	        onBlur: this.placeholderOff }),
+	      React.createElement(
+	        'div',
+	        { className: 'search-bar-wrapper' },
+	        React.createElement('input', {
+	          type: 'text',
+	          className: 'search-bar',
+	          value: this.state.searchString,
+	          onChange: this.handleChange,
+	          placeholder: this.state.placeholder,
+	          onFocus: this.placeholderOn,
+	          onBlur: this.placeholderOff }),
+	        React.createElement(
+	          'div',
+	          { onClick: this.clearSearchString, className: 'clear-search' },
+	          '×'
+	        )
+	      ),
 	      React.createElement(
 	        'ul',
 	        { className: 'categories' },

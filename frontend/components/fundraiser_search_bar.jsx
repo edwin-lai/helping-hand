@@ -37,6 +37,10 @@ module.exports = React.createClass({
     this.setState({searchString: query});
   },
 
+  clearSearchString: function () {
+    this.setState({searchString: ''});
+  },
+
   categories: function () {
     var that = this;
     return CATEGORIES.slice(1).map(function (obj, idx) {
@@ -64,14 +68,17 @@ module.exports = React.createClass({
     }
 
     return <div>
-      <input
-        type="text"
-        className="search-bar"
-        value={this.state.searchString}
-        onChange={this.handleChange}
-        placeholder={this.state.placeholder}
-        onFocus={this.placeholderOn}
-        onBlur={this.placeholderOff}/>
+      <div className="search-bar-wrapper">
+        <input
+          type="text"
+          className="search-bar"
+          value={this.state.searchString}
+          onChange={this.handleChange}
+          placeholder={this.state.placeholder}
+          onFocus={this.placeholderOn}
+          onBlur={this.placeholderOff}/>
+        <div onClick={this.clearSearchString} className="clear-search">×</div>
+      </div>
       <ul className="categories">
         <h2>Categories</h2>
         {this.categories()}
