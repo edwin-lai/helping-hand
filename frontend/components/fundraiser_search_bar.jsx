@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
   searchResults: function (fundraisers) {
     if (fundraisers.length) {
-      return <ul>
+      return <ul className="fundraiser-search-results">
         {fundraisers.map(function (fundraiser) {
           return <FundraiserIndexItem
             key={fundraiser.id}
@@ -39,8 +39,11 @@ module.exports = React.createClass({
 
   categories: function () {
     var that = this;
-    return CATEGORIES.map(function (obj, idx) {
-      return <li key={idx} onClick={that.setSearchString.bind(that, obj.value)}>
+    return CATEGORIES.slice(1).map(function (obj, idx) {
+      return <li
+        key={idx}
+        className="category"
+        onClick={that.setSearchString.bind(that, obj.value)}>
         {obj.label}
       </li>;
     });
@@ -70,6 +73,7 @@ module.exports = React.createClass({
         onFocus={this.placeholderOn}
         onBlur={this.placeholderOff}/>
       <ul className="categories">
+        <h2>Categories</h2>
         {this.categories()}
       </ul>
       {this.searchResults(fundraisers)}

@@ -35169,7 +35169,7 @@
 	    if (fundraisers.length) {
 	      return React.createElement(
 	        'ul',
-	        null,
+	        { className: 'fundraiser-search-results' },
 	        fundraisers.map(function (fundraiser) {
 	          return React.createElement(FundraiserIndexItem, {
 	            key: fundraiser.id,
@@ -35194,10 +35194,13 @@
 	
 	  categories: function () {
 	    var that = this;
-	    return CATEGORIES.map(function (obj, idx) {
+	    return CATEGORIES.slice(1).map(function (obj, idx) {
 	      return React.createElement(
 	        'li',
-	        { key: idx, onClick: that.setSearchString.bind(that, obj.value) },
+	        {
+	          key: idx,
+	          className: 'category',
+	          onClick: that.setSearchString.bind(that, obj.value) },
 	        obj.label
 	      );
 	    });
@@ -35229,6 +35232,11 @@
 	      React.createElement(
 	        'ul',
 	        { className: 'categories' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Categories'
+	        ),
 	        this.categories()
 	      ),
 	      this.searchResults(fundraisers)

@@ -5,12 +5,17 @@ $button-border-color: rgb(182, 227, 201);
 
 .index {
   font-family: 'Lato', sans-serif;
+  margin: 0 auto;
   text-align: center;
-  width: auto;
+  width: 99%;
 
   .tagline {
+    box-sizing: border-box;
+    display: block;
     font-size: 48px;
     font-weight: 900;
+    margin-left: 25%;
+    margin-right: 25%;
     padding: 24px 0;
   }
 
@@ -18,12 +23,13 @@ $button-border-color: rgb(182, 227, 201);
     border: 1px solid $border-color;
     border-radius: 5px;
     box-shadow: 1px 1px 2px inset;
+    box-sizing: border-box;
+    display: block;
     font-size: 18px;
     font-weight: 300;
-    margin-top: 10px;
+    margin: 36px 25%;
     padding: 10px;
     width: 50%;
-
   }
 
   .search-bar:focus {
@@ -32,8 +38,47 @@ $button-border-color: rgb(182, 227, 201);
     }
   }
 
+  .categories {
+    box-sizing: border-box;
+    display: inline-block;
+    float: left;
+    padding: 0 0 12px 128px;
+    text-align: left;
+    width: 20%;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .category {
+    padding: 6px 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .no-results {
+    display: inline-block;
     font-size: 36px;
-    margin-top: 100px;
+    margin: 100px auto;
+    text-align: center;
+    width: 79%;
+  }
+
+  .fundraiser-search-results {
+    margin: 0 auto;
+    width: 79%;
+  }
+
+  .giant-button {
+    box-sizing: border-box;
+    display: block;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
   }
 }
