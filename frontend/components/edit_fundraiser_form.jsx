@@ -1,11 +1,13 @@
 /* global cloudinary */
 
 var React = require('react');
+var Select = require('react-select');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var FundraiserUtil = require('../util/fundraiser_util.js');
 var FundraiserStore = require('../stores/fundraiser.js');
 var FundraiserActions = require('../actions/fundraiser_actions.js');
 var ErrorStore = require('../stores/error.js');
+var CATEGORIES = require('../constants/categories.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -60,6 +62,19 @@ module.exports = React.createClass({
     }
   },
 
+  changeCategory: function (category) {
+    this.setState({category: category.value});
+    console.log(this.state.category);
+  },
+
+  dropdownPlaceholder: function () {
+    if (this.state.category === '' || this.state.category === undefined) {
+      return 'Category';
+    } else {
+      return this.state.category;
+    }
+  },
+
   render: function () {
     return <form className="form long-form" onSubmit={this.updateFundraiser}>
       <h1>Edit Fundraiser</h1>
@@ -70,24 +85,23 @@ module.exports = React.createClass({
         type="text"
         id="title"
         valueLink={this.linkState('title')}
-        placeholder="Title"
-      />
+        placeholder="Title"/>
       <br />
       <input
         type="number"
         id="goal_amount"
         valueLink={this.linkState('goal_amount')}
-        placeholder="Goal"
-      />
-      <label htmlFor="goal_amount" className="care-coins">CareCoins</label>
+        placeholder="Goal"/>
+      <label htmlFor="goal_amount" className="CareCoins">CareCoins</label>
       <br />
-      <input
-        type="text"
+      <Select
         id="category"
-        valueLink={this.linkState('category')}
-        placeholder="Category"
-      />
-      <br />
+        name="Category"
+        value="Category"
+        placeholder={this.dropdownPlaceholder()}
+        searchable={false}
+        options={CATEGORIES}
+        onChange={this.changeCategory}/>
       <br />
       <textarea
         id="description"

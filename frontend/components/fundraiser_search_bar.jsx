@@ -1,9 +1,13 @@
 var React = require('react');
 var FundraiserIndexItem = require('./fundraiser_index_item.jsx');
+var CATEGORIES = require('../constants/categories.js');
 
 module.exports = React.createClass({
   getInitialState: function () {
-    return { searchString: '' };
+    return {
+      searchString: '',
+      placeholder: 'Search'
+    };
   },
 
   handleChange: function (e) {
@@ -29,6 +33,19 @@ module.exports = React.createClass({
     }
   },
 
+  setSearchString: function (query) {
+    this.setState({searchString: query});
+  },
+
+  categories: function () {
+    var that = this;
+    return CATEGORIES.map(function (obj, idx) {
+      return <li key={idx} onClick={that.setSearchString.bind(that, obj.value)}>
+        {obj.label}
+      </li>;
+    });
+  },
+
   render: function () {
     var fundraisers = this.props.fundraisers;
     var searchString = this.state.searchString.trim().toLowerCase();
@@ -49,8 +66,12 @@ module.exports = React.createClass({
         className="search-bar"
         value={this.state.searchString}
         onChange={this.handleChange}
-        placeholder="Search"
-      />
+        placeholder={this.state.placeholder}
+        onFocus={this.placeholderOn}
+        onBlur={this.placeholderOff}/>
+      <ul className="categories">
+        {this.categories()}
+      </ul>
       {this.searchResults(fundraisers)}
     </div>;
   }

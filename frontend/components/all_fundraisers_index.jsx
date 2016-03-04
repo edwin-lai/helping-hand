@@ -79,6 +79,7 @@ var FundraisersIndex = React.createClass({
 
   newFundraiserButton: function () {
     return <h1>
+      <br />
       <button onClick={this.openNewFundraiserModal} className="giant-button">
         {this.giantButtonText()}
       </button>

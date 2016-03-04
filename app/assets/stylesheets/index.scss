@@ -1,3 +1,5 @@
+@import 'bourbon';
+
 $border-color: rgb(200, 200, 200);
 $button-border-color: rgb(182, 227, 201);
 
@@ -21,6 +23,13 @@ $button-border-color: rgb(182, 227, 201);
     margin-top: 10px;
     padding: 10px;
     width: 50%;
+
+  }
+
+  .search-bar:focus {
+    @include placeholder() {
+      color: transparent;
+    }
   }
 
   .no-results {

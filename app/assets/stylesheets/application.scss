@@ -9,22 +9,21 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_self
- *= require ./reset.scss
- *= require ./static_pages.scss
- *= require ./button.scss
- *= require ./my_donations.scss
- *= require ./fundraiser/my_fundraisers.scss
- *= require ./fundraiser/fundraiser.scss
- *= require ./fundraiser/sidebar.scss
- *= require ./fundraiser/donation_box.scss
- *= require ./fundraiser/donation.scss
- *= require ./index.scss
- *= require ./fundraiser/fundraiser_index_item.scss
- *= require ./form/modal.scss
- *= require ./form/form.scss
- *= require ./form/donation_form.scss
- *= require ./form/fundraiser_form.scss
- *= require ./navbar.scss
  */
+@import 'bourbon';
+@import './reset';
+@import './static_pages';
+@import './button';
+@import './my_donations';
+@import './fundraiser/my_fundraisers';
+@import './fundraiser/fundraiser';
+@import './fundraiser/sidebar';
+@import './fundraiser/donation_box';
+@import './fundraiser/donation';
+@import './index';
+@import './fundraiser/fundraiser_index_item';
+@import './form/modal';
+@import './form/form';
+@import './form/donation_form';
+@import './form/fundraiser_form';
+@import './navbar';

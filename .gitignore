@@ -14,4 +14,4 @@
 
 # Ignore node modules and bundle.
 /node_modules
-*/bundle*
+*/bundle.*

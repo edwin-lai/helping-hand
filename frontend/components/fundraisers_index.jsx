@@ -40,6 +40,7 @@ var FundraisersIndex = React.createClass({
     } else {
       return <content className="no-fundraisers">
         You haven't made any fundraisers yet.
+        <br />
         {this.newFundraiserButton("giant-button")}
         </content>;
     }

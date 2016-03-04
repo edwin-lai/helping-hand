@@ -60,10 +60,18 @@ module.exports = React.createClass({
     }
   },
 
+  units: function (amount) {
+    if (amount === 1) {
+      return ' CareCoin';
+    } else {
+      return ' CareCoins';
+    }
+  },
+
   render: function() {
     return <li className="donation">
       <content className="amount">
-        {this.props.donation.amount} CareCoins
+        {this.props.donation.amount + this.units(this.props.donation.amount)}
       </content>
       <content className="donor-name">
         {this.donorName()}
