@@ -35968,15 +35968,14 @@
 	    this.setState({ bankModalOpen: false });
 	  },
 	
-	  addCareCoinsButton: function () {
+	  addCareCoinsButton: function (buttonText) {
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'button',
 	        { onClick: this.openBankModal, className: 'bank' },
-	        UserStore.currentUser().bank,
-	        ' CareCoins'
+	        buttonText
 	      ),
 	      React.createElement(
 	        Modal,
@@ -36019,11 +36018,35 @@
 	          'Received Donations'
 	        ),
 	        React.createElement(
-	          'button',
-	          { onClick: this.logout, className: 'auth' },
-	          'Logout'
-	        ),
-	        this.addCareCoinsButton()
+	          'nav',
+	          { className: 'navbar-dropdown-label', htmlFor: 'dropdown' },
+	          'Hello, ',
+	          this.state.currentUser.first_name,
+	          '　▾',
+	          React.createElement(
+	            'ul',
+	            { id: 'dropdown', className: 'navbar-dropdown' },
+	            React.createElement(
+	              'li',
+	              null,
+	              this.addCareCoinsButton(this.state.currentUser.bank + "CareCoins")
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              this.addCareCoinsButton("Add CareCoins")
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement(
+	                'button',
+	                { onClick: this.logout, className: 'logout' },
+	                'Logout'
+	              )
+	            )
+	          )
+	        )
 	      );
 	    } else {
 	      return React.createElement(
@@ -36031,7 +36054,7 @@
 	        { className: 'navbar' },
 	        React.createElement(
 	          Link,
-	          { to: '/' },
+	          { className: 'logo', to: '/' },
 	          'Helping Hand'
 	        ),
 	        this.loginButton(),

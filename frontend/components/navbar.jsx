@@ -98,10 +98,10 @@ module.exports = React.createClass({
     this.setState({bankModalOpen: false});
   },
 
-  addCareCoinsButton: function () {
+  addCareCoinsButton: function (buttonText) {
     return <div>
       <button onClick={this.openBankModal} className="bank">
-        {UserStore.currentUser().bank} CareCoins
+        {buttonText}
       </button>
       <Modal
         isOpen={this.state.bankModalOpen}
@@ -121,12 +121,24 @@ module.exports = React.createClass({
         <Link to="/fundraisers">My Fundraisers</Link>
         <Link to="/my_donations">My Donations</Link>
         <Link to="/received_donations">Received Donations</Link>
-        <button onClick={this.logout} className="auth">Logout</button>
-        {this.addCareCoinsButton()}
+        <nav className="navbar-dropdown-label" htmlFor="dropdown">
+          Hello, {this.state.currentUser.first_name}　▾
+          <ul id="dropdown" className="navbar-dropdown">
+            <li>
+              {this.addCareCoinsButton(this.state.currentUser.bank + "CareCoins")}
+            </li>
+            <li>
+              {this.addCareCoinsButton("Add CareCoins")}
+            </li>
+            <li>
+              <button onClick={this.logout} className="logout">Logout</button>
+            </li>
+          </ul>
+        </nav>
       </nav>;
     } else {
       return <nav className="navbar">
-        <Link to="/">Helping Hand</Link>
+        <Link className="logo" to="/">Helping Hand</Link>
         {this.loginButton()}
         {this.signUpButton()}
       </nav>;
