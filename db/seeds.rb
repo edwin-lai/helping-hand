@@ -167,6 +167,20 @@ Fundraiser.create(
   thumbnail_url: 'http://a30de2edae0c4b0bc6ba-a8477a60b1c5d9e290ed2e4c0d53743c.r24.cf1.rackcdn.com/14/2/large.jpg'
 )
 
+
+i = 0
+while i < 50
+  user_id = rand(1..7)
+  fundraiser_id = rand(1..8)
+  donation = Donation.new(
+  amount: rand(1..5000),
+  user_id: user_id,
+  fundraiser_id: fundraiser_id,
+  visible: false
+  )
+  i += 1 if donation.save
+end
+
 Donation.create(
   amount: 20,
   user_id: 2,
@@ -181,11 +195,4 @@ Donation.create(
   fundraiser_id: 2,
   comment: 'I feel for these kids! I hope my donation helps! -April',
   visible: true
-)
-
-Donation.create(
-  amount: 10,
-  user_id: 1,
-  fundraiser_id: 3,
-  visible: false
 )
