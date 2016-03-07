@@ -63,7 +63,7 @@ module.exports = React.createClass({
           <button onClick={this.closeLoginModal} className="small-button">
             Close
           </button>
-          <LoginForm />
+          <LoginForm setUser={this.setUser}/>
       </Modal>
     </div>;
   },
@@ -85,7 +85,7 @@ module.exports = React.createClass({
           <button onClick={this.closeSignUpModal} className="small-button">
             Close
           </button>
-          <NewUserForm />
+          <NewUserForm setUser={this.setUser}/>
       </Modal>
     </div>;
   },

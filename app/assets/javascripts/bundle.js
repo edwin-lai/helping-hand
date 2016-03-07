@@ -35923,7 +35923,7 @@
 	          { onClick: this.closeLoginModal, className: 'small-button' },
 	          'Close'
 	        ),
-	        React.createElement(LoginForm, null)
+	        React.createElement(LoginForm, { setUser: this.setUser })
 	      )
 	    );
 	  },
@@ -35955,7 +35955,7 @@
 	          { onClick: this.closeSignUpModal, className: 'small-button' },
 	          'Close'
 	        ),
-	        React.createElement(NewUserForm, null)
+	        React.createElement(NewUserForm, { setUser: this.setUser })
 	      )
 	    );
 	  },
