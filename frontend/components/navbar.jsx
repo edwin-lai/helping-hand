@@ -116,6 +116,7 @@ module.exports = React.createClass({
 
   render: function () {
     if (this.state.currentUser.id) {
+      debugger;
       return <nav className="navbar">
         <Link name="logo" to="/" className="logo">Helping Hand</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
@@ -125,7 +126,7 @@ module.exports = React.createClass({
           Hello, {this.state.currentUser.first_name}　▾
           <ul id="dropdown" className="navbar-dropdown">
             <li>
-              {this.addCareCoinsButton(this.state.currentUser.bank + "CareCoins")}
+              {this.addCareCoinsButton(this.state.currentUser.bank + " CareCoins")}
             </li>
             <li>
               {this.addCareCoinsButton("Add CareCoins")}

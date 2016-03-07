@@ -22,10 +22,11 @@ $navbar-top-color: rgb(117, 242, 186);
     background: inherit;
     border: 0;
     border-radius: 0;
+    box-sizing: border-box;
     box-shadow: 0 0 0;
     color: $navbar-text-color;
     float: left;
-    padding: 10px;
+    padding: 10px 10px 14px 10px;
 
     &:hover {
       background: $navbar-hover-bg-color;
@@ -93,6 +94,6 @@ $navbar-top-color: rgb(117, 242, 186);
   .logo {
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
-    padding: 10px 10px 6px 20px;
+    padding: 10px 10px 10px 20px;
   }
 }

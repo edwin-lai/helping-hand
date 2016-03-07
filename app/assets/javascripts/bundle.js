@@ -35694,7 +35694,7 @@
 /* 278 */
 /***/ function(module, exports) {
 
-	module.exports = [{ value: '', label: 'Category' }, { value: 'Medical', label: 'Medical' }, { value: 'Volunteer', label: 'Volunteer' }, { value: 'Emergencies', label: 'Emergencies' }, { value: 'Education', label: 'Education' }, { value: 'Memorials', label: 'Memorials' }, { value: 'Sports', label: 'Sports' }, { value: 'Animals', label: 'Animals' }, { value: 'Business', label: 'Business' }, { value: 'Charity', label: 'Charity' }, { value: 'Community', label: 'Community' }, { value: 'Competitions', label: 'Competitions' }, { value: 'Creative', label: 'Creative' }, { value: 'Events', label: 'Events' }, { value: 'Faith', label: 'Faith' }, { value: 'Family', label: 'Family' }, { value: 'News', label: 'News' }, { value: 'Newlyweds', label: 'Newlyweds' }, { value: 'Travel', label: 'Travel' }, { value: 'Wishes', label: 'Wishes' }, { value: 'Other', label: 'Other' }];
+	module.exports = [{ value: '', label: 'Category' }, { value: 'Medical', label: 'Medical' }, { value: 'Volunteer', label: 'Volunteer' }, { value: 'Emergencies', label: 'Emergencies' }, { value: 'Education', label: 'Education' }, { value: 'Memorials', label: 'Memorials' }, { value: 'Sports', label: 'Sports' }, { value: 'Animals', label: 'Animals' }, { value: 'Other', label: 'Other' }];
 
 /***/ },
 /* 279 */
@@ -35994,6 +35994,7 @@
 	
 	  render: function () {
 	    if (this.state.currentUser.id) {
+	      debugger;
 	      return React.createElement(
 	        'nav',
 	        { className: 'navbar' },
@@ -36029,7 +36030,7 @@
 	            React.createElement(
 	              'li',
 	              null,
-	              this.addCareCoinsButton(this.state.currentUser.bank + "CareCoins")
+	              this.addCareCoinsButton(this.state.currentUser.bank + " CareCoins")
 	            ),
 	            React.createElement(
 	              'li',
