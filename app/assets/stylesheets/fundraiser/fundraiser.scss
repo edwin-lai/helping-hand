@@ -15,6 +15,7 @@ $content-bg-color: rgb(250, 250, 250);
   }
 
   img {
+    border: 1px solid $border-color;
     object-fit: cover;
     overflow: hidden;
     width: 100%;
@@ -26,9 +27,11 @@ $content-bg-color: rgb(250, 250, 250);
     border-radius: 5px;
     box-shadow: 1px 1px 3px $border-color;
     display: block;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 300;
+    line-height: 1.5;
     padding: 10px;
+    text-indent: 12px;
     white-space: pre-wrap;
     word-wrap: break-word;
   }

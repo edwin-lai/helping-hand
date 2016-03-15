@@ -94,7 +94,7 @@ Fundraiser.create(
   description: 'Today the home of Lindsey Donovan, one of Kerhonkson Elementary School\'s most amazing and beloved teachers, burnt down in a devastating fire. Currently she, her husband, and son are staying in a hotel. I am asking for our community to rally together and lend a helping hand in this family\'s hour of need. Lindsey has dedicated herself to shaping the minds of our children and giving so much of herself to her students. Her devotion and dedication meets no end. So again I ask for everyone to please show your support for the most worthy of causes.',
   image_url: 'https://images.unsplash.com/photo-1455747634646-0ef67dfca23f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=a541c4449b419cd20d442f18864c5ecf',
   user_id: 5,
-  goal_amount: 10000,
+  goal_amount: 10_000,
   category: 'Emergencies',
   thumbnail_url: 'https://images.unsplash.com/photo-1455747634646-0ef67dfca23f?crop=entropy&fit=crop&fm=jpg&h=300&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=375'
 )
@@ -162,23 +162,25 @@ Fundraiser.create(
     The least we can do is provide safe overnight accommodation to people sleeping rough in Australia, until they get back on their feet. ",
   image_url: 'http://a30de2edae0c4b0bc6ba-a8477a60b1c5d9e290ed2e4c0d53743c.r24.cf1.rackcdn.com/14/2/large.jpg',
   user_id: 2,
-  goal_amount: 15000,
+  goal_amount: 15_000,
   category: 'Other',
   thumbnail_url: 'http://a30de2edae0c4b0bc6ba-a8477a60b1c5d9e290ed2e4c0d53743c.r24.cf1.rackcdn.com/14/2/large.jpg'
 )
 
-
-i = 0
-while i < 50
-  user_id = rand(1..7)
-  fundraiser_id = rand(1..8)
-  donation = Donation.new(
-  amount: rand(1..5000),
-  user_id: user_id,
-  fundraiser_id: fundraiser_id,
-  visible: false
-  )
-  i += 1 if donation.save
+User.all.size.times do |user_id|
+  Fundraiser.all.size.times do |fundraiser_id|
+    fundraiser = Fundraiser.find_by_id(fundraiser_id + 1)
+    next if (user_id == 1 && fundraiser_id == 2) ||
+            (user_id == 2 && fundraiser_id == 1) ||
+            (user_id + 1 == fundraiser.user_id)
+    visibility = user_id == 0 ? false : true
+    Donation.new(
+      amount: rand(1..5000),
+      user_id: user_id + 1,
+      fundraiser_id: fundraiser_id + 1,
+      visible: visibility
+    ).save(validate: false)
+  end
 end
 
 Donation.create(

@@ -28,6 +28,7 @@ en:
         thumbnail_url: ''
       donation:
         user: 'You'
+        amount: ''
     errors:
       models:
         fundraiser:
@@ -36,3 +37,8 @@ en:
               blank: 'Must upload an image'
             thumbnail_url:
               blank: ''
+        donation:
+          attributes:
+            amount:
+              blank: ''
+              invalid: 'Amount must be between 1 CareCoin and the number of CareCoins you have'

@@ -2,7 +2,7 @@
 
 $border-color: rgb(200, 200, 200);
 $button-border-color: rgb(182, 227, 201);
-$search-bar-bg-color: rgba(189, 226, 252, 0.25);
+$search-bar-bg-color: rgba(189, 226, 252, .25);
 
 .index {
   font-family: 'Lato', sans-serif;
@@ -71,6 +71,7 @@ $search-bar-bg-color: rgba(189, 226, 252, 0.25);
   }
 
   .category {
+    cursor: pointer;
     padding: 6px 0;
 
     &:hover {

@@ -63,4 +63,9 @@ $border-color: rgb(200, 200, 200);
   .guest-login {
     float: right;
   }
+
+  .error span {
+    display: block;
+    margin-bottom: 10px;
+  }
 }
