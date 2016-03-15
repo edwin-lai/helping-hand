@@ -15,3 +15,6 @@
 # Ignore node modules and bundle.
 /node_modules
 */bundle.*
+
+# Ignore .DS_Store
+*/.DS_Store

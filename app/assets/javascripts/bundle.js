@@ -21709,8 +21709,8 @@
 	          onRequestClose: this.closeModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeModal, className: 'small-button' },
-	          'Close'
+	          { onClick: this.closeModal, className: 'close-button' },
+	          '✕'
 	        ),
 	        React.createElement(NewFundraiserForm, null)
 	      )
@@ -28715,8 +28715,8 @@
 	          onRequestClose: this.closeModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeModal, className: 'small-button' },
-	          'Close'
+	          { onClick: this.closeModal, className: 'close-button' },
+	          '✕'
 	        ),
 	        React.createElement(EditFundraiserForm, { fundraiser: this.props.fundraiser })
 	      )
@@ -35920,8 +35920,8 @@
 	          onRequestClose: this.closeLoginModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeLoginModal, className: 'small-button' },
-	          'Close'
+	          { onClick: this.closeLoginModal, className: 'close-button' },
+	          '✕'
 	        ),
 	        React.createElement(LoginForm, { setUser: this.setUser })
 	      )
@@ -35952,8 +35952,8 @@
 	          onRequestClose: this.closeSignUpModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeSignUpModal, className: 'small-button' },
-	          'Close'
+	          { onClick: this.closeSignUpModal, className: 'close-button' },
+	          '✕'
 	        ),
 	        React.createElement(NewUserForm, { setUser: this.setUser })
 	      )
@@ -35984,8 +35984,8 @@
 	          onRequestClose: this.closeBankModal },
 	        React.createElement(
 	          'button',
-	          { onClick: this.closeBankModal, className: 'small-button' },
-	          'Close'
+	          { onClick: this.closeBankModal, className: 'close-button' },
+	          '✕'
 	        ),
 	        React.createElement(AddCareCoinsForm, { closeModal: this.closeBankModal })
 	      )
@@ -35994,7 +35994,6 @@
 	
 	  render: function () {
 	    if (this.state.currentUser.id) {
-	      debugger;
 	      return React.createElement(
 	        'nav',
 	        { className: 'navbar' },
@@ -36554,9 +36553,9 @@
 	        React.createElement(
 	          'button',
 	          {
-	            className: 'small-button',
+	            className: 'close-button',
 	            onClick: this.closeSignUpModal },
-	          'Close'
+	          '✕'
 	        ),
 	        React.createElement(NewUserForm, null)
 	      )
@@ -36581,9 +36580,9 @@
 	        React.createElement(
 	          'button',
 	          {
-	            className: 'small-button',
+	            className: 'close-button',
 	            onClick: this.closeNewFundraiserModal },
-	          'Close'
+	          '✕'
 	        ),
 	        React.createElement(NewFundraiserForm, null)
 	      )
@@ -36858,8 +36857,8 @@
 	          onRequestClose: this.closeModal },
 	        React.createElement(
 	          'button',
-	          { className: 'small-button', onClick: this.closeModal },
-	          'Close'
+	          { className: 'close-button', onClick: this.closeModal },
+	          '✕'
 	        ),
 	        this.requireLoggedIn()
 	      )
@@ -50230,8 +50229,8 @@
 	            onRequestClose: this.closeModal },
 	          React.createElement(
 	            'button',
-	            { onClick: this.closeModal, className: 'small-button' },
-	            'Close'
+	            { onClick: this.closeModal, className: 'close-button' },
+	            '✕'
 	          ),
 	          React.createElement(EditDonationForm, {
 	            fundraiser: this.props.fundraiser,
@@ -50548,6 +50547,18 @@
 	          'button',
 	          { className: 'giant-button', onClick: this.openModal },
 	          'Make a Fundraiser'
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.modalIsOpen,
+	            onRequestClose: this.closeModal },
+	          React.createElement(
+	            'button',
+	            { onClick: this.closeModal, className: 'close-button' },
+	            '✕'
+	          ),
+	          React.createElement(NewFundraiserForm, null)
 	        )
 	      );
 	    }

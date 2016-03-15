@@ -68,9 +68,9 @@ var FundraisersIndex = React.createClass({
         isOpen={this.state.signUpModalOpen}
         onRequestClose={this.closeSignUpModal}>
           <button
-            className="small-button"
+            className="close-button"
             onClick={this.closeSignUpModal}>
-            Close
+            ✕
           </button>
           <NewUserForm />
       </Modal>
@@ -87,9 +87,9 @@ var FundraisersIndex = React.createClass({
         isOpen={this.state.newFundraiserModalOpen}
         onRequestClose={this.closeNewFundraiserModal}>
           <button
-            className="small-button"
+            className="close-button"
             onClick={this.closeNewFundraiserModal}>
-            Close
+            ✕
           </button>
           <NewFundraiserForm />
       </Modal>

@@ -62,6 +62,14 @@ module.exports = React.createClass({
         <button className="giant-button" onClick={this.openModal}>
           Make a Fundraiser
         </button>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}>
+          <button onClick={this.closeModal} className="close-button">
+            ✕
+          </button>
+          <NewFundraiserForm />
+        </Modal>
       </content>;
     }
   },

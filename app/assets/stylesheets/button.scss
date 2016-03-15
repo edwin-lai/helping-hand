@@ -34,6 +34,22 @@ button,
   position: relative;
 }
 
+.close-button {
+  background: transparent;
+  border: 0;
+  box-shadow: 0 0 0 transparent;
+  color: $button-bg-color;
+  font-size: 36px;
+  padding: 0;
+  position: absolute;
+
+  &:hover {
+    background: transparent;
+    color: $button-bg-color;
+    text-decoration: none;
+  }
+}
+
 .giant-button {
   border-bottom: 3px solid $button-border-color;
   border-left-color: $button-border-color;

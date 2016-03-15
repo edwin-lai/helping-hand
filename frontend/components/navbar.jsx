@@ -60,8 +60,8 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.loginModalOpen}
         onRequestClose={this.closeLoginModal}>
-          <button onClick={this.closeLoginModal} className="small-button">
-            Close
+          <button onClick={this.closeLoginModal} className="close-button">
+            ✕
           </button>
           <LoginForm setUser={this.setUser}/>
       </Modal>
@@ -82,8 +82,8 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.signUpModalOpen}
         onRequestClose={this.closeSignUpModal}>
-          <button onClick={this.closeSignUpModal} className="small-button">
-            Close
+          <button onClick={this.closeSignUpModal} className="close-button">
+            ✕
           </button>
           <NewUserForm setUser={this.setUser}/>
       </Modal>
@@ -106,8 +106,8 @@ module.exports = React.createClass({
       <Modal
         isOpen={this.state.bankModalOpen}
         onRequestClose={this.closeBankModal}>
-        <button onClick={this.closeBankModal} className="small-button">
-          Close
+        <button onClick={this.closeBankModal} className="close-button">
+          ✕
         </button>
         <AddCareCoinsForm closeModal={this.closeBankModal}/>
       </Modal>
@@ -116,7 +116,6 @@ module.exports = React.createClass({
 
   render: function () {
     if (this.state.currentUser.id) {
-      debugger;
       return <nav className="navbar">
         <Link name="logo" to="/" className="logo">Helping Hand</Link>
         <Link to="/fundraisers">My Fundraisers</Link>
