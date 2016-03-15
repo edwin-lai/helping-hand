@@ -3,12 +3,12 @@ var ReactDOM = require('react-dom');
 var Modal = require('react-modal');
 
 var App = require('./components/app.jsx');
-var AllFundraisersIndex = require('./components/all_fundraisers_index.jsx');
-var FundraisersIndex = require('./components/fundraisers_index.jsx');
-var Fundraiser = require('./components/fundraiser.jsx');
+var Index = require('./components/index/index.jsx');
+var FundraisersIndex = require('./components/fundraiser/fundraisers_index.jsx');
+var Fundraiser = require('./components/fundraiser/fundraiser.jsx');
 var NavBar = require('./components/navbar.jsx');
-var MyDonations = require('./components/my_donations.jsx');
-var ReceivedDonations = require('./components/received_donations.jsx');
+var MyDonations = require('./components/donation/my_donations.jsx');
+var ReceivedDonations = require('./components/donation/received_donations.jsx');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(
     <Router history = {hashHistory}>
       <Route path='/' component={App}>
-        <IndexRoute component={AllFundraisersIndex} />
+        <IndexRoute component={Index} />
         <Route path='fundraisers' component={FundraisersIndex} />
         <Route path='fundraisers/:id' component={Fundraiser} />
         <Route path='my_donations' component={MyDonations} />

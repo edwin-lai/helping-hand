@@ -1,6 +1,6 @@
 var React = require('react');
-var FundraiserIndexItem = require('./fundraiser_index_item.jsx');
-var CATEGORIES = require('../constants/categories.js');
+var IndexFundraiser = require('./index_fundraiser.jsx');
+var CATEGORIES = require('../../constants/categories.js');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -18,7 +18,7 @@ module.exports = React.createClass({
     if (fundraisers.length) {
       return <ul className="fundraiser-search-results">
         {fundraisers.map(function (fundraiser) {
-          return <FundraiserIndexItem
+          return <IndexFundraiser
             key={fundraiser.id}
             fundraiser={fundraiser}
           />;

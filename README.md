@@ -2,7 +2,7 @@
 
 **[Live Site](http://www.helping-hand.site)**
 
-![Helping Hand Screenshot](/docs/HelpingHandScreenshot.jpg)
+![Helping Hand Screenshot](/docs/HelpingHandScreenshot.png)
 
 ##Overview
 

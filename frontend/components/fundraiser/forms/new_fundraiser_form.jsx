@@ -3,11 +3,10 @@
 var React = require('react');
 var Select = require('react-select');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var FundraiserUtil = require('../util/fundraiser_util.js');
-var FundraiserStore = require('../stores/fundraiser.js');
-var FundraiserActions = require('../actions/fundraiser_actions.js');
-var ErrorStore = require('../stores/error.js');
-var CATEGORIES = require('../constants/categories.js');
+var FundraiserUtil = require('../../../util/fundraiser_util.js');
+var FundraiserActions = require('../../../actions/fundraiser_actions.js');
+var ErrorStore = require('../../../stores/error.js');
+var CATEGORIES = require('../../../constants/categories.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -17,7 +16,15 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return this.props.fundraiser;
+    return {
+      title: '',
+      description: '',
+      image_url: '',
+      thumbnail_url: '',
+      goal_amount: undefined,
+      category: '',
+      user_id: window.currentUserId
+    };
   },
 
   componentDidMount: function () {
@@ -30,16 +37,18 @@ module.exports = React.createClass({
     this.listener.remove();
   },
 
-  updateFundraiser: function (event) {
+  createFundraiser: function (event) {
     event.preventDefault();
-    FundraiserUtil.updateFundraiser(
-      this.state.id,
-      this.state,
-      function (fundraiser) {
-        FundraiserActions.receiveSingleFundraiser(fundraiser);
-        this.context.router.push('/fundraisers/' + this.state.id);
-      }.bind(this)
-    );
+    FundraiserUtil.createFundraiser(this.state, function (fundraiser) {
+      FundraiserActions.receiveSingleFundraiser(fundraiser);
+      this.context.router.push('/fundraisers/' + fundraiser.id);
+    }.bind(this));
+  },
+
+  image: function () {
+    if (this.state.thumbnail_url) {
+      return <img src={this.state.thumbnail_url} />;
+    }
   },
 
   openUploadWidget: function(event) {
@@ -56,12 +65,6 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
-  image: function () {
-    if (this.state.thumbnail_url) {
-      return <img src={this.state.thumbnail_url} />;
-    }
-  },
-
   changeCategory: function (category) {
     this.setState({category: category.value});
     console.log(this.state.category);
@@ -76,8 +79,8 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    return <form className="form long-form" onSubmit={this.updateFundraiser}>
-      <h1>Edit Fundraiser</h1>
+    return <form className="form long-form" onSubmit={this.createFundraiser}>
+      <h1>New Fundraiser</h1>
       <div className="error">
         {this.state.error}
       </div>
@@ -92,7 +95,7 @@ module.exports = React.createClass({
         id="goal_amount"
         valueLink={this.linkState('goal_amount')}
         placeholder="Goal"/>
-      <label htmlFor="goal_amount" className="CareCoins">CareCoins</label>
+      <label className="CareCoins" htmlFor="goal_amount">CareCoins</label>
       <br />
       <Select
         id="category"
@@ -106,8 +109,7 @@ module.exports = React.createClass({
       <textarea
         id="description"
         valueLink={this.linkState('description')}
-        placeholder="Tell us about your cause..."
-      />
+        placeholder="Tell us about your cause..."/>
       <br />
       <div className="upload">
         <button onClick={this.openUploadWidget} className="upload-button">
@@ -116,7 +118,7 @@ module.exports = React.createClass({
         {this.image()}
       </div>
       <br />
-      <input type="submit" value="Update Fundraiser" className="submit"/>
+      <input type="submit" value="Create Fundraiser" className="submit"/>
     </form>;
   }
 });

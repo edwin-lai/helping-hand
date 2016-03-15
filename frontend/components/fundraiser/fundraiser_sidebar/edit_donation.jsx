@@ -1,9 +1,9 @@
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var DonationUtil = require('../../util/donation_util.js');
-var FundraiserUtil = require('../../util/fundraiser_util.js');
-var DonationStore = require('../../stores/donation.js');
-var ErrorStore = require('../../stores/error.js');
+var DonationUtil = require('../../../util/donation_util.js');
+var FundraiserUtil = require('../../../util/fundraiser_util.js');
+var DonationStore = require('../../../stores/donation.js');
+var ErrorStore = require('../../../stores/error.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],

@@ -5,9 +5,9 @@ var UserActions = require('../actions/user_actions.js');
 var UserUtil = require('../util/user_util.js');
 var UserStore = require('../stores/user.js');
 var Modal = require('react-modal');
-var LoginForm = require('./new_session_form.jsx');
-var NewUserForm = require('./new_user_form.jsx');
-var AddCareCoinsForm = require('./add_carecoins_form.jsx');
+var LoginForm = require('./user_forms/new_session_form.jsx');
+var NewUserForm = require('./user_forms/new_user_form.jsx');
+var AddCareCoinsForm = require('./user_forms/add_carecoins_form.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {

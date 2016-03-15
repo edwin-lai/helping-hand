@@ -1,9 +1,9 @@
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var UserUtil = require('../util/user_util.js');
-var UserStore = require('../stores/user.js');
-var UserActions = require('../actions/user_actions.js');
-var ErrorStore = require('../stores/error.js');
+var UserUtil = require('../../util/user_util.js');
+var UserStore = require('../../stores/user.js');
+var UserActions = require('../../actions/user_actions.js');
+var ErrorStore = require('../../stores/error.js');
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],

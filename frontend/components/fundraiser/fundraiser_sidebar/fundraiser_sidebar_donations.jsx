@@ -1,7 +1,7 @@
 var React = require('react');
 var Donation = require('./fundraiser_sidebar_donation.jsx');
-var UserUtil = require('../../util/user_util.js');
-var UserStore = require('../../stores/user.js');
+var UserUtil = require('../../../util/user_util.js');
+var UserStore = require('../../../stores/user.js');
 
 module.exports = React.createClass({
 

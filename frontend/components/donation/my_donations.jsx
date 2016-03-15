@@ -1,6 +1,6 @@
 var React = require('react');
-var DonationStore = require('../stores/donation.js');
-var DonationUtil = require('../util/donation_util.js');
+var DonationStore = require('../../stores/donation.js');
+var DonationUtil = require('../../util/donation_util.js');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({

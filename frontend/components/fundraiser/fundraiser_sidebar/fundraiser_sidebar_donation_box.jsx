@@ -1,8 +1,8 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var Modal = require('react-modal');
-var NewDonationForm = require('../new_donation_form.jsx');
-var LoginForm = require('../new_session_form.jsx');
+var NewDonationForm = require('../../donation/forms/new_donation_form.jsx');
+var LoginForm = require('../../user_forms/new_session_form.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {

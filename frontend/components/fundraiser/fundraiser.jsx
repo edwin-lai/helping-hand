@@ -1,6 +1,6 @@
 var React = require('react');
-var FundraiserStore = require('../stores/fundraiser.js');
-var FundraiserUtil = require('../util/fundraiser_util.js');
+var FundraiserStore = require('../../stores/fundraiser.js');
+var FundraiserUtil = require('../../util/fundraiser_util.js');
 var FundraiserSidebar = require('./fundraiser_sidebar/fundraiser_sidebar.jsx');
 
 module.exports = React.createClass({

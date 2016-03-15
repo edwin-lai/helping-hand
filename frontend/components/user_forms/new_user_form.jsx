@@ -1,11 +1,11 @@
 var React = require('react');
-var SessionUtil = require('../util/session_util.js');
-var UserUtil = require('../util/user_util.js');
-var UserActions = require('../actions/user_actions.js');
+var UserUtil = require('../../util/user_util.js');
+var UserActions = require('../../actions/user_actions.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var ErrorStore = require('../stores/error.js');
+var SessionUtil = require('../../util/session_util.js');
+var ErrorStore = require('../../stores/error.js');
 
-var NewSessionForm = React.createClass({
+var NewUserForm = React.createClass({
   mixins: [LinkedStateMixin],
 
   contextTypes: {
@@ -14,8 +14,11 @@ var NewSessionForm = React.createClass({
 
   getInitialState: function () {
     return {
+      first_name: '',
+      last_name: '',
       email: '',
       password: '',
+      password_confirmation: '',
     };
   },
 
@@ -29,9 +32,9 @@ var NewSessionForm = React.createClass({
     this.listener.remove();
   },
 
-  login: function (event) {
+  createUser: function (event) {
     event.preventDefault();
-    SessionUtil.signIn(this.state, function (user) {
+    UserUtil.createUser(this.state, function (user) {
       window.currentUserId = user.id;
       UserActions.receiveCurrentUser(user);
       this.context.router.push('/');
@@ -54,11 +57,25 @@ var NewSessionForm = React.createClass({
   },
 
   render: function () {
-    return <form onSubmit={this.login} className="form">
-      <h1>Log In</h1>
+    return <form onSubmit={this.createUser} className="form">
+      <h1>New User</h1>
       <div className="error">
         {this.state.error}
       </div>
+      <input
+        type="text"
+        id="firstName"
+        valueLink={this.linkState('first_name')}
+        placeholder="First Name"
+      />
+      <br />
+      <input
+        type="text"
+        id="lastName"
+        valueLink={this.linkState('last_name')}
+        placeholder="Last Name"
+      />
+      <br />
       <input
         type="text"
         id="email"
@@ -73,7 +90,14 @@ var NewSessionForm = React.createClass({
         placeholder="Password"
       />
       <br />
-      <input type="submit" value="Log In" className="submit" />
+      <input
+        type="password"
+        id="password_confirmation"
+        valueLink={this.linkState('password_confirmation')}
+        placeholder="Confirm Password"
+      />
+      <br />
+      <input type="submit" value="Sign Up" className="submit" />
       <button onClick={this.guestLogin} className="guest-login">
         Guest Login
       </button>
@@ -81,4 +105,4 @@ var NewSessionForm = React.createClass({
   }
 });
 
-module.exports = NewSessionForm;
+module.exports = NewUserForm;

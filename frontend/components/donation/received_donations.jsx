@@ -1,11 +1,11 @@
 var React = require('react');
-var DonationStore = require('../stores/donation.js');
-var DonationUtil = require('../util/donation_util.js');
-var FundraiserStore = require('../stores/fundraiser.js');
-var FundraiserUtil = require('../util/fundraiser_util.js');
-var FundraiserIndexItem = require('./fundraiser_index_item.jsx');
+var DonationStore = require('../../stores/donation.js');
+var DonationUtil = require('../../util/donation_util.js');
+var FundraiserStore = require('../../stores/fundraiser.js');
+var FundraiserUtil = require('../../util/fundraiser_util.js');
+var FundraiserIndexItem = require('../fundraiser/fundraiser_index_item.jsx');
 var Link = require('react-router').Link;
-var NewFundraiserForm = require('./new_fundraiser_form.jsx');
+var NewFundraiserForm = require('../fundraiser/forms/new_fundraiser_form.jsx');
 var Modal = require('react-modal');
 
 module.exports = React.createClass({
